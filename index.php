@@ -47,7 +47,7 @@
       </a>
   </div><!-- /.carousel -->
 
- <div class="container marketing"style ="margin-top: 10%;">
+ <div class="container marketing"style ="margin-top: 5%;">
 
       <!-- Three columns of text below the carousel -->
       <div class="row">
@@ -78,11 +78,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">TEAM WORK <span class="text-muted"> Know Your Collegues </span></h2>
-          <p class="lead" style="font-size: 28px; text-align: justify;">A teamwork environment promotes an atmosphere that fosters friendship and loyalty. These close-knit relationships motivate employees in parallel and align them to work harder, cooperate and be supportive of one another. The ability to simultaneously perform as an individual and together with your colleagues or employees in effective teamwork is key to attaining growth and success.</p>
+          <h2 class="featurette-heading">TEAM WORK <span class="text-muted"> Know Your Colleagues </span></h2>
+          <p class="lead">Teamwork promotes an atmosphere that fosters friendship and loyalty. These close-knit relationships motivate employees in parallel and align them to work harder, cooperate and be supportive of one another. The ability to simultaneously perform as an individual and together with your colleagues or employees in effective teamwork is key to attaining growth and success.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" src="img/team.png" alt="teamwork">
+          <img class="featurette-image img-responsive center-block" src="img/team.png" alt="Teamwork"  height="500" width="500">
         </div>
       </div>
 
@@ -91,10 +91,10 @@
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
           <h2 class="featurette-heading">Performance Measure<span class="text-muted"> Your Success in Your Hand</span></h2>
-          <p class="lead" style="font-size: 28px; text-align: justify;">Self-development is the most important benefit for the employee. Performance appraisal allows you to provide positive feedback as well as identifying areas for improvement.It motivates employees if supported by a good merit-based compensation system.The visibility provided by a measurement system supports better and faster development of employees in the organization.</p>
+          <p class="lead">Self-development is the most important benefit for the employee. Performance appraisal allows you to provide positive feedback as well as identify areas for improvement. It motivates employees when supported by a good merit-based compensation system. The visibility provided by a measurement system supports better and faster development of employees in the organization.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" src="img/performance.png" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="img/performance.png" alt="Performace Measure" height="600" width="600" style="/*padding-right:20px;max-width:450px;height:420px;*/">
         </div>
       </div>
 
@@ -103,11 +103,11 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">Comparative Study<span class="text-muted"> See,Where Dou You Stand</span></h2>
-          <p class="lead" style="font-size: 28px; text-align: justify;" >If we are perceptive, aware people, we’re naturally going to notice those around us and take note of how they are different from us.On the positive end of things, comparison can offer an “information gathering” framework. We may not realize what’s even possible without the model of other people.  </p>
+          <h2 class="featurette-heading">Comparative Study<span class="text-muted"> See, Where You Stand</span></h2>
+          <p class="lead">If we are perceptive and aware, we’re naturally going to notice those around us and take note of how they are different from us. On the positive end of things, comparison can offer an “information gathering” framework. We may not realize what’s even possible without the model of other people.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" src="img/pie.png" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="img/pie.png" alt="Comparative Study"  height="500" width="500">
         </div>
       </div>
 

@@ -7,7 +7,8 @@
 	<body>
 		<?php  include "./include/navbar.html";  ?>
 		<div class="col-md-offset-3 col-md-6 regDiv">
-			<h2 style="text-align: center;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REGISTRATION FORM</H2>
+			<h1 style="text-align: center;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; REGISTRATION FORM</h1>
+            <hr style="width:100%;margin-top:10px; margin-left: 40px;" class="hr1">
 			<form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
 
 				<div class="form-group">
@@ -54,8 +55,8 @@
                 </div>
             </div>
 			  
-			<p style="color:red; font-size: 15px;"><?php echo isset($_GET['img']) ? $_GET['img'] : ""; ?></p>
-			<button type="submit" name="submit" class="btn btn-primary col-md-offset-4 col-md-4">Register</button>
+			<p style="color:red; font-size: 15px;"><?php echo isset($_GET['img']) ? $_GET['img'] : ""; ?></p><br>
+			<button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4">Register</button>
 			<br><br><p style="color:green; font-size: 25px; text-align: center;"><?php echo isset($_GET['msg']) ? $_GET['msg'] : ""; ?></p>
 			</form>
 		</div>
