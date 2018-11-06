@@ -118,7 +118,7 @@ chart1.render();
 </script>
 
 
-<div  style="width:15%;background-color: #874914;margin-left: 2px; float: left; ">
+<div  style="width:15%;background-color: #874914;margin-left: 2px; float: left; margin-top: 85px;">
 
 <div id="list-example" class="list-group" style="height: auto;" >
 
