@@ -14,9 +14,10 @@
       <li data-target="#myCarousel" data-slide-to="1"></li>
     </ol>
     <div class="carousel-inner" role="listbox">
+
       <div class="item active">
         <img class="first-slide" src="img/1.jpg" alt="sjec">
-        <img  height="500px" width="1400px">
+        <img  height="500px" width="1600px">
         <div class="container">
           <div class="carousel-caption">
             <h1>WELCOME TO FACULTY ANALYSIS</h1>

@@ -77,8 +77,6 @@
 
 
 
-
-
 #myFooter {
     background-color: #3c3d41;
     color: white;
@@ -93,7 +91,7 @@
 }
 
 #myFooter .row {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 #myFooter .navbar-brand {
