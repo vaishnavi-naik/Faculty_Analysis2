@@ -7,9 +7,9 @@
   z-index: 20;
 }
 /* Flip around the padding for proper display in narrow viewports */
-
+@media screen and (min-width: 768px) {
   #sjeclogo  { display: block; }
-
+}
 
 .navbar-wrapper .navbar {
   padding-right: 0px;
@@ -93,8 +93,11 @@
   letter-spacing: -1px;
 }
 
-
-
+.regDiv{
+margin-top: 150px;
+height: 100%;
+display: block;
+}
 
 
 
@@ -102,6 +105,8 @@
     background-color: #3c3d41;
     color: white;
     padding-top: 30px;
+    position: relative;
+    margin-bottom: -250px;
 }
 
 #myFooter .footer-copyright {

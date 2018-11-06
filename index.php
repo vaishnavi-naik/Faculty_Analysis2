@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Faculty Performance</title>
+  <title>Home</title>
   <?php include "./include/headers.html"; ?>
   <link rel="stylesheet" type="text/css" href="css/modal_style.css">
 </head>
