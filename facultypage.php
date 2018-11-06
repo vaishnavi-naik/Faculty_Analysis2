@@ -31,45 +31,45 @@ $dataPoints = array(
  
 ?>
 
- <style type="text/css">
+<style type="text/css">
     .wrapper { 
     
-  height:550px;
-  width: 100%;
-  left:0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  position: relative;
-background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
-background-size: 1500% 1500%;
+		height:550px;
+		width: 100%;
+		left:0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		position: relative;
+		background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+		background-size: 1500% 1500%;
+		-webkit-animation: rainbow 18s ease infinite;
+		-z-animation: rainbow 18s ease infinite;
+		-o-animation: rainbow 18s ease infinite;
+		animation: rainbow 18s ease infinite;
+	}
 
--webkit-animation: rainbow 18s ease infinite;
--z-animation: rainbow 18s ease infinite;
--o-animation: rainbow 18s ease infinite;
-  animation: rainbow 18s ease infinite;}
-
-@-webkit-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@-moz-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@-o-keyframes rainbow {
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-@keyframes rainbow { 
-    0%{background-position:0% 82%}
-    50%{background-position:100% 19%}
-    100%{background-position:0% 82%}
-}
-  </style>
+	@-webkit-keyframes rainbow {
+	    0%{background-position:0% 82%}
+	    50%{background-position:100% 19%}
+	    100%{background-position:0% 82%}
+	}
+	@-moz-keyframes rainbow {
+	    0%{background-position:0% 82%}
+	    50%{background-position:100% 19%}
+	    100%{background-position:0% 82%}
+	}
+	@-o-keyframes rainbow {
+	    0%{background-position:0% 82%}
+	    50%{background-position:100% 19%}
+	    100%{background-position:0% 82%}
+	}
+	@keyframes rainbow { 
+	    0%{background-position:0% 82%}
+	    50%{background-position:100% 19%}
+	    100%{background-position:0% 82%}
+	}
+</style>
 
   <link rel = "stylesheet" href = "css/bootstrap.min.css"/>
   <link rel = "stylesheet" href = "css/mycss.css"/>
@@ -77,6 +77,7 @@ background-size: 1500% 1500%;
   <script src="js/bootstrap.min.js"></script>
 
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 <script>
 window.onload = function() {
  
@@ -117,15 +118,14 @@ chart1.render();
  
 }
 
-
 </script>
 
 
 <div  style="width:15%;background-color: #874914;margin-left: 2px; float: left; ">
 
-<div id="list-example" class="list-group" style="padding-top: 20px;" >
+<div id="list-example" class="list-group" style="padding-top: 110px;" >
 
- <img src="img/hod.jpg" style="position: relative;margin-left: 25%;padding-bottom: 20px;">
+  <img src="img/hod.jpg" style="position: relative;margin-left: 25%;padding-bottom: 20px;">
   <a  class="btn btn-primary  btn-block"style="height: 80px;margin-bottom: 30px;padding-top: 30px;" href="#list-item-2">VIEW FACULTY</a>
   <a  class="btn btn-primary  btn-block"style="height: 80px;margin-bottom:30px;padding-top: 30px;" href="#list-item-3">ADD PERFORMANCE</a>
   <a  class="btn btn-primary  btn-block"style="height: 80px;margin-bottom: 30px;padding-top: 30px;" href="#list-item-4">VIEW PERFORMANCE</a>

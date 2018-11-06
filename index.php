@@ -6,7 +6,9 @@
 </head>
 <body>
   <?php  include "./include/navbar.html";  ?>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel" style ="height:100%">
+
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" style ="height:100%;margin-top:90px;">
     <!-- Indicators -->
 
     <ol class="carousel-indicators">
@@ -17,7 +19,7 @@
 
       <div class="item active">
         <img class="first-slide" src="img/1.jpg" alt="sjec">
-        <img  height="500px" width="1600px">
+        <img  height="500px" width="1400px">
         <div class="container">
           <div class="carousel-caption">
             <h1>WELCOME TO FACULTY ANALYSIS</h1>
@@ -153,7 +155,7 @@
 </div>
 
 <?php
-include "include/footer.html"
+include "include/footer.html";
 ?>
 
 
