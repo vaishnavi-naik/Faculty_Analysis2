@@ -1,4 +1,6 @@
-<?php
+<head><?php include "./include/headers.html"; ?></head>
+
+<body><?php
 include "include/navbar.html"
 ?>
 
@@ -170,4 +172,6 @@ chart1.render();
 
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 
+
 </div>
+</body>

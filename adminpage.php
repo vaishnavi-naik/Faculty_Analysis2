@@ -28,8 +28,7 @@ $dataPoints = array(
 );
  
 ?>
-
- <style type="text/css">
+<style type="text/css">
     .wrapper { 
     
   height:550px;
