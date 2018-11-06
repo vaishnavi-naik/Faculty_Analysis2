@@ -4,7 +4,7 @@
   <?php include "./include/headers.html"; ?>
   <link rel="stylesheet" type="text/css" href="css/modal_style.css">
 </head>
-<body style="background-color: #cc99ff;">
+<body style="background-color: #FFFFF4;">
   <?php  include "./include/navbar.html";  ?>
 
 
