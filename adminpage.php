@@ -15,16 +15,16 @@ $dataPoints1 = array(
  
 ?>
 
+
 <?php
 
 $dataPoints = array( 
-	array("y" => 3373.64, "label" => "Germany" ),
-	array("y" => 2435.94, "label" => "France" ),
-	array("y" => 1842.55, "label" => "China" ),
-	array("y" => 1828.55, "label" => "Russia" ),
-	array("y" => 1039.99, "label" => "Switzerland" ),
-	array("y" => 765.215, "label" => "Japan" ),
-	array("y" => 612.453, "label" => "Netherlands" )
+	array("y" => 8.9, "label" => "Sem Results" ),
+	array("y" => 6.5, "label" => "Publications" ),
+	array("y" => 5.9, "label" => "Extra Curriculum" ),
+	array("y" => 8.0, "label" => "Research" ),
+	array("y" => 9.8, "label" => "Attendance" ),
+	array("y" => 8.5, "label" => "Student Rating" )
 );
  
 ?>
@@ -75,20 +75,24 @@ background-size: 1500% 1500%;
 
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
+
+
+
+
 window.onload = function() {
  
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	theme: "light2",
 	title:{
-		text: "Gold Reserves"
+		text: "Your Earning For This Sem"
 	},
 	axisY: {
-		title: "Gold Reserves (in tonnes)"
+		title: "Your Credits"
 	},
 	data: [{
 		type: "column",
-		yValueFormatString: "#,##0.## tonnes",
+		yValueFormatString: "#,##0.##",
 		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
 	}]
 });
@@ -111,6 +115,161 @@ var chart1 = new CanvasJS.Chart("chartContainer1", {
 	}]
 });
 chart1.render();
+
+
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+  animationEnabled: true,
+  title:{
+    text: "DID YOU IMPROVE YOURSELF?"
+  },  
+  axisY: {
+    title: "What You Have Earned",
+    titleFontColor: "#4F81BC",
+    lineColor: "#4F81BC",
+    labelFontColor: "#4F81BC",
+    tickColor: "#4F81BC"
+  },
+ 
+  toolTip: {
+    shared: true
+  },
+  legend: {
+    cursor:"pointer",
+    itemclick: toggleDataSeries
+  },
+  data: [{
+    type: "column",
+    name: "Previous Sem Performance",
+    legendText: "Previous Sem Performance",
+    showInLegend: true, 
+    dataPoints:[
+      { label: "Sem Results", y: 8.5 },
+      { label: "Publications", y: 7.0 },
+      { label: "Extra Curriculum", y: 9.0 },
+      { label: "Research", y: 5.0 },
+      { label: "Attendance", y: 10.0 },
+      { label: "Student Rating", y: 9.0 }
+    ]
+  },
+  {
+    type: "column", 
+    name: "This Sem Performance",
+    legendText: "This Sem Performance",
+    axisYType: "secondary",
+    showInLegend: true,
+    dataPoints:[
+      { label: "Sem Results", y: 9.5},
+      { label: "Publications", y: 8.0 },
+      { label: "Extra Curriculum", y: 6.0 },
+      { label: "Research", y: 4.5 },
+      { label: "Attendance", y: 9.0 },
+      { label: "Student Rating", y: 8.5 }
+    ]
+  }]
+});
+chart2.render();
+
+function toggleDataSeries(e) {
+  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    e.dataSeries.visible = false;
+  }
+  else {
+    e.dataSeries.visible = true;
+  }
+  chart2.render();
+}
+
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+  animationEnabled: true,
+  title:{
+    text: "SEE, WHERE DO YOU STAND."
+  },
+  axisY: {
+    title: "CREDITS"
+  },
+  legend: {
+    cursor:"pointer",
+    itemclick : toggleDataSeries
+  },
+  toolTip: {
+    shared: true,
+    content: toolTipFormatter
+  },
+  data: [{
+    type: "bar",
+    showInLegend: true,
+    name: "Institute Topper",
+    color: "gold",
+    dataPoints: [
+      { y: 9.5, label: "Student Rating" },
+      { y: 8.0, label: "Research" },
+      { y: 10.0, label: "Attendance" },
+      { y: 9.0, label: "Extra Curriculum" },
+      { y: 6.0, label: "Publications" },
+      { y: 10.0, label: "Sem Results" }
+      ]
+  },
+  {
+    type: "bar",
+    showInLegend: true,
+    name: "Department Topper",
+    color: "silver",
+    dataPoints: [
+      { y: 7.5, label: "Student Rating" },
+      { y: 7.0, label: "Research" },
+      { y: 9.0, label: "Attendance" },
+      { y: 8.5, label: "Extra Curriculum" },
+      { y: 6.0, label: "Publications" },
+      { y: 10.0, label: "Sem Results" }
+    ]
+  },
+  {
+    type: "bar",
+    showInLegend: true,
+    name: "Your Performance",
+    color: "#A57164",
+    dataPoints: [
+      { y: 7.0, label: "Student Rating" },
+      { y: 6.0, label: "Research" },
+      { y: 8.5, label: "Attendance" },
+      { y: 8.5, label: "Extra Curriculum" },
+      { y: 5.0, label: "Publications" },
+      { y: 9.0, label: "Sem Results" }
+    ]
+  }
+
+  ]
+});
+chart3.render();
+
+function toolTipFormatter(e) {
+  var str = "";
+  var total = 0 ;
+  var str3;
+  var str2 ;
+  for (var i = 0; i < e.entries.length; i++){
+    var str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\">" + e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
+    total = e.entries[i].dataPoint.y + total;
+    str = str.concat(str1);
+  }
+  str2 = "<strong>" + e.entries[0].dataPoint.label + "</strong> <br/>";
+  str3 = "<span style = \"color:Tomato\">Total: </span><strong>" + total + "</strong><br/>";
+  return (str2.concat(str)).concat(str3);
+}
+
+function toggleDataSeries(e) {
+  if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    e.dataSeries.visible = false;
+  }
+  else {
+    e.dataSeries.visible = true;
+  }
+  chart3.render();
+}
+
+
  
 }
 
@@ -273,18 +432,21 @@ chart1.render();
  <hr>
 <div style=" position: relative;">
   <h4 id="list-item-2">VIEW FACULTY</h4>
-  <p>..is anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.</p>
+  <p>..is anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident o reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.</p>
 </div>
 
  <h4 id="list-item-3">ADD PERFORMANCE</h4>
- <p>..is anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.</p>
+ <p>..is anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat exceptt culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor repqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.Quis anim sit do amet fugiat dolor velit sit ea ea do reprehenderit culpa duis. Nostrud aliqua ipsum fugiat minim proident occaecat excepteur aliquip culpa aute tempor reprehenderit. Deserunt tempor mollit elit ex pariatur dolore velit fugiat mollit culpa irure ullamco est ex ullamco excepteur.</p>
 
 
 
  <h4 id="list-item-4">VIEW PERFORMANCE</h4>
 
- <div id="chartContainer1" style="height: 500px; width: 100%;"></div>
+ <div id="chartContainer1" style="height: 530px; width: 100%;"></div>
 
-<div id="chartContainer" style="height: 500px; width: 100%;"></div>
+<div id="chartContainer" style="height: 530px; width: 100%;"></div>
+
+<div id="chartContainer2" style="height: 530px; width: 100%;"></div>
+<div id="chartContainer3" style="height: 530px; width: 90%;"></div>
 
 </div>

@@ -56,7 +56,7 @@
             </div>
 			  
 			<p style="color:red; font-size: 15px;"><?php echo isset($_GET['img']) ? $_GET['img'] : ""; ?></p><br>
-			<button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4">Register</button>
+			<button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
 			<br><br><p style="color:green; font-size: 25px; text-align: center;"><?php echo isset($_GET['msg']) ? $_GET['msg'] : ""; ?></p>
 			</form>
 		</div>
