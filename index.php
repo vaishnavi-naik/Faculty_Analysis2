@@ -21,9 +21,9 @@
          
           <div class="container">
             <div class="carousel-caption" >
-              <h1>WELCOME TO FACULTY ANALYSIS</h1>
+              <h1 style="text-shadow:3px 3px 5px black;margin-top: -25%;color:#c90219;font-size:45px;">WELCOME TO FACULTY ANALYSIS</h1>
               <p></p>
-              <p><a class="btn btn-lg btn-primary" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" role="button">LOGIN</a></p>
+              <p><a class="btn btn-lg btn-primary" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;margin-top: 60px;" role="button">LOGIN</a></p>
             </div>
           </div>
         </div>
@@ -31,8 +31,8 @@
         <div class="item">
           <img class="second-slide" src="img/teachers1.jpg" alt="TIARA" style="padding-bottom:10px;height:600px;width:100%;">
           <div class="container">
-            <div class="carousel-caption" style="color:#fff858;font-size:25px;">
-              <p >TEAM WORK IS OUR STRENGTH</p>
+            <div class="carousel-caption" style="color:#c90219;font-size:50px; ">
+              <p style="margin-top: -40%; text-shadow:3px 3px 5px black;">TEAM WORK IS OUR STRENGTH</p>
             </div>
           </div>
         </div>
