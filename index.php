@@ -15,12 +15,12 @@
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
       </ol>
-      <div class="carousel-inner" role="listbox">
+      <div class="carousel-inner" role="listbox" style="height: 1000px;">
         <div class="item active">
-          <img class="first-slide" src="img/1.jpg" alt="sjec">
-          <img  height="500px" width="1400px">
+          <img class="first-slide" src="img/1.jpg" alt="sjec" style="height: 600px;width:1400px;">
+         
           <div class="container">
-            <div class="carousel-caption">
+            <div class="carousel-caption" >
               <h1>WELCOME TO FACULTY ANALYSIS</h1>
               <p></p>
               <p><a class="btn btn-lg btn-primary" onclick="document.getElementById('id01').style.display = 'block'" style="width:auto;" role="button">LOGIN</a></p>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="item">
-          <img class="second-slide" src="img/lecturers.jpg" alt="TIARA" style="padding-bottom:10px;height:500px;width:800px;">
+          <img class="second-slide" src="img/teachers1.jpg" alt="TIARA" style="padding-bottom:10px;height:600px;width:100%;">
           <div class="container">
             <div class="carousel-caption" style="color:#fff858;font-size:25px;">
               <p >TEAM WORK IS OUR STRENGTH</p>
@@ -47,7 +47,7 @@
       </a>
   </div><!-- /.carousel -->
 
- <div class="container marketing"style ="margin-top: 5%;">
+ <div class="container marketing"style ="margin-top: 12%;">
 
       <!-- Three columns of text below the carousel -->
       <div class="row">
