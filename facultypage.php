@@ -140,7 +140,7 @@ chart1.render();
 <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example"style="margin-left:  16%;margin-top: -580px; overflow-y: scroll; position:relative;">
 
 	<div>
-		 <img class="first-slide" src="img/classroom.jpg" alt="sjec" height="550px" width="100%">
+		 <img class="first-slide" src="img/teach1.jpg" alt="sjec" height="100%" width="100%">
          
 	</div>
 
