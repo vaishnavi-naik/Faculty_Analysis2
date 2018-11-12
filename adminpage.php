@@ -298,7 +298,7 @@ function toggleDataSeries(e) {
 <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example"style="margin-left:  16%;margin-top: -550px; overflow-y: scroll; position:relative;">
 
 	<div>
-		 <img class="first-slide" src="img/1.jpg" alt="sjec" height="550px" width="100%">
+		 <img class="first-slide" src="img/teachers.jpg" alt="sjec" height="550px" width="100%">
          
 	</div>
 
