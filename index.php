@@ -6,7 +6,32 @@
 </head>
 
 <body style="background-color: #FFFFF4;">
-  <?php  include "./include/navbar.html";  ?>
+  <?php  include "./include/navbar.html"; 
+    include "./include/connection.php";
+    if(isset($_POST['userid'])){
+    $email = mysqli_real_escape_string($connect, $_POST['email']);
+    $password = (mysqli_real_escape_string($connect, $_POST['password']));
+    $user_type = mysqli_real_escape_string($connect, $_POST['usertype']);
+
+    $query = "SELECT * FROM user WHERE email = $email AND password = $password AND user_type = $user_type";
+
+    $query_result = mysqli_query($connect, $query);
+    $num = mysqli_num_rows($query_result);
+
+    if ($num == 1) {
+        $_SESSION['email'] = $email;
+        $array = mysqli_fetch_array($query_result);
+        $_SESSION['name'] = $array['name'];
+        $_SESSION['type'] = $user_type;
+        $_SESSION['id'] = $array['user_id'];
+        header('location: admin_options');
+    } else {
+        $error = "Invalid Username or Password";
+        echo "<script> alert('wrong data');
+        $('#id01').modal('toggle')</script>";
+        }
+      }
+   ?>
 
 
  <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: 90px;">
@@ -47,6 +72,8 @@
         <span class="sr-only">Next</span>
       </a>
   </div><!-- /.carousel -->
+
+
 
  <div class="container marketing"style ="margin-top: 2%;">
 
@@ -118,34 +145,31 @@
  </div>
     <div id="id01" class="modal">
 
-        <form class="modal-content animate" action="adminpage.php">
+        <form class="modal-content animate" id ="loginform" action="login-submit.php" method="POST">
             <div class="imgcontainer">
                 <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
                 <img src="img/avatar.png" alt="Avatar" class="avatar">
             </div>
 
             <div class="container">
-            <div>
-              <label><b>UserType</b></label>
               
-          <select name="usertype" class="form-control" >
-            <option value="admin"> Admin</option>
-            <option value="staff"> Staff</option>
-          
-          </select><br>
-            </div>
-            <label><b>UserId</b></label><br>
-           <input type="text" class="form-control" id="userid" placeholder="Enter your Id"><br>
-       
-        <label><b>Password</b></label>
-          <input type="password" class="form-control" id="password" placeholder="Enter your Password"><br>
+                <label><b>UserType</b></label>
+                
+              <select name="usertype" class="form-control" >
+                <option value="admin"> Admin</option>
+                <option value="user"> Staff</option>         
+              </select><br>
+              
+              <label><b>UserId</b></label><br>
+              <input type="text" class="form-control" id="userid" placeholder="Enter your Id"><br>
          
+            <label><b>Password</b></label>
+            <input type="password" class="form-control" id="password" placeholder="Enter your Password"><br>
+            <p style="color:red; font-size: 15px; text-align: center;"><?php echo isset($error) ? $error : ""; ?></p>
 
-                <button type="submit">Login</button>
-                <input type="checkbox" checked="checked"> Remember me
-            </div>
-
-
+                  <button type="submit" value="submit">Login</button>
+                  <input type="checkbox" checked="checked"> Remember me
+          </div>
 
             <div class="container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display = 'none'" class="cancelbtn">Cancel</button>
