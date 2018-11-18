@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" type="text/css" href="css/all.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
@@ -75,21 +76,21 @@
                     <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Rank </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>My Credits </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>My Profile </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon fas fa-award"></i>Rank </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-star"></i>My Credits </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-alt"></i>My Profile </a></li>
 
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
                     <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
                     <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    <li<a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
                     
                     <li class="menu-title">Extras</li><!-- /.menu-title -->
-                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Edit Profile</a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Change Password</a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Logout</a></li>
+                    <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                    <li><a href="#"> <i class="menu-icon ti-key"></i>Change Password</a></li>
+                    <li><a href="#"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
