@@ -63,7 +63,6 @@
             height: 160px;
         }
     </style>
-
 </head>
 
 <body>
@@ -72,55 +71,31 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
-                    </li>
+                    <!-- Dashboard -->
+                    <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li>
+
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
-
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Rank </a>
-                    </li>
-
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>My Credits </a>
-                    </li>
-
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Sonething </a>
-                    </li>
-
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a>
-                    </li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Rank </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>My Credits </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>My Profile </a></li>
 
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
-
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a>
-                    </li>
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a>
-                    </li>
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a>
-                    </li>
-                     <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a>
-                    </li>
-
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
+                    <li<a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
                     
                     <li class="menu-title">Extras</li><!-- /.menu-title -->
-                    <li >
-                        <a href="#"> <i class="menu-icon fa fa-glass"></i>Change Password</a>
-                    </li>
-                    <li >
-                        <a href="#"> <i class="menu-icon fa fa-glass"></i>Logout</a>
-                    </li>
+                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Edit Profile</a></li>
+                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Change Password</a></li>
+                    <li><a href="#"> <i class="menu-icon fa fa-glass"></i>Logout</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
     <!-- /#left-panel -->
+
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
         <!-- Header-->
