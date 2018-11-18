@@ -73,7 +73,10 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Dashboard -->
-                    <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li>
+                    <!-- <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li> -->
+                    <li class="active">
+                    <a id="menuToggle" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                    </li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
                     <li><a href="widgets.html"> <i class="menu-icon fas fa-award"></i>Rank </a></li>
