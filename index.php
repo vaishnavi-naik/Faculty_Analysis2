@@ -75,54 +75,32 @@
 
 
 
-  <div class="container marketing"style ="margin-top: 2%;">
-
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <div class="col-lg-4">
-        <img class="img-circle" src="img/hod.jpg" alt="Generic placeholder image" width="140" height="140">
-        <h2>Dr SRIDEVI SARALAYA</h2>
-        <p><h3>HOD and Assistant Professor</h3></p>
-        <p><a class="btn btn-default" href="cse_events.html" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="img-circle" src="img/principal.jpg" alt="Generic placeholder image" width="140" height="140">
-        <h2>Dr RIO D'SOUZA</h2>
-        <p><h3>Principal</h3></p>
-        <p><a class="btn btn-default" href="ece_events.html" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
-        <img class="img-circle" src="img/kavitha.jpg" alt="Generic placeholder image" width="140" height="140">
-        <h2>Dr Kavitha</h2>
-        <p><h3>Assistant Professor</h3></p>
-        <p><a class="btn btn-default" href="eee_events.html" role="button">View details &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row -->
+  
 
 
     <!-- START THE FEATURETTES -->
-
+<div>
     <hr class="featurette-divider">
 
     <div class="row featurette">
-      <div class="col-md-7">
+      <div class="col-md-7"style="margin-top: -150px;padding-left: 50px;">
         <h2 class="featurette-heading">TEAM WORK <span class="text-muted"> Know Your Colleagues </span></h2>
-        <p class="lead">Teamwork promotes an atmosphere that fosters friendship and loyalty. These close-knit relationships motivate employees in parallel and align them to work harder, cooperate and be supportive of one another. The ability to simultaneously perform as an individual and together with your colleagues or employees in effective teamwork is key to attaining growth and success.</p>
+        <p class="lead"style="font-size: 28px; text-align: justify;">Teamwork promotes an atmosphere that fosters friendship and loyalty. These close-knit relationships motivate employees in parallel and align them to work harder, cooperate and be supportive of one another. The ability to simultaneously perform as an individual and together with your colleagues or employees in effective teamwork is key to attaining growth and success.</p>
       </div>
-      <div class="col-md-5">
-        <img class="featurette-image img-responsive center-block" src="img/team.png" alt="Teamwork"  height="500" width="500">
+      <div class="col-md-5"style="margin-top: -50px;">
+        <img class="featurette-image img-responsive center-block" src="img/team.png" alt="Teamwork"  height="550" width="550">
       </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette">
-      <div class="col-md-7 col-md-push-5">
+      <div class="col-md-7 col-md-push-5" style="margin-top: -154px;padding-right: 50px;">
         <h2 class="featurette-heading">Performance Measure<span class="text-muted"> Your Success in Your Hand</span></h2>
-        <p class="lead">Self-development is the most important benefit for the employee. Performance appraisal allows you to provide positive feedback as well as identify areas for improvement. It motivates employees when supported by a good merit-based compensation system. The visibility provided by a measurement system supports better and faster development of employees in the organization.</p>
+        <p class="lead"style="font-size: 28px; text-align: justify;">Self-development is the most important benefit for the employee. Performance appraisal allows you to provide positive feedback as well as identify areas for improvement. It motivates employees when supported by a good merit-based compensation system. The visibility provided by a measurement system supports better and faster development of employees in the organization.</p>
       </div>
-      <div class="col-md-5 col-md-pull-7">
-        <img class="featurette-image img-responsive center-block" src="img/performance.png" alt="Performace Measure" height="600" width="600" style="/*padding-right:20px;max-width:450px;height:420px;*/">
+      <div class="col-md-5 col-md-pull-7" style="margin-top: -50px;">
+        <img class="featurette-image img-responsive center-block" src="img/performance.png" alt="Performace Measure" height="610" width="610" style="/*padding-right:20px;max-width:450px;height:420px;*/">
       </div>
     </div>
 
@@ -130,11 +108,11 @@
 
 
     <div class="row featurette">
-      <div class="col-md-7">
+      <div class="col-md-7"style="margin-top: -150px;padding-left: 50px;">
         <h2 class="featurette-heading">Comparative Study<span class="text-muted"> See, Where You Stand</span></h2>
-        <p class="lead">If we are perceptive and aware, we’re naturally going to notice those around us and take note of how they are different from us. On the positive end of things, comparison can offer an “information gathering” framework. We may not realize what’s even possible without the model of other people.</p>
+        <p class="lead" style="font-size: 28px; text-align: justify;">If we are perceptive and aware, we’re naturally going to notice those around us and take note of how they are different from us. On the positive end of things, comparison can offer an “information gathering” framework. We may not realize what’s even possible without the model of other people.</p>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5"style="margin-top: -50px;">
         <img class="featurette-image img-responsive center-block" src="img/pie.png" alt="Comparative Study"  height="500" width="500">
       </div>
     </div>
@@ -143,6 +121,9 @@
 
     <!-- /END THE FEATURETTES -->
   </div>
+
+
+
   <div id="id01" class="modal">
 
     <form class="modal-content animate" id ="loginform" action="login-submit.php" method="POST">

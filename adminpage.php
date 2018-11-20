@@ -394,35 +394,7 @@ function toggleDataSeries(e) {
     </div>
   </div>
 
-<div class="form-group">
-  <label for="event" class="col-sm-4 control-label">Event</label>
-  <div class="col-sm-7">
-    <select name="event" class="form-control">
-     <optgroup label="CSE">
-     <option  value="codebuzz"> CodeBuzz</option>
-     <option value="techroadies"> TechRoadies</option>
-     <option value="robowars"> Robo-wars</option>
-     <option value="technovanza"> Technovanza</option>
-     <option value="rushhour"> Rush Hour</option>
-     <option value="mindspark"> Mindspark</option>
-     <option value="coderunner"> CodeRunner</option>
-     <option value="digihunt"> DigiHunt</option>
-     </optgroup>
-     <optgroup label="ECE">
-     <option value="ece1">ECE Event 1</option>
-     <option value="ece2">ECE Event 2</option>
-     <option value="ece3">ECE Event 3</option>
-     <option value="ece4">ECE Event 4</option>
-     </optgroup>
-     <optgroup label="EEE">
-     <option value="eee1">EEE Event 1</option>
-     <option value="eee2">EEE Event 2</option>
-     <option value="eee3">EEE Event 3</option>
-     <option value="eee4">EEE Event 4</option>
-     </optgroup>
-    </select>
-  </div>
-</div>
+
 
 <center><input class="btn btn-lg btn-primary" type ="button" value="Register"/></center>
 
