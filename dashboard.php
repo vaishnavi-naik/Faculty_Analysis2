@@ -189,7 +189,6 @@ $chart->series[] = array(
             <div class="top-left">
                 <div class="navbar-header" >
                     <a class="navbar-brand" href="./"><img src="img/long_logo_transparent.png" alt="Logo"  ></a>
-                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
             <div class="top-right">
