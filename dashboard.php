@@ -19,7 +19,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
     $chart->toolbox->feature->dataView->readOnly = false;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
-    $chart->toolbox->feature->saveAsImage = [];
+    $chart->toolbox->feature->magicType->title->line = 'Line Chart';
+    $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
+    $chart->toolbox->feature->saveAsImage->name = 'My Credits';
+    $chart->toolbox->feature->saveAsImage->title = 'Save';
+
 
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
@@ -36,7 +40,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     $chart->addXAxis($xAxis);
     $chart->addYAxis($yAxis);
-
     $chart->initOptions->renderer = 'svg';
     $chart->initOptions->width = '800px';
     return $chart->render(uniqid());
@@ -52,18 +55,26 @@ shuffle($color);
 $chart = new ECharts();
 $chart->color=$color;
 $chart->tooltip->show = true;
-$chart->legend->data[] = '销量';
+$chart->legend->data[] = 'Data1';
 $chart->xAxis[] = array(
     'type' => 'category',
-    'data' => array("衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子")
+    'data' => array("val1","val2","val3","val4","val5","val6")
 );
 
 $yAxis = new YAxis();
 $yAxis->type = 'value';
 $chart->addYAxis($yAxis);
+$chart->toolbox->show = true;
+$chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
+$chart->toolbox->feature->dataView->readOnly = false;
+$chart->toolbox->feature->magicType->type = ['line', 'bar'];
+$chart->toolbox->feature->magicType->title->line = 'Line Chart';
+$chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
+$chart->toolbox->feature->saveAsImage->name = 'My Credits';
+$chart->toolbox->feature->saveAsImage->title = 'Save';
 
 $chart->series[] = array(
-    'name' => '销量',
+    'name' => 'Data1',
     'type' => 'bar',
     'data' => array(5, 20, 40, 10, 10, 20)
 );
