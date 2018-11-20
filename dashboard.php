@@ -39,6 +39,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     $chart->initOptions->renderer = 'svg';
     $chart->initOptions->width = '800px';
+    
     return $chart->render(uniqid());
 }
 
@@ -52,18 +53,19 @@ shuffle($color);
 $chart = new ECharts();
 $chart->color=$color;
 $chart->tooltip->show = true;
-$chart->legend->data[] = '销量';
+$chart->legend->data[] = 'THIS SEM';
 $chart->xAxis[] = array(
     'type' => 'category',
-    'data' => array("衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子")
+    'data' => array('SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING')
 );
 
 $yAxis = new YAxis();
 $yAxis->type = 'value';
 $chart->addYAxis($yAxis);
 
+
 $chart->series[] = array(
-    'name' => '销量',
+    'name' => 'THIS SEM',
     'type' => 'bar',
     'data' => array(5, 20, 40, 10, 10, 20)
 );
@@ -378,7 +380,7 @@ $chart->series[] = array(
 
                             <div class="card-body" id="mypoints">
                                <h1 class="box-title">SEE WHAT YOU HAVE EARNED..? </h1> 
-                                <div  style="height: 530px; width: 80%;">
+                                <div  >
                                    <?php 
                                  echo $chart->render('simple-custom-id');
                                 ?>
