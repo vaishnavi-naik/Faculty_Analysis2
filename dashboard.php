@@ -16,8 +16,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->color = $color;
     $chart->tooltip->trigger = 'axis';
     $chart->toolbox->show = true;
-    $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
-    $chart->toolbox->feature->dataView->readOnly = false;
+    $chart->toolbox->feature->dataView->show = false;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
     $chart->toolbox->feature->magicType->title->line = 'Line Chart';
     $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
@@ -65,14 +64,13 @@ $yAxis = new YAxis();
 $yAxis->type = 'value';
 $chart->addYAxis($yAxis);
 $chart->toolbox->show = true;
-$chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
-$chart->toolbox->feature->dataView->readOnly = false;
+$chart->toolbox->feature->dataView->show = false;
 $chart->toolbox->feature->magicType->type = ['line', 'bar'];
 $chart->toolbox->feature->magicType->title->line = 'Line Chart';
 $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
 $chart->toolbox->feature->saveAsImage->name = 'My Credits';
 $chart->toolbox->feature->saveAsImage->title = 'Save';
-
+// $chart->toolbox->feature->dataView->title = "Data View";
 $chart->series[] = array(
     'name' => 'Data1',
     'type' => 'bar',
