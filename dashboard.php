@@ -19,11 +19,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
     $chart->toolbox->feature->dataView->readOnly = false;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
-    $chart->toolbox->feature->magicType->title->line = 'Line Chart';
-    $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-    $chart->toolbox->feature->saveAsImage->name = 'My Credits';
-    $chart->toolbox->feature->saveAsImage->title = 'Save';
-
+    $chart->toolbox->feature->saveAsImage = [];
 
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
@@ -40,8 +36,10 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     $chart->addXAxis($xAxis);
     $chart->addYAxis($yAxis);
+
     $chart->initOptions->renderer = 'svg';
     $chart->initOptions->width = '800px';
+    
     return $chart->render(uniqid());
 }
 
@@ -55,26 +53,19 @@ shuffle($color);
 $chart = new ECharts();
 $chart->color=$color;
 $chart->tooltip->show = true;
-$chart->legend->data[] = 'Data1';
+$chart->legend->data[] = 'THIS SEM';
 $chart->xAxis[] = array(
     'type' => 'category',
-    'data' => array("val1","val2","val3","val4","val5","val6")
+    'data' => array('SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING')
 );
 
 $yAxis = new YAxis();
 $yAxis->type = 'value';
 $chart->addYAxis($yAxis);
-$chart->toolbox->show = true;
-$chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
-$chart->toolbox->feature->dataView->readOnly = false;
-$chart->toolbox->feature->magicType->type = ['line', 'bar'];
-$chart->toolbox->feature->magicType->title->line = 'Line Chart';
-$chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-$chart->toolbox->feature->saveAsImage->name = 'My Credits';
-$chart->toolbox->feature->saveAsImage->title = 'Save';
+
 
 $chart->series[] = array(
-    'name' => 'Data1',
+    'name' => 'THIS SEM',
     'type' => 'bar',
     'data' => array(5, 20, 40, 10, 10, 20)
 );
@@ -389,7 +380,7 @@ $chart->series[] = array(
 
                             <div class="card-body" id="mypoints">
                                <h1 class="box-title">SEE WHAT YOU HAVE EARNED..? </h1> 
-                                <div  style="height: 530px; width: 80%;">
+                                <div  >
                                    <?php 
                                  echo $chart->render('simple-custom-id');
                                 ?>
