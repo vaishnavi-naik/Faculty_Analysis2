@@ -44,9 +44,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 
-
-
-
 use Hisune\EchartsPHP\ECharts;
 use Hisune\EchartsPHP\Doc\IDE\YAxis;
 $color = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
@@ -403,8 +400,8 @@ $chart->series[] = array(
                                                 [
                                                     ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
                                                     ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
-                                                ]
-                                                
+                                                ],
+                                                "Performance"                                                
                                             );
                                             ?>
                             </div>
