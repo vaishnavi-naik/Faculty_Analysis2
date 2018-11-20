@@ -20,7 +20,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->toolbox->feature->dataView->readOnly = false;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
     $chart->toolbox->feature->saveAsImage = [];
-
+   
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
     $xAxis->data = $xAxisData;
