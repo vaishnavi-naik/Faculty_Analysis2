@@ -40,7 +40,7 @@
         <label class="col-md-3 control-label" for="Password">Password</label>
         <div class="col-md-7">
           <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
-            <input id="password" name="password" type="password" data-toggle="password" placeholder="Enter Your Password" class="form-control input-md">
+            <input id="password" name="password" type="password" placeholder="Enter Your Password" class="form-control input-md">
           </div>
         </div>
       </div>
