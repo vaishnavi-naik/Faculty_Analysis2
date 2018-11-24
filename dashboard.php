@@ -181,7 +181,7 @@ $chart1->series[] = array(
                     <li class="menu-title">Extras</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
                     <li><a href="#"> <i class="menu-icon ti-key"></i>Change Password</a></li>
-                    <li><a href="#"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
+                    <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
