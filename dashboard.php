@@ -16,14 +16,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->color = $color;
     $chart->tooltip->trigger = 'axis';
     $chart->toolbox->show = true;
-    $chart->toolbox->feature->dataView->show = false;
+    $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
+    $chart->toolbox->feature->dataView->readOnly = false;
     $chart->toolbox->feature->magicType->type = ['line', 'bar'];
-    $chart->toolbox->feature->magicType->title->line = 'Line Chart';
-    $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-    $chart->toolbox->feature->saveAsImage->name = 'My Credits';
-    $chart->toolbox->feature->saveAsImage->title = 'Save';
-
-
+    $chart->toolbox->feature->saveAsImage = [];
+   
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
     $xAxis->data = $xAxisData;
@@ -39,40 +36,45 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     $chart->addXAxis($xAxis);
     $chart->addYAxis($yAxis);
+
     $chart->initOptions->renderer = 'svg';
-    $chart->initOptions->width = '800px';
+    //$chart->initOptions->width = '800px';
+    
     return $chart->render(uniqid());
 }
 
+
+
+
 use Hisune\EchartsPHP\ECharts;
 use Hisune\EchartsPHP\Doc\IDE\YAxis;
+
 $color = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
 shuffle($color);
-$chart = new ECharts();
-$chart->color=$color;
-$chart->tooltip->show = true;
-$chart->legend->data[] = 'This Sem';
-$chart->xAxis[] = array(
+
+
+$chart1 = new ECharts();
+$chart1->color=$color;
+$chart1->tooltip->show = true;
+$chart1->legend->data[] = 'THIS SEM';
+$chart1->xAxis[] = array(
     'type' => 'category',
-    'data' => array("val1","val2","val3","val4","val5","val6")
+    'data' => array('SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING')
 );
 
 $yAxis = new YAxis();
 $yAxis->type = 'value';
-$chart->addYAxis($yAxis);
-$chart->toolbox->show = true;
-$chart->toolbox->feature->dataView->show = false;
-$chart->toolbox->feature->magicType->type = ['line', 'bar'];
-$chart->toolbox->feature->magicType->title->line = 'Line Chart';
-$chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-$chart->toolbox->feature->saveAsImage->name = 'My Credits';
-$chart->toolbox->feature->saveAsImage->title = 'Save';
-// $chart->toolbox->feature->dataView->title = "Data View";
-$chart->series[] = array(
-    'name' => 'Data1',
+$chart1->addYAxis($yAxis);
+
+
+$chart1->series[] = array(
+    'name' => 'THIS SEM',
     'type' => 'bar',
     'data' => array(5, 20, 40, 10, 10, 20)
 );
+
+
+
 ?>
 
 
@@ -163,7 +165,7 @@ $chart->series[] = array(
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
                     <li><a href="#mypoints"> <i class="menu-icon fas fa-award"></i>Rank </a></li>
                     <li><a href="#prevsem"> <i class="menu-icon ti-star"></i>My Credits </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="#pie"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
                     <li><a href="widgets.html"> <i class="menu-icon fas fa-user-alt"></i>My Profile </a></li>
 
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
@@ -189,6 +191,7 @@ $chart->series[] = array(
             <div class="top-left">
                 <div class="navbar-header" >
                     <a class="navbar-brand" href="./"><img src="img/long_logo_transparent.png" alt="Logo"  ></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
             <div class="top-right">
@@ -383,12 +386,14 @@ $chart->series[] = array(
 
                             <div class="card-body" id="mypoints">
                                <h1 class="box-title">SEE WHAT YOU HAVE EARNED..? </h1> 
-                                <div  style="height: 530px; width: 80%;">
+                                <div  >
                                    <?php 
-                                 echo $chart->render('simple-custom-id');
+                                 echo $chart1->render('simple-custom-id');
                                 ?>
                                 </div>
                             </div>
+
+
 
                             <div class="card-body" id="prevsem">
                             <h1 class="box-title">DID YOU IMPROVE..? </h1>
@@ -399,8 +404,8 @@ $chart->series[] = array(
                                                 [
                                                     ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
                                                     ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
-                                                ],
-                                                "Performance"                                                
+                                                ]
+                                                
                                             );
                                             ?>
                             </div>
