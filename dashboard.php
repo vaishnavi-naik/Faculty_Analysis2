@@ -16,10 +16,14 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->color = $color;
     $chart->tooltip->trigger = 'axis';
     $chart->toolbox->show = true;
-    $chart->toolbox->feature->dataZoom->yAxisIndex = 'none';
-    $chart->toolbox->feature->dataView->readOnly = false;
-    $chart->toolbox->feature->magicType->type = ['line', 'bar'];
-    $chart->toolbox->feature->saveAsImage = [];
+    $chart->toolbox->feature->dataView->show = false;
+    $chart->toolbox->feature->magicType->type = ['line', 'bar', 'stack', 'tiled'];
+    $chart->toolbox->feature->magicType->title->line = 'Line Chart';
+    $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
+    $chart->toolbox->feature->magicType->title->stack = 'Stack Chart';
+    $chart->toolbox->feature->magicType->title->tiled = 'Tiled Chart';
+    $chart->toolbox->feature->saveAsImage->name = 'My Credits';
+    $chart->toolbox->feature->saveAsImage->title = 'Save';
    
     $xAxis->type = 'category';
     $xAxis->boundaryGap = false;
@@ -404,8 +408,8 @@ $chart1->series[] = array(
                                                 [
                                                     ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
                                                     ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
-                                                ]
-                                                
+                                                ],
+                                                'Performance'                                                
                                             );
                                             ?>
                             </div>
