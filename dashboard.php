@@ -94,7 +94,7 @@ $chart1->series[] = array(
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Faculty Analysis</title>
+    <title>Dashboard - Faculty Analysis</title>
     <meta name="description" content="Faculty Analysis">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
