@@ -1,10 +1,12 @@
 <head>
   <title>Login</title>
   <?php include "include/headers.html"; ?>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/ValidationFormScript.js"></script>
+  <script src="js/bootstrap-show-password.min.js"></script>
 </head>
 <body>
   <?php include "include/navbar.html" ;
@@ -38,7 +40,7 @@
         <label class="col-md-3 control-label" for="Password">Password</label>
         <div class="col-md-7">
           <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
-            <input id="password" name="password" type="password" placeholder="Enter Your Password" class="form-control input-md">
+            <input id="password" name="password" type="password" data-toggle="password" placeholder="Enter Your Password" class="form-control input-md">
           </div>
         </div>
       </div>
@@ -55,7 +57,11 @@
         </div>
       </div>    
     </form>
-    
+    <script type="text/javascript">
+
+        $("#password").password('toggle');
+
+    </script>
 
 
   </div>
