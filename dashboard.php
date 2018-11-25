@@ -135,7 +135,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
                     <li><a href="#mypoints"> <i class="menu-icon fas fa-award"></i>Rank </a></li>
                     <li><a href="#prevsem"> <i class="menu-icon ti-star"></i>My Credits </a></li>
-                    <li><a href="#pie"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
                     <li><a href="widgets.html"> <i class="menu-icon fas fa-user-alt"></i>My Profile </a></li>
 
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
@@ -320,20 +320,37 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 
                             <div class="card-body" id="prevsem">
-                            <h1 class="box-title">DID YOU IMPROVE..? </h1>
-                             <div class="col-sm-10" style="margin-left: 0px;" >
-                                               <?php 
-                                                echo chartLine(
-                                                ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                [
-                                                    ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
-                                                    ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
-                                                ],
-                                                'Performance'                                                
-                                            );
-                                            ?>
-                            </div>
+                                <h1 class="box-title">DID YOU IMPROVE..? </h1>
+                                 <div class="col-sm-10" style="margin-left: 0px;" >
+                                                   <?php 
+                                                    echo chartLine(
+                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    [
+                                                        ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
+                                                        ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
+                                                    ],
+                                                    'Performance'                                                
+                                                );
+                                                ?>
+                                </div>
                             </div> 
+
+                            <div class="card-body" id="compare">
+                                <h1 class="box-title">COMPARE YOUR PERFORMANCE </h1>
+                                 <div class="col-sm-10" style="margin-left: 0px;" >
+                                                   <?php 
+                                                    echo chartLine(
+                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    [
+                                                        ['name' => 'You', 'data' => [5,6,7,9,8,6]],
+                                                        ['name' => 'Dept Avg.', 'data' => [9,9,6,7,8,8]],
+                                                    ],
+                                                    'COMPARE'                                                
+                                                );
+                                                ?>
+                                </div>
+                            </div> 
+
 
                             <!-- /.row -->
 
@@ -696,10 +713,10 @@ function chartLine($xAxisData, $seriesData, $title = '')
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright &copy; 2018 Ela Admin
+                        Copyright &copy; 2018 Faculty Analysis
                     </div>
                     <div class="col-sm-6 text-right">
-                        Designed by <a href="https://colorlib.com">Colorlib</a>
+                        By Vaishnavi N Naik | Siddhartha N
                     </div>
                 </div>
             </div>
