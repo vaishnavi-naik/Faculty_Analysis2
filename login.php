@@ -10,6 +10,11 @@
 </head>
 <body>
   <?php include "include/navbar.html" ;
+  include "./include/connection.php";
+
+  if(isset($_SESSION['email']))
+    header('location:dashboard.php');
+  
   if(isset($_GET['error']))
     echo '<script>$(document).ready(function(){$("#loginError").show();});</script>';
   ?>
