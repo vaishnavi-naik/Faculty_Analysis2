@@ -10,7 +10,7 @@ if(isset($_POST["submit"]))
 	$dept = $_POST["dept"];
 
 	$check = getimagesize($_FILES["image"]["tmp_name"]);
-  	if($check !== false  && in_array(mime_content_type ($_FILES["image"]["tmp_name"]) , array('image/jpeg', 'image/png','image/gif'))){
+  	if($check !== false  && in_array(mime_content_type ($_FILES["image"]["tmp_name"]) , array('image/jpeg','image/png','image/gif'))){
 		$image = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));  
 	  	$query = "INSERT INTO user(name, email, password, dept, profile_pic) VALUES ('$name', '$email', '$pass', '$dept', '$image')";  
 	    if(mysqli_query($connect, $query) or die(mysqli_error($connect)))  

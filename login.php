@@ -14,13 +14,14 @@
 
   if(isset($_SESSION['email']))
     header('location:dashboard.php');
-  
+
   if(isset($_GET['error']))
     echo '<script>$(document).ready(function(){$("#loginError").show();});</script>';
   ?>
 
   <div class="col-sm-offset-3 col-sm-6 loginPage">
-    <center><H1>LOGIN</H1><br></center>
+    <center><H1>LOGIN</H1></center>
+    <hr style="width:80%;margin-top:10px; margin-left: 70px;" class="hr1">
     <form class="form-horizontal" action="login-submit.php" method= "POST" id="form1">
 
       <div class="form-group">
