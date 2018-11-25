@@ -1,18 +1,16 @@
 <?php 
 include "./include/connection.php";
-// if(isset($_POST['email']))
-// 	echo "YES";
-// else echo "no";
-echo " email: " . $_POST['Email']. " user type: " .$_POST['usertype'], " Password: " .$_POST['password'];
+
+// echo " email: " . $_POST['Email']. " user type: " .$_POST['usertype'], " Password: " .$_POST['password'];
 $email = mysqli_real_escape_string($connect, $_POST['Email']);
 $password = (mysqli_real_escape_string($connect, $_POST['password']));
 $user_type = mysqli_real_escape_string($connect, $_POST['usertype']);
 
 $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password' AND user_type = '$user_type'";
-echo $query;
+// echo $query;
 $query_result = mysqli_query($connect, $query);
 $num = mysqli_num_rows($query_result);
-echo $num;
+// echo $num;
 if ($num == 1) {
     $_SESSION['email'] = $email;
     $array = mysqli_fetch_array($query_result);
@@ -23,7 +21,10 @@ if ($num == 1) {
     	$_SESSION['profile_pic'] = "null";
     else
     	$_SESSION['profile_pic'] = "yes";
-    header('location: dashboard.php');
+    if($user_type == 'admin')
+        header('location: admin_dash.php');
+    else
+        header('location: dashboard.php');
 } else {
     $error = "Invalid Username or Password";
     header('location: login.php?error=' . $error);

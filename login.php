@@ -29,7 +29,7 @@
         <div class="col-sm-7">
           <select name="usertype" class="form-control">
             <option value="admin"> Admin</option>
-            <option value="staff"> Staff</option>
+            <option value="user"> Staff</option>
           </select>
         </div>
       </div>
