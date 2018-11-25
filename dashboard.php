@@ -52,6 +52,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     
     return $chart->render(uniqid());
 }
+
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -198,7 +199,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
