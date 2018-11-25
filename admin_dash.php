@@ -101,7 +101,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
                     <li><a href="#depPerformance"> <i class="menu-icon fas fa-award"></i>Department </a></li>
-                    <li><a href="#prevsem"> <i class="menu-icon ti-star"></i>Faculty </a></li>
+                    <li><a href="#faculty"> <i class="menu-icon ti-star"></i>Faculty </a></li>
                     <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
@@ -146,11 +146,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                 $result = mysqli_query($connect, $query);  
                                 if(mysqli_num_rows($result) == 1){
                                   $row = mysqli_fetch_array($result);                               
-                                  echo '<tr>
-                                            <td>
-                                                <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
-                                            </td>
-                                        </tr>'; 
+                                  echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />'; 
                                 }else 
                                   echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
                             }
@@ -212,7 +208,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">Vaishnavi</span></div>
+                                            <div class="stat-text">Vaishnavi</div>
                                             <div class="stat-heading">Topper</div>
                                         </div>
                                     </div>
@@ -266,8 +262,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <div class="col-sm-12">
                         <div class="card">
 
-                            <div class="card-body" id="mypoints">
-                               <h1 class="box-title">SEE WHAT YOU HAVE EARNED..? </h1> 
+                            <div class="card-body" id="depPerformance">
+                               <h1 class="box-title">Your Department </h1> 
                                 <div  >
                                    <?php 
                                  // echo $chart1->render('simple-custom-id');
@@ -282,21 +278,30 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                 </div>
                             </div>
 
-
-
-                            <div class="card-body" id="depPerformance">
-                                <h1 class="box-title">DID YOU IMPROVE..? </h1>
-                                 <div class="col-sm-10" style="margin-left: 0px;" >
-                                                   <?php 
-                                                    echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                    [
-                                                        ['name' => '2018', 'data' => [9.0,7.9,9.0,8.8,4.6,9.1]],
-                                                        ['name' => '2019', 'data' => [8.4,9.5,7.0,5.9,8.4,8.3]],
-                                                    ],
-                                                    'Performance'                                                
-                                                );
-                                                ?>
+                            <div class="card-body" id="faculty">
+                                <h1 class="box-title">FACULTY</h1>
+                                 <div class="col-sm-12" style="margin-left: 0px;" >
+                                    <form action="#faculty" method="GET" class="form-inline">
+                                        <div class="form-group inline col-md-12">
+                                            <label for="faculty_name">Select Faculty:</label>
+                                            <select name="faculty_name" style="margin-left: 20px;" class="form-control col-md-4">
+                                            <?php
+                                                $dept = $_SESSION['dept'];
+                                                $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
+                                                $result = mysqli_query($connect, $query);
+                                                $num = mysqli_num_rows($result);
+                                                while($array = mysqli_fetch_array($result)){
+                                                $opt_val = $array['user_id'];
+                                                $opt_content = $array['name'];
+                                                echo "<option value = $opt_val>$opt_content</option>";
+                                            }?>                                      
+                                            </select>
+                                            <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">Login</button>    
+                                        </div>
+                                    </form>
+                                    <div style="height: 350px;">
+                                        
+                                    </div>
                                 </div>
                             </div> 
 

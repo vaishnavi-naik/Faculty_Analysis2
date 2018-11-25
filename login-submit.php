@@ -16,6 +16,7 @@ if ($num == 1) {
     $array = mysqli_fetch_array($query_result);
     $_SESSION['name'] = $array['name'];
     $_SESSION['type'] = $user_type;
+    $_SESSION['dept'] = $array['dept'];
     $_SESSION['id'] = $array['user_id'];
     if($array['profile_pic'] == null)
     	$_SESSION['profile_pic'] = "null";
