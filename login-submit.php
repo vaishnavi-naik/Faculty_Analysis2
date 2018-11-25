@@ -19,6 +19,10 @@ if ($num == 1) {
     $_SESSION['name'] = $array['name'];
     $_SESSION['type'] = $user_type;
     $_SESSION['id'] = $array['user_id'];
+    if($array['profile_pic'] == null)
+    	$_SESSION['profile_pic'] = "null";
+    else
+    	$_SESSION['profile_pic'] = "yes";
     header('location: dashboard.php');
 } else {
     $error = "Invalid Username or Password";

@@ -813,7 +813,7 @@ aside.left-panel {
     line-height: 0;
     opacity: 0;
     padding: 0; }
-  .open aside.left-panel .menutoggle {
+  .open aside.left-panel .menutoggle .menuToggle1{
     background-color: #dc3545;
     color: #fff !important;
     right: -20px;
@@ -874,7 +874,7 @@ aside.left-panel {
 .right-panel .navbar-brand {
   width: 250px;
   display: inline-block; }
-.right-panel .menutoggle {
+.right-panel .menutoggle .menuToggle1{
   padding-top: 7px; }
 .right-panel .navbar-header {
   width: 100%;
@@ -898,7 +898,7 @@ header.fixed-top {
   background: #fff;
   padding: 20px; }
 
-.menutoggle {
+.menutoggle .menuToggle1{
   background-color: transparent;
   color: #99abb4 !important;
   cursor: pointer;
@@ -2286,7 +2286,7 @@ footer.site-footer {
       line-height: 0;
       opacity: 0;
       padding: 0; }
-    aside.left-panel .menutoggle {
+    aside.left-panel .menutoggle .menuToggle1{
       display: none; }
     aside.left-panel.open-menu {
       max-width: 280px;

@@ -1,6 +1,12 @@
 <?php
 
 header('Content-Type: text/html; charset=utf-8');
+require('include/connection.php');
+
+if(!isset($_SESSION['email'])){
+    header('location:login.php');
+}
+
 require('./vendor/autoload.php');
 
 function chartLine($xAxisData, $seriesData, $title = '')
@@ -47,9 +53,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 
-
-
-
 use Hisune\EchartsPHP\ECharts;
 use Hisune\EchartsPHP\Doc\IDE\YAxis;
 
@@ -76,21 +79,12 @@ $chart1->series[] = array(
     'type' => 'bar',
     'data' => array(5, 20, 40, 10, 10, 20)
 );
-
-
-
 ?>
-
-
-
-
-
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -110,7 +104,7 @@ $chart1->series[] = array(
     <link rel="stylesheet" type="text/css" href="css/all.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
@@ -162,8 +156,9 @@ $chart1->series[] = array(
                 <ul class="nav navbar-nav">
                     <!-- Dashboard -->
                     <!-- <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li> -->
+                    <?php $user_name = $_SESSION['name'] ?>
                     <li class="active">
-                    <a id="menuToggle" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                    <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                     </li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
@@ -200,7 +195,7 @@ $chart1->series[] = array(
             </div>
             <div class="top-right">
                 <div class="header-menu">
-                    <div class="header-left">
+                    <!-- <div class="header-left">
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
@@ -272,11 +267,31 @@ $chart1->series[] = array(
                                 </a>
                             </div>
                         </div>
+                    </div> -->
+                    <div style="padding-top: 15px;">
+                        <p><?=$user_name;?></p>
                     </div>
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="img/hod.jpg" alt="User Avatar">
+                            <?php 
+                            if($_SESSION['profile_pic'] == "null")
+                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                            else{
+                                $email = $_SESSION['email'];
+                                $query = "SELECT profile_pic from user where email = '$email'";  
+                                $result = mysqli_query($connect, $query);  
+                                if(mysqli_num_rows($result) == 1){
+                                  $row = mysqli_fetch_array($result);                               
+                                  echo '<tr>
+                                            <td>
+                                                <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
+                                            </td>
+                                        </tr>'; 
+                                }else 
+                                  echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                            }
+                            ?>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -385,7 +400,7 @@ $chart1->series[] = array(
 
                 <div style="height:500px; overflow-y: hidden;">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-sm-12">
                         <div class="card">
 
                             <div class="card-body" id="mypoints">
@@ -401,7 +416,7 @@ $chart1->series[] = array(
 
                             <div class="card-body" id="prevsem">
                             <h1 class="box-title">DID YOU IMPROVE..? </h1>
-                             <div style="margin-left: 0px;" >
+                             <div class="col-sm-10" style="margin-left: 0px;" >
                                                <?php 
                                                 echo chartLine(
                                                 ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
