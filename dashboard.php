@@ -221,13 +221,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                 <a href="#mypoints">
                                 <div class="stat-widget-five" >
                                     <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-cash"></i>
+                                        <i class="pe-7s-medal"></i>
                                     </div>
 
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">$<span class="count">23569</span></div>
-                                            <div class="stat-heading" >Revenue</div>
+                                            <div class="stat-text"><span class="count">10</span></div>
+                                            <div class="stat-heading" >Your Rank</div>
                                         </div>
                                     </div>
 
@@ -243,12 +243,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-cart"></i>
+                                        <i class="pe-7s-star"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">3435</span></div>
-                                            <div class="stat-heading">Sales</div>
+                                            <div class="stat-text">Vaishnavi</span></div>
+                                            <div class="stat-heading">Topper</div>
                                         </div>
                                     </div>
                                 </div>
@@ -261,12 +261,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-browser"></i>
+                                        <i class="pe-7s-copy-file"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">349</span></div>
-                                            <div class="stat-heading">Templates</div>
+                                            <div class="stat-text"><span class="count">40</span></div>
+                                            <div class="stat-heading">Publications</div>
                                         </div>
                                     </div>
                                 </div>
