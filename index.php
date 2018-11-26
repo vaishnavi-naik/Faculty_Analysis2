@@ -6,8 +6,9 @@
 </head>
 
 <body style="background-color: #FFFFF4;">
-  <?php  include "./include/navbar.html"; 
+  <?php  
   include "./include/connection.php";
+  include "./include/navbar.php"; 
   ?>
 
 
@@ -26,7 +27,11 @@
           <div class="carousel-caption" >
             <h1 style="text-shadow:3px 3px 5px black;margin-top:-50%;color:#c90219;font-size:80px;">WELCOME TO FACULTY ANALYSIS</h1>
             <p></p>
+            <?php if(isset($_SESSION['email'])){?>
+              <p><a class="btn btn-lg btn-primary" href="dashboard.php" style="width:auto;margin-top: 90px;" role="button">GO TO DASHBOARD</a></p>
+            <?php }else{?>
             <p><a class="btn btn-lg btn-primary" href="login.php" style="width:auto;margin-top: 90px;" role="button">LOGIN</a></p>
+            <?php }?>
           </div>
         </div>
       </div>

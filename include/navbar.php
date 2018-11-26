@@ -1,5 +1,5 @@
 <div class="navbar-wrapper" >
-    <nav class="navbar navbar-default navstyle">
+    <nav class="navbar navbar-default navstyle ">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,15 +15,24 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+        <?php if(isset($_SESSION['email'])){?>
+          <div class="collapse navbar-collapse" id="mynav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="register.php">REGISTER</a></li>
+            <li><a href="dashboard.php">DASHBOARD</a></li>
+            <li><a href="#">CONTACT US</a></li>
+          </ul>
+        </div>
+       <?php }else{ ?>
         <div class="collapse navbar-collapse" id="mynav">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="register.php">REGISTER</a></li>
             <li><a href="login.php">LOGIN</a></li>
-            <li><a href="dashboard.php">DASHBOARD</a></li>
+            <!-- <li><a href="dashboard.php">DASHBOARD</a></li> -->
             <li><a href="#">CONTACT US</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
-
+        <?php }?>
       </div><!-- /.container-fluid -->
     </nav>
   </div>

@@ -105,9 +105,9 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Add Faculty </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Add Admin </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Add Performance Details </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Faculty </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Admin </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
@@ -299,23 +299,59 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">Login</button>    
                                         </div>
                                     </form>
-                                    <div style="height: 350px;">
+                                    <div id="facultyDetails" style="height: 350px;">
                                         
                                     </div>
                                 </div>
                             </div> 
 
-                            <div class="card-body" id="compare">
+                            <div class="card-body" id="">
                                 <h1 class="box-title">COMPARE YOUR PERFORMANCE </h1>
-                                 <div class="col-sm-10" style="margin-left: 0px;" >
+                                 <div class="col-sm-12" style="margin-left: 0px;" >
                                                    <?php 
                                                     echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                        ['name' => 'You', 'data' => [5,6,7,9,8,6]],
-                                                        ['name' => 'Dept Avg.', 'data' => [9,9,6,7,8,8]],
+                                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
+                                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
+                                                        ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
+                                                        ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
+                                                        ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
                                                     ],
-                                                    'COMPARE'                                                
+                                                    'COMPARE DEPARTMENTS'                                                
+                                                );
+                                                ?>
+                                </div>
+                            </div> 
+
+
+                            <!-- /.row -->
+
+
+
+                        </div>
+                    </div><!-- /# column -->
+                </div>
+            </div>
+
+             <div style="height:500px; overflow-y: hidden;margin-top: 20px;" id="compare" >
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body" id="">
+                                <h1 class="box-title">COMPARE YOUR PERFORMANCE </h1>
+                                 <div class="col-sm-12" style="margin-left: 0px;" >
+                                                   <?php 
+                                                    echo chartLine(
+                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    [
+                                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
+                                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
+                                                        ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
+                                                        ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
+                                                        ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
+                                                    ],
+                                                    'COMPARE DEPARTMENTS'                                                
                                                 );
                                                 ?>
                                 </div>

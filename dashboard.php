@@ -6,6 +6,8 @@ require('include/connection.php');
 if(!isset($_SESSION['email'])){
     header('location:login.php');
 }
+if($_SESSION['type'] == 'admin' )
+    header('location:admin_dash.php');
 
 require('./vendor/autoload.php');
 

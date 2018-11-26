@@ -7,7 +7,7 @@
 
 	</head>
 	<body>
-		<?php  include "./include/navbar.html";  
+		<?php  include "./include/navbar.php";  
         if(isset($_GET['msg']))
         echo '<script>$(document).ready(function(){$("#regSuccess").show();});</script>';
         if(isset($_GET['img']))

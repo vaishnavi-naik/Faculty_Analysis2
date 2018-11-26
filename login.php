@@ -9,7 +9,7 @@
   <script src="js/bootstrap-show-password.min.js"></script>
 </head>
 <body>
-  <?php include "include/navbar.html" ;
+  <?php include "include/navbar.php" ;
   include "./include/connection.php";
 
   if(isset($_SESSION['email']))
@@ -58,7 +58,7 @@
 
       <div class="form-group">
 
-        <div class="col-md-offset-5 col-md-4">
+        <div class="col-md-offset-5 col-md-4"> 
           <button id="Submit" class="btn btn-lg btn-success" type="submit">Login</button>
         </div>
       </div>    
