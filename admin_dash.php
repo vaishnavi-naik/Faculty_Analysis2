@@ -28,8 +28,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->toolbox->feature->magicType->type = ['line', 'bar', 'stack', 'tiled'];
     $chart->toolbox->feature->magicType->title->line = 'Line Chart';
     $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-    $chart->toolbox->feature->magicType->title->stack = 'Stack Chart';
-    $chart->toolbox->feature->magicType->title->tiled = 'Tiled Chart';
+    $chart->toolbox->feature->magicType->title->stack = 'Stacked View';
+    $chart->toolbox->feature->magicType->title->tiled = 'Tiled View';
     $chart->toolbox->feature->saveAsImage->name = 'My Credits';
     $chart->toolbox->feature->saveAsImage->title = 'Save';
    
@@ -83,13 +83,18 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-
+<style type="text/css">
+.cardStyle{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+</style>
 </head>
 
 <body>
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
+        <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Dashboard -->
@@ -100,14 +105,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
-                    <li><a href="#depPerformance"> <i class="menu-icon fas fa-award"></i>Department </a></li>
-                    <li><a href="#faculty"> <i class="menu-icon ti-star"></i>Faculty </a></li>
+                    <li><a href="#depPerformance"> <i class="menu-icon fas fa-school"></i>Department </a></li>
+                    <li><a href="#faculty"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
                     <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="#topFaculty"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Faculty </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Admin </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Performance Details </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
+                    <li><a href="widgets.html"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
@@ -257,122 +263,106 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <!--  Traffic  -->
 
 
-                <div style="height:500px; overflow-y: hidden;">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
+            <div style="height:500px; overflow-y: hidden;">
+                <div class="col-sm-12 cardStyle">
+                    <div class="card">
 
-                            <div class="card-body" id="depPerformance">
-                               <h1 class="box-title">Your Department </h1> 
-                                <div  >
-                                   <?php 
-                                 // echo $chart1->render('simple-custom-id');
-                                   echo chartLine(
-                                                ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                [
-                                                    ['name' => '2018-19', 'data' => [11, 20, 40, 15, 35, 20], 'type' => 'line']
-                                                ],
-                                                'Department Performance'                                                
-                                            );
-                                    ?>
-                                </div>
+                        <div class="card-body" id="depPerformance">
+                           <h1 class="box-title">Your Department </h1> 
+                            <div  >
+                               <?php 
+                             // echo $chart1->render('simple-custom-id');
+                               echo chartLine(
+                                            ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                            [
+                                                ['name' => '2018-19', 'data' => [11, 20, 40, 15, 35, 20], 'type' => 'line']
+                                            ],
+                                            'Department Performance'                                                
+                                        );
+                                ?>
                             </div>
+                        </div> 
+                        <!-- /.row -->
+                    </div>
+                </div><!-- /# column -->
+            </div>
 
-                            <div class="card-body" id="faculty">
-                                <h1 class="box-title">FACULTY</h1>
-                                 <div class="col-sm-12" style="margin-left: 0px;" >
-                                    <form action="#faculty" method="GET" class="form-inline">
-                                        <div class="form-group inline col-md-12">
-                                            <label for="faculty_name">Select Faculty:</label>
-                                            <select name="faculty_name" style="margin-left: 20px;" class="form-control col-md-4">
-                                            <?php
-                                                $dept = $_SESSION['dept'];
-                                                $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
-                                                $result = mysqli_query($connect, $query);
-                                                $num = mysqli_num_rows($result);
-                                                while($array = mysqli_fetch_array($result)){
-                                                $opt_val = $array['user_id'];
-                                                $opt_content = $array['name'];
-                                                echo "<option value = $opt_val>$opt_content</option>";
-                                            }?>                                      
-                                            </select>
-                                            <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">Login</button>    
-                                        </div>
-                                    </form>
-                                    <div id="facultyDetails" style="height: 350px;">
-                                        
+            <div style="height:600px; overflow-y: hidden;" id="faculty" >
+                <div class="col-sm-12 cardStyle">
+                    <div class="card">
+                        <div class="card-body" id="faculty">
+                            <h1 class="box-title">VIEW FACULTY PERFORMANCE</h1>
+                            <div class="col-sm-12" style="margin-left: 0px;" >
+                                <form action="#faculty" method="GET" class="form-inline">
+                                    <div class="form-group inline col-md-12">
+                                        <label for="faculty_name">Select Faculty:</label>
+                                        <select name="faculty_name" style="margin-left: 20px;" class="form-control col-md-4">
+                                        <?php
+                                            $dept = $_SESSION['dept'];
+                                            $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
+                                            $result = mysqli_query($connect, $query);
+                                            $num = mysqli_num_rows($result);
+                                            while($array = mysqli_fetch_array($result)){
+                                            $opt_val = $array['user_id'];
+                                            $opt_content = $array['name'];
+                                            echo "<option value = $opt_val>$opt_content</option>";
+                                        }?>                                      
+                                        </select>
+                                        <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">Login</button>    
+                                    </div>
+                                </form>
+                                <div id="facultyDetails" style="height: 450px;margin-top: 25px;">
+                                    <h1 class="box-title">FACULTY PERFORMANCE</h1>
+                                    <div class="col-sm-12" style="margin-left: 0px;" >
+                                        <?php 
+                                            echo chartLine(
+                                            ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                            [
+                                                ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
+                                                ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]]
+                                            ],
+                                            'COMPARE DEPARTMENTS'                                                
+                                        );
+                                        ?>
                                     </div>
                                 </div>
-                            </div> 
-
-                            <div class="card-body" id="">
-                                <h1 class="box-title">COMPARE YOUR PERFORMANCE </h1>
-                                 <div class="col-sm-12" style="margin-left: 0px;" >
-                                                   <?php 
-                                                    echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                    [
-                                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
-                                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
-                                                        ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
-                                                        ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
-                                                        ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
-                                                    ],
-                                                    'COMPARE DEPARTMENTS'                                                
-                                                );
-                                                ?>
-                                </div>
-                            </div> 
-
-
-                            <!-- /.row -->
-
-
-
+                            </div>
                         </div>
-                    </div><!-- /# column -->
+                    </div>
                 </div>
             </div>
 
-             <div style="height:500px; overflow-y: hidden;margin-top: 20px;" id="compare" >
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body" id="">
-                                <h1 class="box-title">COMPARE YOUR PERFORMANCE </h1>
-                                 <div class="col-sm-12" style="margin-left: 0px;" >
-                                                   <?php 
-                                                    echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                    [
-                                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
-                                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
-                                                        ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
-                                                        ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
-                                                        ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
-                                                    ],
-                                                    'COMPARE DEPARTMENTS'                                                
-                                                );
-                                                ?>
-                                </div>
-                            </div> 
-
-
-                            <!-- /.row -->
-
-
-
-                        </div>
-                    </div><!-- /# column -->
+            <div style="height:500px; overflow-y: hidden;" id="compare" >
+                <div class="col-sm-12 cardStyle">
+                    <div class="card">
+                        <div class="card-body" id="">
+                            <h1 class="box-title">COMPARE YOUR PERFORMANCE WITH THE OTHER DEPARTMENTS</h1>
+                            <div class="col-sm-12" style="margin-left: 0px;" >
+                                <?php 
+                                    echo chartLine(
+                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                    [
+                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
+                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
+                                        ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
+                                        ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
+                                        ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
+                                    ],
+                                    'COMPARE DEPARTMENTS'                                                
+                                );
+                                ?>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
 
                 <!--  Traffic -->
                 <div class="clearfix"></div>
                 <!-- Orders -->
-                <div class="orders">
+                <div class="orders" id="topFaculty">
                     <div class="row">
-                        <div class="col-xl-8">
+                        <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="box-title">Orders </h4>
@@ -737,17 +727,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
-
-    <!--  Chart js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-
-    <!--Chartist Chart-->
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
     <script src="assets/js/init/weather-init.js"></script>
