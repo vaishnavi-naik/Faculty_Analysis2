@@ -59,6 +59,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin - Faculty Analysis</title>
@@ -111,8 +113,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <li><a href="#topFaculty"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
-                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
+                    <li><a href="#addfaculty"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
+                    <li><a href="#addadmin"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
                     <li><a href="widgets.html"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
@@ -357,6 +359,152 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
+         <div style="height:600px; overflow-y: hidden;" id="addfaculty">
+                <div class="col-sm-12 cardStyle">
+                    <div class="card">
+
+                        <div class="card-body" id="depPerformance">
+                           <h1 class="box-title">MANAGE FACULTY </h1> 
+                            <div  >
+                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Name</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-7">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pass" class="col-sm-4 control-label">Password</label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <label for="dept" class="col-sm-4 control-label">Department</label>
+                <div class="col-sm-7">
+                    <select name="dept" id="dept" class="form-control">
+                        <option value="CSE"> Computer Science and Engineering</option>
+                        <option value="CIV"> Civil Engineering</option>
+                        <option value="CE"> Chemical Engineering</option>
+                        <option value="EEE"> Electronics and Electrical Engineering </option>
+                        <option value="ECE"> Electronics and Communication </option>
+                        <option value="ISE"> Information Science and Engineering</option>
+                        <option value="ME"> Mechanical Engineering</option>
+                        <option value="NA"> Not applicable</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
+                <div class="col-sm-7" style="margin-top: 6px;" >
+                    <input type="file" id="image" name="image">
+                </div>
+            </div>
+
+            
+            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <center><strong>Error!</strong> Upload an image!</center>
+            </div>
+            <br>
+            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
+           <br>
+            </form>
+            <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <center><strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a></center>
+            </div>
+                            </div>
+                        </div> 
+                        <!-- /.row -->
+                    </div>
+                </div><!-- /# column -->
+            </div>
+        <div style="height:600px; overflow-y: hidden;" id="addadmin">
+                <div class="col-sm-12 cardStyle">
+                    <div class="card">
+
+                        <div class="card-body" id="depPerformance">
+                           <h1 class="box-title">MANAGE ADMIN </h1> 
+                            <div  >
+                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Name</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-7">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pass" class="col-sm-4 control-label">Password</label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <label for="dept" class="col-sm-4 control-label">Department</label>
+                <div class="col-sm-7">
+                    <select name="dept" id="dept" class="form-control">
+                        <option value="CSE"> Computer Science and Engineering</option>
+                        <option value="CIV"> Civil Engineering</option>
+                        <option value="CE"> Chemical Engineering</option>
+                        <option value="EEE"> Electronics and Electrical Engineering </option>
+                        <option value="ECE"> Electronics and Communication </option>
+                        <option value="ISE"> Information Science and Engineering</option>
+                        <option value="ME"> Mechanical Engineering</option>
+                        <option value="NA"> Not applicable</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
+                <div class="col-sm-7" style="margin-top: 6px;" >
+                    <input type="file" id="image" name="image">
+                </div>
+            </div>
+
+            
+            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <center><strong>Error!</strong> Upload an image!</center>
+            </div>
+            <br>
+            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
+           <br>
+            </form>
+            <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <center><strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a></center>
+            </div>
+        
+
+                            </div>
+                        </div> 
+                        <!-- /.row -->
+                    </div>
+                </div><!-- /# column -->
+            </div>
                 <!--  Traffic -->
                 <div class="clearfix"></div>
                 <!-- Orders -->
