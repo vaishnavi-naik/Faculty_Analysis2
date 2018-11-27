@@ -116,7 +116,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
                     <li><a href="#addFaculty" id="addFacultyTrigger"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
                     <li><a href="#addAdmin" id="addAdminTrigger"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
-                    <li><a href="#addperformance" id=""> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
+                    <li><a href="#addPerformance" id="addPerformanceTrigger"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
@@ -359,7 +359,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div>
             </div>
-<div style="height:850px; overflow-y: hidden; " id="addperformance">
+<div style="height:850px; overflow-y: hidden; " id="addPerformance">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
@@ -1015,6 +1015,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
         $("#addAdminTrigger").on('click',function(){
             $('html,body').animate({
                 scrollTop: $('#addAdmin').offset().top-75
+            }, 1000);
+        });
+        $("#addPerformanceTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#addPerformance').offset().top-75
             }, 1000);
         });
     </script>
