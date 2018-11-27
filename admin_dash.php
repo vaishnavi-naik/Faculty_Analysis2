@@ -60,7 +60,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <html class="no-js" lang="en">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin - Faculty Analysis</title>
@@ -95,6 +95,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 <body>
     <!-- Left Panel -->
+    
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -107,15 +108,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
-                    <li><a href="#depPerformance"> <i class="menu-icon fas fa-school"></i>Department </a></li>
-                    <li><a href="#faculty"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
-                    <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
-                    <li><a href="#topFaculty"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
+                    <li><a href="#depPerformance" id="depTrigger"> <i class="menu-icon fas fa-school"></i>Department </a></li>
+                    <li><a href="#faculty" id="facultyTrigger"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
+                    <li><a href="#compare" id="compareTrigger"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="#topFaculty" id="topTrigger"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
-                    <li><a href="#addfaculty"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
-                    <li><a href="#addadmin"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
+                    <li><a href="#addFaculty" id="addFacultyTrigger"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
+                    <li><a href="#addAdmin" id="addAdminTrigger"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
+                    <li><a href="widgets.html" id=""> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
@@ -334,7 +335,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
-            <div style="height:500px; overflow-y: hidden;" id="compare" >
+            <div style="height:500px; overflow-y: hidden; margin-top: 10px;" id="compare" >
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
                         <div class="card-body" id="">
@@ -359,7 +360,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
-         <div style="height:600px; overflow-y: hidden;" id="addfaculty">
+         <div style="height:600px; overflow-y: hidden;" id="addFaculty">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
@@ -431,7 +432,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div><!-- /# column -->
             </div>
-        <div style="height:600px; overflow-y: hidden;" id="addadmin">
+        <div style="height:600px; overflow-y: hidden;" id="addAdmin">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
@@ -870,6 +871,41 @@ function chartLine($xAxisData, $seriesData, $title = '')
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+
+    <script type="text/javascript">
+        $("#depTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#depPerformance').offset().top-75
+            }, 1000);
+        });
+
+        $("#facultyTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#faculty').offset().top-75
+            }, 1000);
+        });
+        $("#compareTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#compare').offset().top-75
+            }, 1000);
+        });
+        $("#topTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#topFaculty').offset().top-75
+            }, 1000);
+        });
+        $("#addFacultyTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#addFaculty').offset().top-75
+            }, 1000);
+        });
+        $("#addAdminTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#addAdmin').offset().top-75
+            }, 1000);
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
