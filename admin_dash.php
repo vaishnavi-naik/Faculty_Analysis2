@@ -443,21 +443,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <div class="form-group">
                     <label for="name" class="col-sm-4 control-label">Name</label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"required="true">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email</label>
                     <div class="col-sm-7">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="true">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="pass" class="col-sm-4 control-label">Password</label>
                     <div class="col-sm-7">
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"required="true">
                     </div>
                 </div>
 
@@ -465,7 +465,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <label for="dept" class="col-sm-4 control-label">Department</label>
                 <div class="col-sm-7">
                     <select name="dept" id="dept" class="form-control">
-                        <option value="CSE"> Computer Science and Engineering</option>
+                        <option value="CSE" selected="true"> Computer Science and Engineering</option>
                         <option value="CIV"> Civil Engineering</option>
                         <option value="CE"> Chemical Engineering</option>
                         <option value="EEE"> Electronics and Electrical Engineering </option>
