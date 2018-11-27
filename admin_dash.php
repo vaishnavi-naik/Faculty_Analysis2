@@ -60,7 +60,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <html class="no-js" lang="en">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin - Faculty Analysis</title>
@@ -95,6 +95,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 <body>
     <!-- Left Panel -->
+    
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -107,15 +108,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </li>
 
                     <li class="menu-title">View Performance</li><!-- /.menu-title -->
-                    <li><a href="#depPerformance"> <i class="menu-icon fas fa-school"></i>Department </a></li>
-                    <li><a href="#faculty"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
-                    <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
-                    <li><a href="#topFaculty"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
+                    <li><a href="#depPerformance" id="depTrigger"> <i class="menu-icon fas fa-school"></i>Department </a></li>
+                    <li><a href="#faculty" id="facultyTrigger"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
+                    <li><a href="#compare" id="compareTrigger"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                    <li><a href="#topFaculty" id="topTrigger"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
                     <li class="menu-title">Manage</li><!-- /.menu-title -->
-                    <li><a href="#addfaculty"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
-                    <li><a href="#addadmin"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
-                    <li><a href="#addperformance"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
+                    <li><a href="#addFaculty" id="addFacultyTrigger"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
+                    <li><a href="#addAdmin" id="addAdminTrigger"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
+                    <li><a href="widgets.html" id=""> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
@@ -334,7 +335,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
-            <div style="height:500px; overflow-y: hidden;" id="compare" >
+            <div style="height:500px; overflow-y: hidden; margin-top: 10px;" id="compare" >
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
                         <div class="card-body" id="">
@@ -359,7 +360,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
-         <div style="height:600px; overflow-y: hidden;" id="addfaculty">
+         <div style="height:600px; overflow-y: hidden;" id="addFaculty">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
@@ -431,7 +432,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div><!-- /# column -->
             </div>
-        <div style="height:600px; overflow-y: hidden;" id="addadmin">
+        <div style="height:600px; overflow-y: hidden;" id="addAdmin">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
@@ -499,151 +500,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
             </div>
         
 
-            </div>
-                </div> 
-             </div>
-           </div><!-- /# column -->
-        </div>
-
-        <div style="height:1000px; overflow-y: hidden;" id="addperformance">
-                <div class="col-sm-12 cardStyle">
-                    <div class="card">
-
-                        <div class="card-body" id="depPerformance">
-                           <h1 class="box-title">ADD PERFORMANCE </h1> 
-                            <div  >
-                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
-
-            <div class="form-group">
-                <label for="faculty" class="col-sm-4 control-label">Select Faculty</label>
-                <div class="col-sm-4">
-                    <select name="faculty" id="faculty" class="form-control">
-                        <option value="1"> SAM</option>
-                        <option value="2"> RAM</option>
-                        <option value="3"> ROY</option>
-                        <option value="4"> ROHAN</option>
-                        <option value="5"> MEERA </option>
-                        <option value="6"> RANI</option>
-                        <option value="7"> LEELA</option>
-                        <option value="8"> GEETHA<option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label for="year" class="col-sm-4 control-label">Select Year</label>
-                <div class="col-sm-4">
-                    <select name="year" id="year" class="form-control">
-                        <option value="2024-25"> 2024-25</option>
-                        <option value="2023-24"> 2023-24</option>
-                        <option value="2022-23"> 2022-23</option>
-                        <option value="2021-22"> 2021-22</option>
-                        <option value="2020-21"> 2020-21</option>
-                        <option value="2019-20"> 2019-20</option>
-                        <option value="2018-19"> 2018-19 </option>
-                        <option value="2017-18"> 2017-18</option>
-                        <option value="2016-17"> 2016-17</option>
-                        <option value="2015-16"> 2015-16<option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="sem" class="col-sm-4 control-label">Select Year</label>
-                <div class="col-sm-4">
-                    <select name="sem" id="sem" class="form-control">
-                        <option value="odd"> EVEN</option>
-                        <option value="even"> ODD</option>
-                        
-                    </select>
-                </div>
-            </div>
-
-                 <div class="form-group">
-                    <label for="name" class="col-sm-4 control-label">Name</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"required="true">
+                            </div>
+                        </div> 
+                        <!-- /.row -->
                     </div>
-                </div>
-
-                 <div class="form-group">
-                    <label for="name" class="col-sm-4 control-label">Name</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"required="true">
-                    </div>
-                </div>
-                 <div class="form-group">
-                    <label for="name" class="col-sm-4 control-label">Name</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"required="true">
-                    </div>
-                </div>
-
-
-
-
-                <div class="form-group">
-                    <label for="email" class="col-sm-4 control-label">Email</label>
-                    <div class="col-sm-7">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="true">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="pass" class="col-sm-4 control-label">Password</label>
-                    <div class="col-sm-7">
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"required="true">
-                    </div>
-                </div>
-
-              <div class="form-group">
-                <label for="dept" class="col-sm-4 control-label">Department</label>
-                <div class="col-sm-7">
-                    <select name="dept" id="dept" class="form-control">
-                        <option value="CSE" selected="true"> Computer Science and Engineering</option>
-                        <option value="CIV"> Civil Engineering</option>
-                        <option value="CE"> Chemical Engineering</option>
-                        <option value="EEE"> Electronics and Electrical Engineering </option>
-                        <option value="ECE"> Electronics and Communication </option>
-                        <option value="ISE"> Information Science and Engineering</option>
-                        <option value="ME"> Mechanical Engineering</option>
-                        <option value="NA"> Not applicable</option>
-                    </select>
-                </div>
+                </div><!-- /# column -->
             </div>
-
-            <div class="form-group">
-                <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                <div class="col-sm-7" style="margin-top: 6px;" >
-                    <input type="file" id="image" name="image">
-                </div>
-            </div>
-
-            
-            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <center><strong>Error!</strong> Upload an image!</center>
-            </div>
-            <br>
-            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
-           <br>
-            </form>
-            <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <center><strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a></center>
-            </div>
-        
-
-            </div>
-                </div> 
-             </div>
-           </div><!-- /# column -->
-        </div>
-
-
-
-
-
                 <!--  Traffic -->
                 <div class="clearfix"></div>
                 <!-- Orders -->
@@ -1009,6 +871,41 @@ function chartLine($xAxisData, $seriesData, $title = '')
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+
+    <script type="text/javascript">
+        $("#depTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#depPerformance').offset().top-75
+            }, 1000);
+        });
+
+        $("#facultyTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#faculty').offset().top-75
+            }, 1000);
+        });
+        $("#compareTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#compare').offset().top-75
+            }, 1000);
+        });
+        $("#topTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#topFaculty').offset().top-75
+            }, 1000);
+        });
+        $("#addFacultyTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#addFaculty').offset().top-75
+            }, 1000);
+        });
+        $("#addAdminTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#addAdmin').offset().top-75
+            }, 1000);
+        });
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -1026,5 +923,3 @@ function chartLine($xAxisData, $seriesData, $title = '')
     
 </body>
 </html>
-
-
