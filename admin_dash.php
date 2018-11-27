@@ -404,8 +404,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <label for="sem" class="col-sm-4 control-label">Choose Sem</label>
                 <div class="col-sm-4">
                     <select name="sem" id="sem" class="form-control">
-                        <option value="CSE"> Computer Science and Engineering</option>
-                        <option value="CIV"> Civil Engineering</option>
+                        <option value="odd"> ODD</option>
+                        <option value="even"> EVEN</option>
                     </select>
                 </div>
             </div>
