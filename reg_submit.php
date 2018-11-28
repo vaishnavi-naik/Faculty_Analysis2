@@ -16,8 +16,6 @@ if(isset($_POST["submit"]))
 		    if(mysqli_query($connect, $query) or die(mysqli_error($connect)))  
 		    {  
 		    	$msg = "Registration Successful!"; 
-		    }else{
-		 		$msg = "User not Registered. Try Again!";
 		    }
 		    header('location: register.php?msg=' . $msg);	  	
 		}else{

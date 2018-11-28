@@ -367,14 +367,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
             <div class="card-body" id="depPerformance">
             <h1 class="box-title">ADD PERFORMANCE </h1> 
                 <div  >
-            <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
-              <div class="form-group" >
-                <label for="faculty" class="col-sm-4 control-label">Choose Faculty</label>
-                <div class="col-sm-4">
-                    <select name="faculty" id="faculty" class="form-control">
-                        
-                    </select>
-                </div>
+            <form class="form-horizontal" action="performance_submit.php" method="post" enctype="multipart/form-data">
+            <div class="form-group inline col-md-12">
+                <label for="faculty_name">Select Faculty:</label>
+                <select name="faculty_name" class="form-control col-md-4">
+                <?php
+                    $dept = $_SESSION['dept'];
+                    $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
+                    $result = mysqli_query($connect, $query);
+                    $num = mysqli_num_rows($result);
+                    while($array = mysqli_fetch_array($result)){
+                    $opt_val = $array['user_id'];
+                    $opt_content = $array['name'];
+                    echo "<option value = $opt_val>$opt_content</option>";
+                }?>                                      
+                </select>
             </div>
               <div class="form-group">
                 <label for="year" class="col-sm-4 control-label">Choose Year</label>
@@ -454,13 +461,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <div class="form-group">
                     <label for="tot_pass" class="col-sm-4 control-label">No of Students Passed</label>
                     <div class="col-sm-7">
-                        <input type="number" class="form-control" id="tot_pass" name="tot_passs" placeholder="Enter The Count">
+                        <input type="number" class="form-control" id="tot_pass" name="tot_pass" placeholder="Enter The Count">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="stud_credits" class="col-sm-4 control-label">Student Rating </label>
                     <div class="col-sm-7">
-                        <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter Rating (out of 10)">
+                        <input type="number" class="form-control" id="stud_credits" name="stud_credits" placeholder="Enter Rating (out of 10)">
                     </div>
                 </div>
             <br>
@@ -482,9 +489,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                         <div class="card-body" id="depPerformance">
                            <h1 class="box-title">MANAGE FACULTY </h1> 
-                            <div  >
-                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
-
+                            <div>
+                            <form class="form-horizontal" action="performance_submit.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name" class="col-sm-4 control-label">Name</label>
                     <div class="col-sm-7">
@@ -556,8 +562,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                         <div class="card-body" id="depPerformance">
                            <h1 class="box-title">MANAGE ADMIN </h1> 
-                            <div  >
-                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
+                            <div>
+                            <form class="form-horizontal" action="performance_submit.php" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="name" class="col-sm-4 control-label">Name</label>
@@ -748,7 +754,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     <div class="todo-list">
                                         <div class="tdl-holder">
                                             <div class="tdl-content">
-                                            <form class="form-horizontal" action="#" method= "POST" id="form1">
+                                            <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
                                                 <div class="form-group">
                                                 <label class="col-md-6 control-label" for="Password">Old Password</label>
                                                 <div class="col-md-7">
