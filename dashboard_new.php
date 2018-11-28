@@ -17,7 +17,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $xAxis = new Hisune\EchartsPHP\Doc\IDE\XAxis();
     $yAxis = new Hisune\EchartsPHP\Doc\IDE\YAxis();
 
-    $color = [ '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3',
+    $color = [ '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3',
             '#ff7f50','#87cefa','#da70d6','#32cd32','#6495ed','#ff69b4','#ba55d3','#cd5c5c','#ffa500','#40e0d0'
         ];
     shuffle($color);
@@ -53,7 +53,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->addYAxis($yAxis);
 
     $chart->initOptions->renderer = 'canvas';
-    $chart->initOptions->width = '950px';
+  //  $chart->initOptions->width = '800px';
 
     return $chart->render(uniqid());
 }
@@ -339,7 +339,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'YOU SCORE', 'data' => [5.988, 20, 40, 10, 10, 20], 'type' => 'bar'],
+                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'bar'],
                                                          ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'bar'],
                                                          ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'bar']
                                                          
