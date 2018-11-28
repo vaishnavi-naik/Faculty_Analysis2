@@ -85,20 +85,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
         <style type="text/css">
-            .cardStyle{
-              padding-left: 0px;
-              padding-right: 0px;
-
-            }
-            .sidebarHeading{
-                font-weight: 700;
-                text-transform: uppercase;
-                font-size: 20px;
-            }
-            .iclass{
-                font-size: 16px; margin-top: 7px;
-            }
-        </style>
+        .cardStyle{
+          padding-left: 0px;
+          padding-right: 0px;
+      }
+    </style>
     </head>
 
     <body>
@@ -108,26 +99,26 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <aside id="left-panel" class="left-panel">
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
-                    <ul class="nav navbar-nav list-group" id="myNav">
+                    <ul class="nav navbar-nav">
 
                         <li class="active">
                             <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                         </li>
 
-                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i>View Performance</a></li><!-- /.menu-title -->
-                        <li><a href="#depPerformance" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Department </a></li>
-                        <li><a href="#faculty" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
-                        <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
-                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
+                        <li class="menu-title"><a href="#viewPerformance" id="viewTrigger">View Performance</a></li><!-- /.menu-title -->
+                        <li><a href="#depPerformance" id="depTrigger"> <i class="menu-icon fas fa-school"></i>Department </a></li>
+                        <li><a href="#faculty" id="facultyTrigger"> <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
+                        <li><a href="#compare" id="compareTrigger"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
+                        <li><a href="#topFaculty" id="topTrigger"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
-                        <li class="sidebarHeading"><a href="#manageDept" class="sliding-link"><i class="menu-icon fas fa-code-branch iclass" style="color:#03a9f3;"></i>Manage</a></li><!-- /.menu-title -->
-                        <li><a href="#addFaculty" class="sliding-link"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
-                        <li><a href="#addAdmin" class="sliding-link"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
-                        <li><a href="#addPerformance" class="sliding-link"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
+                        <li class="menu-title"><a href="#manageDept" id="manageTrigger">Manage</a></li><!-- /.menu-title -->
+                        <li><a href="#addFaculty" id="addFacultyTrigger"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
+                        <li><a href="#addAdmin" id="addAdminTrigger"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
+                        <li><a href="#addPerformance" id="addPerformanceTrigger"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                         
-                        <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i>Personal Details</a></li><!-- /.menu-title -->
-                        <li><a href="#" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
-                        <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
+                        <li class="menu-title"><a href="#personalDetails" id="personalTrigger">Personal Details</a></li><!-- /.menu-title -->
+                        <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                        <li><a href="#changePass" id="changePassTrigger"> <i class="menu-icon ti-key"></i>Change Password</a></li>
                         <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -142,7 +133,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <div class="top-left">
                     <div class="navbar-header" >
                         <a class="navbar-brand" href="./"><img src="img/long_logo_transparent.png" alt="Logo"  ></a>
-                        <a id="menuToggle" class="menutoggle" style="cursor: pointer;"><i class="fa fa-bars"></i></a>
+                        <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                     </div>
                 </div>
                 <div class="top-right">
@@ -186,7 +177,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
             <!-- Content -->
             <div class="content">
                 <!-- Animated -->
-                <div class="animated fadeIn" data-spy="scroll" data-target="#myNav" data-offset="50">
+                <div class="animated fadeIn">
                     <!-- Widgets Top Small Cards -->
                     <div class="row">
 
@@ -764,7 +755,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <div class="col-md-4" id ="personalDetails" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
-                        <div class="card bg-flat-color-5">
+                        <div class="card bg-flat-color-3">
                             <div class="card-body" style="">
                                 <h3 class=" white-color ">PERSONAL DETAILS</h4>
                             </div>
@@ -772,47 +763,54 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- To Do and Live Chat -->
-                    <div class="row" id="changePass">                        
-                        <div class="card col-lg-6">
-                            <div class="card-body">
-                                <h4 class="card-title box-title">Change Password</h4>
-                                <div class="card-content">
-                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
-                                        <div class="form-group">
-                                            <label class="col-md-6 control-label" for="oldpassword">Old Password</label>
-                                            <div class="col-md-7">
-                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
-                                                    <input id="oldpassword" name="oldpassword" type="password" placeholder="Enter Old Password" class="form-control input-md">
+                    <div class="row" id="changePass">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title box-title">Change Password</h4>
+                                    <div class="card-content">
+                                        <div class="todo-list">
+                                            <div class="tdl-holder">
+                                                <div class="tdl-content">
+                                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
+                                                        <div class="form-group">
+                                                            <label class="col-md-6 control-label" for="Password">Old Password</label>
+                                                            <div class="col-md-7">
+                                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                                    <input id="oldpassword" name="oldpassword" type="password" placeholder="Enter Old Password" class="form-control input-md">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-6 control-label" for="Password">New Password</label>
+                                                                <div class="col-md-7">
+                                                                    <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                                        <input id="newpassword" name="newpassword" type="password" placeholder="Enter New Password" class="form-control input-md">
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-6 control-label" for="Password">Confirm Password</label>
+                                                            <div class="col-md-7">
+                                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                                    <input id="newpassword1" name="newpassword1" type="password" placeholder="Confirm New Password" class="form-control input-md">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-offset-5 col-md-4"> 
+                                                            <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-6 control-label" for="newpassword">New Password</label>
-                                                <div class="col-md-7">
-                                                    <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
-                                                        <input id="newpassword" name="newpassword" type="password" placeholder="Enter New Password" class="form-control input-md">
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-6 control-label" for="newpassword1">Confirm Password</label>
-                                            <div class="col-md-7">
-                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
-                                                    <input id="newpassword1" name="newpassword1" type="password" placeholder="Confirm New Password" class="form-control input-md">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-offset-5 col-md-4"> 
-                                            <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
-                                        </div>
-                                    </form>                                                
-                                </div>
-                            </div> <!-- /.card-body -->
-                        </div><!-- /.card -->
-                        
+                                        </div> 
+                                    </div>
+                                </div> <!-- /.card-body -->
+                            </div><!-- /.card -->
+                        </div>
 
                         <div class="col-lg-6">
                             <div class="card">
@@ -1019,12 +1017,10 @@ function chartLine($xAxisData, $seriesData, $title = '')
             //         scrollTop: $('#personalDetails').offset().top-75
             //     }, 1000);
             // });
+            $("a[href^=#]").click(function(e) { e.preventDefault(); var dest = $(this).attr('href'); console.log(dest); $('html,body').animate({ scrollTop: $(dest).offset().top-75 }, 2000); });
 
-            $(".sliding-link").click(function(e) {
-                // e.preventDefault();
-                var aid = $(this).attr("href");
-                $('html,body').animate({scrollTop: $(aid).offset().top-75},'slow');
-            });
+
+
 
             $(document).ready(function() {
                 $('html, body').hide();
@@ -1042,8 +1038,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 }
             });
         </script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-        <script src="js/confirmPass.js"></script>
+        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/addPerformanceValidation.js"></script> -->
 
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>

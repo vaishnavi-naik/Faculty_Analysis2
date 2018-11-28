@@ -732,9 +732,9 @@ aside.left-panel {
   left: 15px !important; }
 
 .sub-menu .subtitle {
-  display: none; }
+  display: block; }
   .sub-menu .subtitle > .menu-icon {
-    display: none; }
+    display: block; }
 
 .open aside.left-panel {
   max-width: 83px;
