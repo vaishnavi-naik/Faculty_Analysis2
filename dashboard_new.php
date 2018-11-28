@@ -517,20 +517,20 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <!-- /.content -->
         <div class="clearfix"></div>
         <!-- Footer -->
-        <footer class="site-footer">
-            <div class="footer-inner bg-white">
-                <div class="row">
-                    <div class="col-sm-6">
-                        Copyright &copy; 2018 Faculty Analysis
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        By Vaishnavi N Naik | Siddhartha N
+             <footer class="site-footer">
+                <div class="footer-inner bg-white">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            Copyright &copy; 2018 Faculty Analysis
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            By Vaishnavi N Naik | Siddhartha N
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
         <!-- /.site-footer -->
-    </div>
+    
     <!-- /#right-panel -->
 
     <!-- Scripts -->
