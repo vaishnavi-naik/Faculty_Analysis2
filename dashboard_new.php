@@ -17,7 +17,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $xAxis = new Hisune\EchartsPHP\Doc\IDE\XAxis();
     $yAxis = new Hisune\EchartsPHP\Doc\IDE\YAxis();
 
-    $color = [ '#ca8622', '#bda29a','#6e7074', '#546570','#ff69b4','#ba55d3','#cd5c5c','#ffa500','#40e0d0',
+    $color = [ '#ca8622', '#ff0000','#bda29a','#6e7074', '#546570','#ff69b4','#ba55d3','#cd5c5c','#ffa500','#40e0d0',
             '#ff7f50','#87cefa','#da70d6','#32cd32','#6495ed','#FB0065','#FCFF00','#00ECFF'
         ];
     shuffle($color);
