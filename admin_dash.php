@@ -120,7 +120,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     
                     <li class="menu-title">Personal Details</li><!-- /.menu-title -->
                     <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
-                    <li><a href="#"> <i class="menu-icon ti-key"></i>Change Password</a></li>
+                    <li><a href="#changePass" id="changePassTrigger"> <i class="menu-icon ti-key"></i>Change Password</a></li>
                     <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -167,7 +167,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#changePass" id="changePassTrigger1"><i class="fa fa -cog"></i>Settings</a>
 
                             <a class="nav-link" href="logout.php"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
@@ -359,50 +359,45 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div>
             </div>
-<div style="height:850px; overflow-y: hidden; " id="addPerformance">
+<div style="height:1150px; overflow-y: hidden; " id="addPerformance">
                 <div class="col-sm-12 cardStyle">
                     <div class="card">
 
 
-                <div class="card-body" id="depPerformance">
-                           <h1 class="box-title">ADD PERFORMANCE </h1> 
-                            <div  >
-                               <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
-
-
-              <div class="form-group">
+            <div class="card-body" id="depPerformance">
+            <h1 class="box-title">ADD PERFORMANCE </h1> 
+                <div  >
+            <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
+              <div class="form-group" >
                 <label for="faculty" class="col-sm-4 control-label">Choose Faculty</label>
                 <div class="col-sm-4">
                     <select name="faculty" id="faculty" class="form-control">
-                        <option value="CSE"> Computer Science and Engineering</option>
-                        <option value="CIV"> Civil Engineering</option>
-                        <option value="CE"> Chemical Engineering</option>
-                        <option value="EEE"> Electronics and Electrical Engineering </option>
-                        <option value="ECE"> Electronics and Communication </option>
-                        <option value="ISE"> Information Science and Engineering</option>
-                        <option value="ME"> Mechanical Engineering</option>
-                        <option value="NA"> Not applicable</option>
+                        
                     </select>
                 </div>
             </div>
               <div class="form-group">
                 <label for="year" class="col-sm-4 control-label">Choose Year</label>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <select name="year" id="year" class="form-control">
-                        <option value="CSE"> Computer Science and Engineering</option>
-                        <option value="CIV"> Civil Engineering</option>
-                        <option value="CE"> Chemical Engineering</option>
-                        <option value="EEE"> Electronics and Electrical Engineering </option>
-                        <option value="ECE"> Electronics and Communication </option>
-                        <option value="ISE"> Information Science and Engineering</option>
-                        <option value="ME"> Mechanical Engineering</option>
-                        <option value="NA"> Not applicable</option>
+                        <option value="2024-25">2024-25</option>
+                        <option value="2023-24">2023-24 </option>
+                        <option value="2022-23">2022-23 </option>
+                        <option value="2021-22">2021-22 </option>
+                        <option value="2020-21">2020-21 </option>
+                        <option value="2019-20">2019-20 </option>
+                        <option value="2018-19" selected="true"> 2018-19</option>
+                        <option value="2017-18">2017-18 </option>
+                        <option value="2016-17">2016-17  </option>
+                        <option value="2015-16">2015-16 </option>
+                        <option value="2014-15">2014-15</option>
+                        
                     </select>
                 </div>
             </div>
               <div class="form-group">
                 <label for="sem" class="col-sm-4 control-label">Choose Sem</label>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <select name="sem" id="sem" class="form-control">
                         <option value="odd"> ODD</option>
                         <option value="even"> EVEN</option>
@@ -410,63 +405,71 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </div>
 
+            <h1 class="box-title">CREDITS FROM ACADEMICS </h1>
+
                 <div class="form-group">
-                    <label for="name" class="col-sm-4 control-label">Name</label>
+                    <label for="attendance" class="col-sm-4 control-label">Total Attendance </label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                        <input type="number" class="form-control" id="attendance" name="attendance" placeholder="Enter Attendance (Exclude %)">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="col-sm-4 control-label">Email</label>
+                    <label for="tot_research" class="col-sm-4 control-label">No of Research works</label>
                     <div class="col-sm-7">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        <input type="number" class="form-control" id="tot_research" name="tot_research" placeholder="Enter Total Count">
                     </div>
                 </div>
+
 
                 <div class="form-group">
-                    <label for="pass" class="col-sm-4 control-label">Password</label>
+                    <label for="tot_pub" class="col-sm-4 control-label">No of Publications</label>
                     <div class="col-sm-7">
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                        <input type="number" class="form-control" id="tot_pub" name="tot_pub" placeholder="Enter Total Count">
                     </div>
                 </div>
-
-              <div class="form-group">
-                <label for="dept" class="col-sm-4 control-label">Department</label>
-                <div class="col-sm-7">
-                    <select name="dept" id="dept" class="form-control">
-                        <option value="CSE"> Computer Science and Engineering</option>
-                        <option value="CIV"> Civil Engineering</option>
-                        <option value="CE"> Chemical Engineering</option>
-                        <option value="EEE"> Electronics and Electrical Engineering </option>
-                        <option value="ECE"> Electronics and Communication </option>
-                        <option value="ISE"> Information Science and Engineering</option>
-                        <option value="ME"> Mechanical Engineering</option>
-                        <option value="NA"> Not applicable</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-group">
-                <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                <div class="col-sm-7" style="margin-top: 6px;" >
-                    <input type="file" id="image" name="image">
+                    <label for="tot_org" class="col-sm-4 control-label">No of Organizations </label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="tot_org" name="tot_org" placeholder="Enter Total Count">
+                    </div>
                 </div>
-            </div>
 
-            
-            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <center><strong>Error!</strong> Upload an image!</center>
-            </div>
+               <div class="form-group">
+                    <label for="tot_extra_act" class="col-sm-4 control-label">No of Extra-Curricular Events </label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="tot_extra_act" name="tot_extra_act" placeholder="Enter Total Count">
+                    </div>
+                </div>
+
+          <h1 class="box-title">CREDITS FROM STUDENTS </h1>
+
+                <div class="form-group">
+                    <label for="tot_students" class="col-sm-4 control-label">Total Students</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter The Count">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tot_pass" class="col-sm-4 control-label">No of Students Passed</label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="tot_pass" name="tot_passs" placeholder="Enter The Count">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="stud_credits" class="col-sm-4 control-label">Student Rating </label>
+                    <div class="col-sm-7">
+                        <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter Rating (out of 10)">
+                    </div>
+                </div>
             <br>
-            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
+            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Submit</button>
            <br>
+
+         
             </form>
-            <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <center><strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a></center>
-            </div>
+         
                             </div>
                         </div> 
                         <!-- /.row -->
@@ -488,6 +491,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
                     </div>
                 </div>
+
+                        <input type="hidden" class="form-control" id="utype" name="utype" value="user">
 
                 <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email</label>
@@ -561,6 +566,9 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div>
 
+                 <input type="hidden" class="form-control" id="utype" name="utype" value="admin">
+
+
                 <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email</label>
                     <div class="col-sm-7">
@@ -620,7 +628,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div><!-- /# column -->
             </div>
                 <!--  Traffic -->
-                <div class="clearfix"></div>
+     <div class="clearfix"></div>
                 <!-- Orders -->
                 <div class="orders" id="topFaculty">
                     <div class="row">
@@ -726,86 +734,53 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             </div> <!-- /.card -->
                         </div>  <!-- /.col-lg-8 -->
 
-                        <div class="col-xl-4">
-                            <div class="row">
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card br-0">
-                                        <div class="card-body">
-                                            <div class="chart-container ov-h">
-                                                <div id="flotPie1" class="float-chart"></div>
-                                            </div>
-                                        </div>
-                                    </div><!-- /.card -->
-                                </div>
-
-                                <div class="col-lg-6 col-xl-12">
-                                    <div class="card bg-flat-color-3  ">
-                                        <div class="card-body">
-                                            <h4 class="card-title m-0  white-color ">August 2018</h4>
-                                        </div>
-                                         <div class="card-body">
-                                             <div id="flotLine5" class="flot-line"></div>
-                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- /.col-md-4 -->
+                       
                     </div>
                 </div>
                 <!-- /.orders -->
                 <!-- To Do and Live Chat -->
-                <div class="row">
+                <div class="row" id="changePass">
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title box-title">To Do List</h4>
+                                <h4 class="card-title box-title">Change Password</h4>
                                 <div class="card-content">
                                     <div class="todo-list">
                                         <div class="tdl-holder">
                                             <div class="tdl-content">
-                                                <ul>
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox"><i class="check-box"></i><span>Conveniently fabricate interactive technology for ....</span>
-                                                            <a href='#' class="fa fa-times"></a>
-                                                            <a href='#' class="fa fa-pencil"></a>
-                                                            <a href='#' class="fa fa-check"></a>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox"><i class="check-box"></i><span>Creating component page</span>
-                                                            <a href='#' class="fa fa-times"></a>
-                                                            <a href='#' class="fa fa-pencil"></a>
-                                                            <a href='#' class="fa fa-check"></a>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox" checked><i class="check-box"></i><span>Follow back those who follow you</span>
-                                                            <a href='#' class="fa fa-times"></a>
-                                                            <a href='#' class="fa fa-pencil"></a>
-                                                            <a href='#' class="fa fa-check"></a>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox" checked><i class="check-box"></i><span>Design One page theme</span>
-                                                            <a href='#' class="fa fa-times"></a>
-                                                            <a href='#' class="fa fa-pencil"></a>
-                                                            <a href='#' class="fa fa-check"></a>
-                                                        </label>
-                                                    </li>
+                                            <form class="form-horizontal" action="#" method= "POST" id="form1">
+                                                <div class="form-group">
+                                                <label class="col-md-6 control-label" for="Password">Old Password</label>
+                                                <div class="col-md-7">
+                                                  <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                    <input id="oldpassword" name="oldpassword" type="password" placeholder="Enter Old Password" class="form-control input-md">
+                                                  </div>
+                                                </div>
+                                              </div>
 
-                                                    <li>
-                                                        <label>
-                                                            <input type="checkbox" checked><i class="check-box"></i><span>Creating component page</span>
-                                                            <a href='#' class="fa fa-times"></a>
-                                                            <a href='#' class="fa fa-pencil"></a>
-                                                            <a href='#' class="fa fa-check"></a>
-                                                        </label>
-                                                    </li>
-                                                </ul>
+                                               <div class="form-group">
+                                                <label class="col-md-6 control-label" for="Password">New Password</label>
+                                                <div class="col-md-7">
+                                                  <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                    <input id="newpassword" name="newpassword" type="password" placeholder="Enter New Password" class="form-control input-md">
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-6 control-label" for="Password">Confirm Password</label>
+                                                <div class="col-md-7">
+                                                  <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                    <input id="newpassword1" name="newpassword1" type="password" placeholder="Confirm New Password" class="form-control input-md">
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                                <div class="col-md-offset-5 col-md-4"> 
+                                                    <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
+                                                </div>
+
+                                          </form>
                                             </div>
                                         </div>
                                     </div> <!-- /.todo-list -->
@@ -874,37 +849,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
                 <!-- /To Do and Live Chat -->
                 <!-- Calender Chart Weather  -->
-                <div class="row">
-                    <div class="col-md-12 col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- <h4 class="box-title">Chandler</h4> -->
-                                <div class="calender-cont widget-calender">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
-                        </div><!-- /.card -->
-                    </div>
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card ov-h">
-                            <div class="card-body bg-flat-color-2">
-                                <div id="flotBarChart" class="float-chart ml-4 mr-4"></div>
-                            </div>
-                            <div id="cellPaiChart" class="float-chart"></div>
-                        </div><!-- /.card -->
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card weather-box">
-                            <h4 class="weather-title box-title">Weather</h4>
-                            <div class="card-body">
-                                <div class="weather-widget">
-                                    <div id="weather-one" class="weather-one"></div>
-                                </div>
-                            </div>
-                        </div><!-- /.card -->
-                    </div>
-                </div>
+  
                 <!-- /Calender Chart Weather -->
                 <!-- Modal - Calendar - Add New Event -->
                 <div class="modal fade none-border" id="event-modal">
@@ -1020,6 +965,16 @@ function chartLine($xAxisData, $seriesData, $title = '')
         $("#addPerformanceTrigger").on('click',function(){
             $('html,body').animate({
                 scrollTop: $('#addPerformance').offset().top-75
+            }, 1000);
+        });
+           $("#changePassTrigger").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#changePass').offset().top-75
+            }, 1000);
+        });
+       $("#changePassTrigger1").on('click',function(){
+            $('html,body').animate({
+                scrollTop: $('#changePass').offset().top-75
             }, 1000);
         });
     </script>
