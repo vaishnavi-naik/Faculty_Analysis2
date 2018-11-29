@@ -276,11 +276,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- DEPARTMENT PERFORMANCE -->
-                    <div style="height:500px; overflow-y: hidden;" id="depPerformance">
+                    <div style="height:550px; overflow-y: hidden;" id="depPerformance">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="box-title">YOUR DEPARTMENT </h1> 
+                                    <h1 class="card-title">YOUR DEPARTMENT </h1> 
                                     <div  >
                                          <?php 
                                          // echo $chart1->render('simple-custom-id');
@@ -289,7 +289,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             [
                                                 ['name' => '2018-19', 'data' => [11, 20, 40, 15, 35, 20], 'type' => 'line']
                                             ],
-                                            'Department Performance'                                                
+                                            ''                                                
                                         );
                                         ?>
                                     </div>
@@ -299,11 +299,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- FACULTY PERFORMANCE -->
-                    <div style="height:600px; overflow-y: hidden;" id="faculty" >
+                    <div style="height:650px; overflow-y: hidden;" id="faculty" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="faculty">
-                                    <h1 class="box-title">VIEW FACULTY PERFORMANCE</h1>
+                                    <h1 class="card-title">VIEW FACULTY PERFORMANCE</h1>
                                     <div class="col-sm-12" style="margin-left: 0px;" >
                                         <form action="#faculty" method="GET" class="form-inline">
                                             <div class="form-group inline col-md-12">
@@ -320,20 +320,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                         echo "<option value = $opt_val>$opt_content</option>";
                                                     }?>                                      
                                                 </select>
-                                                <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">Login</button>    
+                                                <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">GO</button>    
                                             </div>
                                         </form>
                                         <div id="facultyDetails" style="height: 450px;margin-top: 25px;">
-                                            <h1 class="box-title">FACULTY PERFORMANCE</h1>
                                             <div class="col-sm-12" style="margin-left: 0px;" >
-                                                <?php 
-                                                echo chartLine(
+                                                 <?php 
+                                                    echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                        ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
-                                                        ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]]
+                                                         ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'bar'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'bar'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'bar']
+                                                         
                                                     ],
-                                                    'COMPARE DEPARTMENTS'                                                
+                                                    ''                                                
                                                 );
                                                 ?>
                                             </div>
