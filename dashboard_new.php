@@ -57,7 +57,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->addYAxis($yAxis);
 
     $chart->initOptions->renderer = 'canvas';
-  //  $chart->initOptions->width = '800px';
+   // $chart->initOptions->height = '1000px';
 
     return $chart->render(uniqid());
 }
@@ -128,40 +128,32 @@ function chartLine($xAxisData, $seriesData, $title = '')
 </head>
 
 <body>
-    <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Dashboard -->
-                    <!-- <li class="active"><a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a></li> -->
-                    <?php $user_name = $_SESSION['name'] ?>
-                    <li class="active">
-                    <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
-                    </li>
+ <?php $user_name = $_SESSION['name'] ?>
+        <aside id="left-panel" class="left-panel">
+            <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
+                <div id="main-menu" class="main-menu collapse navbar-collapse">
+                    <ul class="nav navbar-nav list-group" id="myNav">
 
-                    <li class="menu-title">View Performance</li><!-- /.menu-title -->
-                    <li><a href="#mypoints"> <i class="menu-icon fas fa-award"></i>Rank </a></li>
-                    <li><a href="#prevsem"> <i class="menu-icon ti-star"></i>My Credits </a></li>
-                    <li><a href="#compare"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon fas fa-user-alt"></i>My Profile </a></li>
+                        <li class="active">
+                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        </li>
 
-                    <li class="menu-title">Personal Details</li><!-- /.menu-title -->
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    <li><a href="widgets.html"> <i class="menu-icon ti-email"></i>Compare </a></li>
-                    
-                    <li class="menu-title">Extras</li><!-- /.menu-title -->
-                    <li><a href="#"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
-                    <li><a href="#"> <i class="menu-icon ti-key"></i>Change Password</a></li>
-                    <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
-    </aside>
-    <!-- /#left-panel -->
+                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>MY PERFORMANCE</b></a></li><!-- /.menu-title -->
+                        <li><a href="#faculty" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>My Credits </a></li>
+                        <li><a href="#depPerformance" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Comparison</a></li>
+                        <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>This Year</a></li>
+                        <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Previous Years</a></li>
+                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>Rank List</a></li>
+                        
 
+                        <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
+                        <li><a href="#" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                        <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
+                        <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </aside>
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
         <!-- Header-->
@@ -307,6 +299,14 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 <!-- /Widgets -->
                 <!--  Traffic  -->
 
+                    <div class="col-md-4" id="viewPerformance" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
+                        <div class="card bg-flat-color-2">
+                            <div class="card-body" style="">
+                                <h3 class=" white-color ">MY PERFORMANCE</h4>
+                            </div>
+                        </div>
+                    </div>
+
 
                  <div style="height:600px; overflow-y: hidden;" id="thisSem">
                         <div class="col-sm-12 cardStyle">
@@ -322,7 +322,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     ['name' => 'THIS SEM', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
                                                    
                                                 ],
-                                                'Your Credits For The Sem'                                                
+                                                'YOUR CREDITS FOR THE SEM'                                                
                                             );
                                     ?>
                                     </div>
@@ -343,9 +343,9 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'bar'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'bar'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'bar']
+                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
                                                          
                                                     ],
                                                     'PERFORMANCE IN THIS SEM'                                                
@@ -372,7 +372,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     ['name' => 'ODD SEM', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
                                                     ['name' => 'EVEN SEM', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line']
                                                 ],
-                                                'Your Credits For The Year'                                                
+                                                'YOUR CREDITS FOR THE YEAR'                                                
                                             );
                                     ?>
                                     </div>
@@ -390,12 +390,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                         ['name' => '2018-19', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'bar'],
-                                                         ['name' => '2017-18', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'bar'],
-                                                         ['name' => '2016-18', 'data' => [25, 30, 10, 50, 10, 40], 'type' => 'bar'],
-                                                         ['name' => '2015-16', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'bar']
+                                                         ['name' => '2018-19', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                         ['name' => '2017-18', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
+                                                         ['name' => '2016-18', 'data' => [25, 30, 10, 50, 10, 40], 'type' => 'line'],
+                                                         ['name' => '2015-16', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
                                                     ],
-                                                    'Performance'                                                
+                                                    'YOUR OVERALL VIEW'                                                
                                                 );
                                                 ?>
                                      </div>
@@ -514,8 +514,61 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                 </div>
               
-            </div>
+            
+
+
+            <div class="col-md-4" id ="personalDetails" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
+                        <div class="card bg-flat-color-2">
+                            <div class="card-body" style="">
+                                <h3 class=" white-color ">MANAGE ACCOUNT</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- To Do and Live Chat -->
+                    <div class="row" id="changePass">                        
+                        <div class="card col-lg-6">
+                            <div class="card-body">
+                                <h4 class="card-title box-title">Change Password</h4>
+                                <div class="card-content">
+                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
+                                        <div class="form-group">
+                                            <label class="col-md-6 control-label" for="oldpassword">Old Password</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                    <input id="oldpassword" name="oldpassword" type="password" placeholder="Enter Old Password" class="form-control input-md">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 control-label" for="newpassword">New Password</label>
+                                                <div class="col-md-7">
+                                                    <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                        <input id="newpassword" name="newpassword" type="password" placeholder="Enter New Password" class="form-control input-md">
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-6 control-label" for="newpassword1">Confirm Password</label>
+                                            <div class="col-md-7">
+                                                <div class="input-group"> <span class="input-group-addon"><i class="fas fa-key"></i></span>
+                                                    <input id="newpassword1" name="newpassword1" type="password" placeholder="Confirm New Password" class="form-control input-md">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-offset-5 col-md-4"> 
+                                            <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
+                                        </div>
+                                    </form>                                                
+                                </div>
+                            </div> <!-- /.card-body -->
+                        </div><!-- /.card -->
             <!-- .animated -->
+        </div>
+
         </div>
         <!-- /.content -->
         <div class="clearfix"></div>
@@ -533,7 +586,32 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 </div>
             </footer>
         <!-- /.site-footer -->
-    
+    </div>
+
+
+    <script type="text/javascript">
+           $(".sliding-link").click(function(e) {
+                // e.preventDefault();
+                var aid = $(this).attr("href");
+                $('html,body').animate({scrollTop: $(aid).offset().top-75},'slow');
+            });
+
+            $(document).ready(function() {
+                $('html, body').hide();
+
+                if (window.location.hash) {
+                    setTimeout(function() {
+                        $('html, body').scrollTop(0).show();
+                        $('html, body').animate({
+                            scrollTop: $(window.location.hash).offset().top-75
+                            }, 3000)
+                    }, 0);
+                }
+                else {
+                    $('html, body').show();
+                }
+            });
+            </script>
     <!-- /#right-panel -->
 
     <!-- Scripts -->
@@ -563,5 +641,5 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     <!--Local Stuff-->
     
-</body>
+
 </html>
