@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 29, 2018 at 12:21 PM
+-- Generation Time: Nov 29, 2018 at 05:12 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -76,10 +76,11 @@ CREATE TABLE IF NOT EXISTS `department` (
 
 INSERT INTO `department` (`dept_id`, `dept_name`) VALUES
 ('bca', 'bachelor of computer applications'),
-('ce', 'civil engineering'),
+('ce', 'chemical engineering'),
 ('cse', 'computer science engineering'),
+('cve', 'civil engineering'),
 ('ece', 'electronics and communication engineering'),
-('ee', 'electrical engineering'),
+('eee', 'electrical and eletronics engineering'),
 ('mba', 'master of business administration'),
 ('me', 'mechanical engineering');
 
@@ -158,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`) USING BTREE,
   KEY `department` (`dept`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -170,7 +171,11 @@ INSERT INTO `user` (`user_id`, `user_type`, `name`, `email`, `password`, `dept`,
 (5, 'user', 'PERSON2', 'PERSON2@GMAIL.COM', '1234', 'CSE', NULL),
 (6, 'user', 'PERSON3', 'PERSON3@GMAIL.COM', '1234', 'CSE', NULL),
 (8, 'user', 'newperson', 'newperson@gmail.com', '1234', 'CSE', NULL),
-(9, 'admin', 'sdas', 'fFASfsa@fgx.com', 'dasfs', 'CSE', NULL);
+(9, 'admin', 'sdas', 'fFASfsa@fgx.com', 'dasfs', 'CSE', NULL),
+(13, 'user', 'Gopal', 'gopal@gmail.com', '1234', 'ce', NULL),
+(14, 'admin', 'Siddhartha N', 'siddhu1@gmail.com', '1234', 'ce', NULL),
+(15, 'user', 'sridevi', 'sridevi@gmail.com', '1234', 'eee', NULL),
+(17, 'user', 'kavitha', 'kavitha@gmail.com', '1234', 'mba', NULL);
 
 --
 -- Constraints for dumped tables

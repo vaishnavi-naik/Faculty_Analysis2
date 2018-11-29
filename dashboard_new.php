@@ -67,26 +67,40 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <?php
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
-function GETYEARS()
+
+
+function GETYEAR()
 {
+
+$def = ['2014-18','2017-18'];
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
+
+$query="SELECT DISTINCT year FROM performance where user_id =$user_id  ";
+
+$year=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($year);
+if ($num == 1)
+{
+$row = $year->fetch_array();
+return $row;
+}
+
+else{
+return  $def;
+}
 
 
 }
 
 
-function MYPOINTS($SEM){
+function MYPOINTS($YEAR,$SEM){
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
 $MYPOINTS_EVEN= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 $MYPOINTS_ODD= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 
-
-$year=mysqli_query($connect,"SELECT max(year) as maxy FROM performance where user_id='$user_id'");
-$yr=mysqli_fetch_row($year);
-
-$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id'and year='$yr[0]' and sem='$SEM'" ;
+$query = "SELECT academic_id,student_id FROM performance WHERE user_id = $user_id and year='$YEAR' and sem='$SEM'" ;
 
 if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 {  
@@ -402,13 +416,14 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     <h1 class="card-title">SEE WHAT YOU HAVE EARNED..!</h1> 
                                     <div>
                                          <?php   
-
+                                            $year=GETYEAR();
+                                            $YEAR=max($year);
                                             $EVEN='even';
 
                                             echo chartLine(
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'THIS SEM', 'data' =>MYPOINTS($EVEN),'type' => 'line'],
+                                                    ['name' => 'THIS SEM', 'data' =>MYPOINTS($YEAR,$EVEN),'type' => 'line'],
                                                    
                                                 ],
                                                'YOUR CREDITS FOR THE SEM'                                                
@@ -429,6 +444,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                 <h1 class="card-title">SEE WHERE YOU STAND..!</h1> 
                                     <div  >
                                                    <?php 
+                                                    
+                                                   $res=GETYEAR();
+                                                   echo "<h1> RES=".$res[0]."</h1>";
+                                                    
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
@@ -454,6 +473,8 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     <h1 class="card-title">HOW DO YO FEEL NOW..!</h1> 
                                     <div  >
                                          <?php 
+                                         $year=GETYEAR();
+                                         $YEAR=max($year);
                                          $EVEN='even';
                                          $ODD='odd';
                                  // echo $chart1->render('simple-custom-id');
@@ -461,8 +482,8 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($ODD),'type' => 'line'],
-                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($EVEN),  'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR,$ODD),'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN),  'type' => 'line']
                                                 ],
                                                 'YOUR CREDITS FOR THE YEAR'                                                
                                             );
