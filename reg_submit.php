@@ -19,7 +19,7 @@ if(isset($_POST["submit"]))
 		    {  
 		    	$msg = "Registration Successful!"; 
 		    }
-		    header('location: admin_dash.php#manageDept');	  	
+		    header('location: admin_dash.php#manageDept?msg=' . $msg);	  	
 		}else{
 			header('location: admin_dash.php#manageDept?img="Upload an image!"');
 		}    
@@ -31,7 +31,7 @@ if(isset($_POST["submit"]))
 	    }else{
 	 		$msg = "User not Registered. Try Again!";
 	    }
-	    header('location: admin_dash.php#manageDept');
+	    header('location: admin_dash.php#manageDept?msg=' . $msg);
 	}
 	
 }  

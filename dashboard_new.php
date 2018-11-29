@@ -623,7 +623,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
                                 <div class="card-content">
-                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
+                                    <form name="changePassword" class="form-horizontal" action="change_password.php" method= "POST" id="form1" onsubmit="return Validate()">
                                         <div class="form-group">
                                             <label class="col-md-6 control-label" for="oldpassword">Old Password</label>
                                             <div class="col-md-7">
@@ -650,11 +650,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="col-md-offset-5 col-md-4"> 
-                                            <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
+                                            <button id="Submit" class="btn btn-lg btn-success" type="submit" >Change</button>
                                         </div>
-                                    </form>                                                
+                                    </form>                                       
                                 </div>
                             </div> <!-- /.card-body -->
                         </div><!-- /.card -->
@@ -681,6 +681,26 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     </div>
 
  </body>
+
+ <script type="text/javascript">
+function validate() {
+var currentPassword,newPassword,confirmPassword,output = true;
+
+currentPassword = document.changePassword.oldpassword;
+newPassword = document.changePassword.newpassword;
+confirmPassword = document.changePassword.newpassword1;
+
+if(newPassword.value != confirmPassword.value) {
+    newPassword.value="";
+    confirmPassword.value="";
+    newPassword.focus();
+    document.getElementById("newpassword1").innerHTML = "Passwords doesn't match";
+    output = false;
+}   
+return output;
+}
+
+ </script>
 
     <script type="text/javascript">
            $(".sliding-link").click(function(e) {
