@@ -65,31 +65,33 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard - Faculty Analysis</title>
-    <meta name="description" content="Faculty Analysis">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Admin - Faculty Analysis</title>
+        <meta name="description" content="Faculty Analysis">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="newfav.ico" />
+        <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+        <link rel="shortcut icon" href="newfav.ico" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
-    <link rel="stylesheet" type="text/css" href="css/all.css">
-    <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+        <link rel="stylesheet" type="text/css" href="css/all.css">
+        <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-
+        <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+  
     <style>
         #weatherWidget .currentDesc {
             color: #ffffff!important;
@@ -139,15 +141,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </li>
 
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>MY PERFORMANCE</b></a></li><!-- /.menu-title -->
-                        <li><a href="#faculty" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>My Credits </a></li>
-                        <li><a href="#depPerformance" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Comparison</a></li>
-                        <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>This Year</a></li>
-                        <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Previous Years</a></li>
+                        <li><a href="#thisSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>My Credits </a></li>
+                        <li><a href="#compareTopper" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Comparison</a></li>
+                        <li><a href="#thisYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>This Year</a></li>
+                        <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Previous Years</a></li>
                         <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>Rank List</a></li>
                         
 
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
-                        <li><a href="#" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                        <li><a href="#personalDetails" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
                         <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                     </ul>
@@ -193,13 +195,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#personalDetails"><i class="fa fa- user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="logout.php"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php" ><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
 
@@ -334,7 +336,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 
 
-                    <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="compare">
+                    <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <h1 class="card-title">SEE WHERE YOU STAND..!</h1> 
@@ -381,7 +383,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="prevsem">
+                 <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <h1 class="card-title">DID YOU IMPROVE..?</h1> 
@@ -408,7 +410,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="box-title">Orders </h4>
+                                        <h1 class="card-title">RANK LIST..! </h1>
                                     </div>
                                     <div class="card-body--">
                                         <div class="table-stats order-table ov-h">
@@ -517,7 +519,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
             
 
 
-            <div class="col-md-4" id ="personalDetails" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
+            <div class="col-md-4" id ="personalDetails" style="padding-bottom: 5px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-2">
                             <div class="card-body" style="">
                                 <h3 class=" white-color ">MANAGE ACCOUNT</h4>
@@ -526,7 +528,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- To Do and Live Chat -->
-                    <div class="row" style="margin-left:4px;"id="changePass" >                        
+                    <div class="row" style="margin-left:0px;"id="changePass" >                        
                         <div class="card col-lg-6">
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
