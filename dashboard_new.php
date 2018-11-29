@@ -1,5 +1,4 @@
 <?php
-
 header('Content-Type: text/html; charset=utf-8');
 require('include/connection.php');
 
@@ -66,11 +65,14 @@ function chartLine($xAxisData, $seriesData, $title = '')
 $GLOBALS['MYPOINTS_EVEN']= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 $GLOBALS['MYPOINTS_ODD']= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 $GLOBALS['user_id']= $_SESSION['id'];
+
+
 try
 {
 $year=mysqli_query($connect,"SELECT max(year) as maxy FROM performance where user_id='$user_id'");
 $yr=mysqli_fetch_row($year);
-$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id' and year='$yr[0]'and sem='even'" ;
+
+$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id' and year='$yr[0]'and sem='ODD'" ;
 
 if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 {  
@@ -92,6 +94,48 @@ $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
 $student=mysqli_query($connect, $query2); 
 $GLOBALS['sd'] = mysqli_fetch_row($student);
 
+
+
+$MYPOINTS_ODD[0]=$ad[4];
+$MYPOINTS_ODD[1]=$ad[2];
+$MYPOINTS_ODD[2]=$ad[8];
+$MYPOINTS_ODD[3]=$ad[6];
+$MYPOINTS_ODD[4]=$ad[10];
+$MYPOINTS_ODD[5]=$sd[4];
+$MYPOINTS_ODD[6]=$sd[1];
+}
+catch(Exception $ex)
+{
+
+}
+
+try
+{
+
+
+
+$query3 = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id' and year='$yr[0]'and sem='even'" ;
+
+if((mysqli_query($connect, $query3) ) or die(mysqli_error($connect)))
+{  
+        $res=mysqli_query($connect, $query3); 
+        $row = mysqli_fetch_row($res);
+        
+        $GLOBALS['academic_id']=$row[0];
+        $GLOBALS['stud_id']=$row[1];
+      
+    
+}
+
+$query4 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+$academic=mysqli_query($connect, $query4); 
+$GLOBALS['ad'] = mysqli_fetch_row($academic);
+
+
+$query5 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+$student=mysqli_query($connect, $query5); 
+$GLOBALS['sd'] = mysqli_fetch_row($student);
+
 mysqli_close($connect);
 
 $MYPOINTS_EVEN[0]=$ad[4];
@@ -106,6 +150,9 @@ catch(Exception $ex)
 {
 
 }
+
+
+
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -369,7 +416,7 @@ catch(Exception $ex)
                                             echo chartLine(
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'THIS SEM', 'data' =>$MYPOINTS,'type' => 'line'],
+                                                    ['name' => 'THIS SEM', 'data' =>$MYPOINTS_EVEN,'type' => 'line'],
                                                    
                                                 ],
                                                'YOUR CREDITS FOR THE SEM'                                                
@@ -419,8 +466,8 @@ catch(Exception $ex)
                                    echo chartLine(
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'ODD SEM', 'data'  =>[15, 10, 30, 40, 20, 30,40],'type' => 'line'],
-                                                    ['name' => 'EVEN SEM', 'data' =>$MYPOINTS,  'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>$MYPOINTS_ODD,'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>$MYPOINTS_EVEN,  'type' => 'line']
                                                 ],
                                                 'YOUR CREDITS FOR THE YEAR'                                                
                                             );

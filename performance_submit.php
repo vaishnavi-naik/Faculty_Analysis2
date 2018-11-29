@@ -9,15 +9,31 @@ $att_credits = $attendance / 10;
 
 $tot_research=mysqli_real_escape_string($connect, $_POST['tot_research']);
 $res_credits = $tot_research * 10 /5;
+if($res_credits>=10)
+{
+    $res_credits=10.0;
+}
 
 $tot_pub=mysqli_real_escape_string($connect, $_POST['tot_pub']);
 $pub_credits = $tot_pub * 10 /7;
+if($pub_credits>=10)
+{
+    $pub_credits=10.0;
+}
 
 $tot_org=mysqli_real_escape_string($connect, $_POST['tot_org']);
 $org_credits=$tot_org*10/5;
+if($org_credits>=10)
+{
+    $org_credits=10.0;
+}
 
 $tot_extra_act=mysqli_real_escape_string($connect, $_POST['tot_extra_act']);
 $ext_credits=$tot_extra_act*10/5;
+if($ext_credits>=10)
+{
+    $ext_credits=10.0;
+}
 
 $tot_students=mysqli_real_escape_string($connect, $_POST['tot_students']);
 $tot_pass=mysqli_real_escape_string($connect, $_POST['tot_pass']);
