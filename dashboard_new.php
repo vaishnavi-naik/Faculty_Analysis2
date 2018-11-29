@@ -308,7 +308,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
 
-                 <div style="height:600px; overflow-y: hidden;" id="thisSem">
+                 <div  style="height:550px; margin-left:-12px;" id="thisSem">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -334,7 +334,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
 
 
-                    <div style="height:600px; overflow-y: hidden;" id="compare">
+                    <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="compare">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <h1 class="card-title">SEE WHERE YOU STAND..!</h1> 
@@ -358,7 +358,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     
 
 
-                 <div style="height:600px; overflow-y: hidden;" id="thisYear">
+                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="thisYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -381,7 +381,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:500px; overflow-y: hidden;" id="prevsem">
+                 <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="prevsem">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <h1 class="card-title">DID YOU IMPROVE..?</h1> 
@@ -526,7 +526,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- To Do and Live Chat -->
-                    <div class="row" id="changePass">                        
+                    <div class="row" style="margin-left:4px;"id="changePass" >                        
                         <div class="card col-lg-6">
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
