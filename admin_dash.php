@@ -58,8 +58,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Admin - Faculty Analysis</title>
@@ -78,7 +77,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <link rel="stylesheet" type="text/css" href="css/all.css">
         <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="assets/css/style.css">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+        
         <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
@@ -547,14 +546,14 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             <div class="form-group row">
                                                 <label for="attendance" class="col-sm-4 col-form-label">Total Attendance </label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="attendance" name="attendance" placeholder="Enter Attendance (Exclude %)">
+                                                    <input type="number" class="form-control" id="attendance" name="attendance" placeholder="Enter Attendance (Exclude %)" min="0.00" max="100.00"step=".1">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="tot_research" class="col-sm-4 col-form-label">No of Research works</label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_research" name="tot_research" placeholder="Enter Total Count">
+                                                    <input type="number" class="form-control" id="tot_research" name="tot_research" placeholder="Enter Total Count" min="0" step="1">
                                                 </div>
                                             </div>
 
@@ -562,21 +561,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             <div class="form-group row">
                                                 <label for="tot_pub" class="col-sm-4 col-form-label">No of Publications</label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_pub" name="tot_pub" placeholder="Enter Total Count">
+                                                    <input type="number" class="form-control" id="tot_pub" name="tot_pub" placeholder="Enter Total Count"min="0" step="1">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="tot_org" class="col-sm-4 col-form-label">No of Organizations </label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_org" name="tot_org" placeholder="Enter Total Count">
+                                                    <input type="number" class="form-control" id="tot_org" name="tot_org" placeholder="Enter Total Count" min="0" step="1">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="tot_extra_act" class="col-sm-4 col-form-label">No of Extra-Curricular Events </label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_extra_act" name="tot_extra_act" placeholder="Enter Total Count">
+                                                    <input type="number" class="form-control" id="tot_extra_act" name="tot_extra_act" placeholder="Enter Total Count"min="0" step="1">
                                                 </div>
                                             </div>
                                             <hr>
@@ -585,19 +584,19 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             <div class="form-group row">
                                                 <label for="tot_students" class="col-sm-4 col-form-label">Total Students</label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter The Count">
+                                                    <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter The Count" min="0.000" step="1">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="tot_pass" class="col-sm-4 col-form-label">No of Students Passed</label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="tot_pass" name="tot_pass" placeholder="Enter The Count">
+                                                    <input type="number" class="form-control" id="tot_pass" name="tot_pass" placeholder="Enter The Count" min="0.000" step="1">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="stud_credits" class="col-sm-4 col-form-label">Student Rating </label>
                                                 <div class="col-sm-4">
-                                                    <input type="number" class="form-control" id="stud_credits" name="stud_credits" placeholder="Enter Rating (out of 10)">
+                                                    <input type="number" class="form-control" id="stud_credits" name="stud_credits" placeholder="Enter Rating (out of 10)" min="0.000" max="10.000"step="0.1">
                                                 </div>
                                             </div>
                                             <br>
@@ -952,7 +951,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <!-- /#right-panel -->
 
         <!-- Scripts -->
-
+</body>
         <script type="text/javascript">
             // $("#depTrigger").on('click',function(){
             //     $('html,body').animate({
@@ -1041,9 +1040,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 }
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -1056,5 +1057,5 @@ function chartLine($xAxisData, $seriesData, $title = '')
         <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
         <script src="assets/js/init/fullcalendar-init.js"></script>
-    </body>
+    
 </html>

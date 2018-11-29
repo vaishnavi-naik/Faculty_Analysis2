@@ -65,6 +65,16 @@ function chartLine($xAxisData, $seriesData, $title = '')
 }
 ?>
 <?php
+$connect = mysqli_connect("localhost", "root", "", "faculty");
+$user_id= $_SESSION['id'];
+function GETYEARS()
+{
+$connect = mysqli_connect("localhost", "root", "", "faculty");
+$user_id= $_SESSION['id'];
+
+
+}
+
 
 function MYPOINTS($SEM){
 $connect = mysqli_connect("localhost", "root", "", "faculty");
@@ -76,7 +86,7 @@ $MYPOINTS_ODD= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 $year=mysqli_query($connect,"SELECT max(year) as maxy FROM performance where user_id='$user_id'");
 $yr=mysqli_fetch_row($year);
 
-$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id'and year='$yr[0]'and sem='$SEM'" ;
+$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id'and year='$yr[0]' and sem='$SEM'" ;
 
 if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 {  
@@ -158,7 +168,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         <link rel="stylesheet" type="text/css" href="css/all.css">
         <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="assets/css/style.css">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+        
         <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
@@ -670,6 +680,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         <!-- /.site-footer -->
     </div>
 
+ </body>
 
     <script type="text/javascript">
            $(".sliding-link").click(function(e) {
@@ -697,9 +708,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
-
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -714,6 +726,5 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         <script src="assets/js/init/fullcalendar-init.js"></script>
     
     <!--Local Stuff-->
-    </body>
-
+   
 </html>
