@@ -274,7 +274,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- DEPARTMENT PERFORMANCE -->
-                    <div style="height:550px; overflow-y: hidden;" id="depPerformance">
+                    <div style="height:550px; margin-left: 0px; overflow-y: hidden;" id="depPerformance">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -771,7 +771,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- To Do and Live Chat -->
-                    <div class="row" id="changePass">                        
+                    <div class="row" id="changePass" style="margin-left: 0px;">                        
                         <div class="card col-lg-6">
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
