@@ -193,7 +193,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         <div class="col-lg-3 col-md-6" >
                             <div class="card">
                                 <div class="card-body">
-                                    <a href="#mypoints">
                                         <div class="stat-widget-five" >
                                             <div class="stat-icon dib flat-color-1">
                                                 <i class="pe-7s-medal"></i>
@@ -206,7 +205,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             </div>
 
                                         </div>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -346,11 +344,11 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- COMPARE DEPARTMENT PERFORMANCE -->
-                    <div style="height:500px; overflow-y: hidden; margin-top: 10px;" id="compare" >
+                    <div style="height:550px; overflow-y: hidden; margin-top: 10px;" id="compare" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="">
-                                    <h1 class="box-title">COMPARE YOUR PERFORMANCE WITH THE OTHER DEPARTMENTS</h1>
+                                    <h1 class="card-title">COMPARE DEPARTMENTS</h1>
                                     <div class="col-sm-12" style="margin-left: 0px;" >
                                         <?php 
                                         echo chartLine(
@@ -362,7 +360,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                 ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
                                                 ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
                                             ],
-                                            'COMPARE DEPARTMENTS'                                                
+                                            ''                                                
                                         );
                                         ?>
                                     </div>
@@ -563,21 +561,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="tot_pub" class="col-sm-4 col-form-label">No of Publications</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="tot_pub" name="tot_pub" placeholder="Enter Total Count">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="tot_org" class="col-sm-4 col-form-label">No of Organizations </label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="tot_org" name="tot_org" placeholder="Enter Total Count">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="tot_extra_act" class="col-sm-4 col-form-label">No of Extra-Curricular Events </label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="tot_extra_act" name="tot_extra_act" placeholder="Enter Total Count">
                                                 </div>
                                             </div>
@@ -586,19 +584,19 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="tot_students" class="col-sm-4 col-form-label">Total Students</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="tot_students" name="tot_students" placeholder="Enter The Count">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="tot_pass" class="col-sm-4 col-form-label">No of Students Passed</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="tot_pass" name="tot_pass" placeholder="Enter The Count">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="stud_credits" class="col-sm-4 col-form-label">Student Rating </label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-4">
                                                     <input type="number" class="form-control" id="stud_credits" name="stud_credits" placeholder="Enter Rating (out of 10)">
                                                 </div>
                                             </div>
@@ -620,7 +618,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                         <form action="performance_submit.php" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <label for="name" class="col-sm-4 control-label">Name</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
                                                 </div>
                                             </div>
@@ -629,21 +627,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="email" class="col-sm-4 control-label">Email</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="pass" class="col-sm-4 control-label">Password</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <select name="dept" id="dept" class="form-control">
                                                         <option value="CSE"> Computer Science and Engineering</option>
                                                         <option value="CIV"> Civil Engineering</option>
@@ -662,7 +660,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                 <!-- <div class="col-sm-7" style="margin-top: 6px;" >
                                                     <input type="file" id="image" name="image">
                                                 </div> -->
-                                                <div class="custom-file col-md-6" style="margin-left: 40px;">
+                                                <div class="custom-file " style="margin-left: 15px; width:385px;">
                                                     <input type="file" class="custom-file-input" id="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>
@@ -698,7 +696,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="name" class="col-sm-4 control-label">Name</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"required="true">
                                                 </div>
                                             </div>
@@ -708,21 +706,21 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="email" class="col-sm-4 control-label">Email</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="true">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="pass" class="col-sm-4 control-label">Password</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"required="true">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
-                                                <div class="col-sm-7">
+                                                <div class="col-sm-5">
                                                     <select name="dept" id="dept" class="form-control">
                                                         <option value="CSE" selected="true"> Computer Science and Engineering</option>
                                                         <option value="CIV"> Civil Engineering</option>
@@ -738,7 +736,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <div class="custom-file col-md-6" style="margin-left: 40px;">
+                                                <div class="custom-file" style="margin-left:15px;width:385px;">
                                                     <input type="file" class="custom-file-input" id="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>
