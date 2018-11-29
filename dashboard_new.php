@@ -20,10 +20,10 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $yAxis = new Hisune\EchartsPHP\Doc\IDE\YAxis();
 
     $color = [ 
-            '#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', 
-            '#bda29a','#6e7074', '#546570', '#c4ccd3'
-            //'#ca8622', '#ff0000','#bda29a','#6e7074', '#546570','#ff69b4','#ba55d3','#cd5c5c','#ffa500','#40e0d0',
-           // '#ff7f50','#87cefa','#da70d6','#32cd32','#6495ed','#FB0065','#FCFF00','#00ECFF'
+            '#c23531','#2f4554', '#61a0a8', '#d48265', 
+            '#bda29a','#6e7074', '#546570', '#00ff00',
+            '#ca8622', '#ff0000','#bda29a','#ff69b4','#ba55d3','#cd5c5c','#ffa500','#40e0d0',
+           '#ff7f50','#87cefa','#da70d6','#32cd32','#6495ed','#FB0065','#FCFF00','#00ECFF'
         ];
     shuffle($color);
     shuffle($color);
@@ -451,9 +451,9 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
+                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20,40], 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
                                                     'PERFORMANCE IN THIS SEM'                                                
@@ -503,10 +503,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => '2018-19', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
-                                                         ['name' => '2017-18', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
-                                                         ['name' => '2016-18', 'data' => [25, 30, 10, 50, 10, 40], 'type' => 'line'],
-                                                         ['name' => '2015-16', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
+                                                         ['name' => '2018-19', 'data' => [10, 5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                         ['name' => '2017-18', 'data' => [15, 10, 30, 10, 40, 20, 30], 'type' => 'line'],
+                                                         ['name' => '2016-18', 'data' => [25, 10, 30, 10, 50, 10, 40], 'type' => 'line'],
+                                                         ['name' => '2015-16', 'data' => [35, 30, 20, 30, 50, 10, 10], 'type' => 'line']
                                                     ],
                                                     'YOUR OVERALL VIEW'                                                
                                                 );
