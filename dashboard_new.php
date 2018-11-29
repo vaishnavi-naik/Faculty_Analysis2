@@ -62,6 +62,51 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 ?>
+<?php
+$GLOBALS['MYPOINTS_EVEN']= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+$GLOBALS['MYPOINTS_ODD']= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+$GLOBALS['user_id']= $_SESSION['id'];
+try
+{
+$year=mysqli_query($connect,"SELECT max(year) as maxy FROM performance where user_id='$user_id'");
+$yr=mysqli_fetch_row($year);
+$query = "SELECT academic_id,student_id FROM performance WHERE user_id = '$user_id' and year='$yr[0]'and sem='even'" ;
+
+if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+{  
+        $res=mysqli_query($connect, $query); 
+        $row = mysqli_fetch_row($res);
+        
+        $GLOBALS['academic_id']=$row[0];
+        $GLOBALS['stud_id']=$row[1];
+      
+    
+}
+
+$query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+$academic=mysqli_query($connect, $query1); 
+$GLOBALS['ad'] = mysqli_fetch_row($academic);
+
+
+$query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+$student=mysqli_query($connect, $query2); 
+$GLOBALS['sd'] = mysqli_fetch_row($student);
+
+mysqli_close($connect);
+
+$MYPOINTS_EVEN[0]=$ad[4];
+$MYPOINTS_EVEN[1]=$ad[2];
+$MYPOINTS_EVEN[2]=$ad[8];
+$MYPOINTS_EVEN[3]=$ad[6];
+$MYPOINTS_EVEN[4]=$ad[10];
+$MYPOINTS_EVEN[5]=$sd[4];
+$MYPOINTS_EVEN[6]=$sd[1];
+}
+catch(Exception $ex)
+{
+
+}
+?>
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -175,6 +220,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php 
+
+
                             if($_SESSION['profile_pic'] == "null")
                                 echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
                             else{
@@ -182,7 +229,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                 $query = "SELECT profile_pic from user where email = '$email'";  
                                 $result = mysqli_query($connect, $query);  
                                 if(mysqli_num_rows($result) == 1){
-                                  $row = mysqli_fetch_array($result);                               
+                                  $row= mysqli_fetch_array($result);                               
                                   echo '<tr>
                                             <td>
                                                 <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
@@ -315,18 +362,19 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             <div class="card">
                                 <div class="card-body">
                                     <h1 class="card-title">SEE WHAT YOU HAVE EARNED..!</h1> 
-                                    <div  >
-                                         <?php 
-                                 // echo $chart1->render('simple-custom-id');
-                                   echo chartLine(
-                                                ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                    <div>
+                                         <?php   
+
+                                         
+                                            echo chartLine(
+                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'THIS SEM', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                    ['name' => 'THIS SEM', 'data' =>$MYPOINTS,'type' => 'line'],
                                                    
                                                 ],
-                                                'YOUR CREDITS FOR THE SEM'                                                
+                                               'YOUR CREDITS FOR THE SEM'                                                
                                             );
-                                    ?>
+                                         ?>
                                     </div>
                                 </div> 
                             </div>
@@ -343,7 +391,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     <div  >
                                                    <?php 
                                                     echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
                                                          ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
                                                          ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
@@ -369,10 +417,10 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                          <?php 
                                  // echo $chart1->render('simple-custom-id');
                                    echo chartLine(
-                                                ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => 'ODD SEM', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
-                                                    ['name' => 'EVEN SEM', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>[15, 10, 30, 40, 20, 30,40],'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>$MYPOINTS,  'type' => 'line']
                                                 ],
                                                 'YOUR CREDITS FOR THE YEAR'                                                
                                             );
@@ -390,7 +438,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     <div  >
                                                    <?php 
                                                     echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
                                                          ['name' => '2018-19', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
                                                          ['name' => '2017-18', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
