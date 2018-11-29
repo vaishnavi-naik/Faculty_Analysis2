@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 28, 2018 at 01:28 PM
+-- Generation Time: Nov 29, 2018 at 12:21 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `academic_performance` (
   `ext_credits` float NOT NULL,
   `tot_credits` float NOT NULL,
   PRIMARY KEY (`academic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `academic_performance`
@@ -53,7 +53,9 @@ INSERT INTO `academic_performance` (`academic_id`, `tot_pub`, `pub_credits`, `at
 (1, 5, 7.14286, 89, 8.9, 5, 10, 7, 14, 4, 8, 9.60857),
 (3, 5, 7.14286, 89, 8.9, 5, 10, 7, 14, 4, 8, 9.60857),
 (4, 5, 7.14286, 89, 8.9, 5, 10, 7, 14, 4, 8, 9.60857),
-(5, 6, 8.57143, 90, 9, 5, 10, 5, 10, 4, 8, 9.11429);
+(5, 6, 8.57143, 90, 9, 5, 10, 5, 10, 4, 8, 9.11429),
+(6, 2, 2.85714, 89, 8.9, 1, 2, 4, 8, 6, 8.2, 6.75143),
+(7, 5, 4.5, 92, 9.2, 2, 4, 3, 6, 7, 8.1, 6.64);
 
 -- --------------------------------------------------------
 
@@ -99,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `performance` (
   KEY `academics` (`academic_id`),
   KEY `student` (`student_id`),
   KEY `faculty` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `performance`
@@ -107,7 +109,8 @@ CREATE TABLE IF NOT EXISTS `performance` (
 
 INSERT INTO `performance` (`perf_id`, `user_id`, `year`, `sem`, `academic_id`, `student_id`) VALUES
 (1, 4, '2018-19', 'odd', 4, 2),
-(2, 4, '2018-19', 'odd', 5, 3);
+(4, 6, '2018-19', 'even', 6, 4),
+(5, 6, '2018-19', 'odd', 7, 5);
 
 -- --------------------------------------------------------
 
@@ -124,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `student_performance` (
   `pass_credits` float NOT NULL,
   `total_credits` float NOT NULL,
   PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student_performance`
@@ -133,7 +136,9 @@ CREATE TABLE IF NOT EXISTS `student_performance` (
 INSERT INTO `student_performance` (`student_id`, `stud_credits`, `tot_students`, `tot_pass`, `pass_credits`, `total_credits`) VALUES
 (1, 8, 250, 200, 8, 8),
 (2, 8, 250, 200, 8, 8),
-(3, 9, 500, 367, 7.34, 8.17);
+(3, 9, 500, 367, 7.34, 8.17),
+(4, 9, 234, 198, 8.46154, 8.73077),
+(5, 7, 150, 125, 8.33333, 7.66667);
 
 -- --------------------------------------------------------
 
