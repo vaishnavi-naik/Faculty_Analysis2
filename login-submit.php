@@ -25,7 +25,7 @@ if ($num == 1) {
     if($user_type == 'admin')
         header('location: admin_dash.php');
     else
-        header('location: dashboard.php');
+        header('location: dashboard_new.php');
 } else {
     $error = "Invalid Username or Password";
     header('location: login.php?error=' . $error);
