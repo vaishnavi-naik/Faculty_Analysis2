@@ -8,28 +8,30 @@ if(isset($_POST["submit"]))
 	$email = $_POST["email"];
 	$pass = $_POST["pass"];
 	$dept = $_POST["dept"];
+	$user_type=$_POST["utype"];
+	echo $name;
 	if (!empty($_FILES["image"]["tmp_name"])){
 		$check = getimagesize($_FILES["image"]["tmp_name"]);
 	  	if($check !== false  && in_array(mime_content_type ($_FILES["image"]["tmp_name"]) , array('image/jpeg','image/png','image/gif'))){
 			$image = addslashes(file_get_contents($_FILES["image"]["tmp_name"]));  
-		  	$query = "INSERT INTO user(name, email, password, dept, profile_pic) VALUES ('$name', '$email', '$pass', '$dept', '$image')";  
+		  	$query = "INSERT INTO user(`user_type`, `name`, `email`, `password`, `dept`, `profile_pic`) VALUES ('$user_type','$name', '$email', '$pass', '$dept', '$image')";  
 		    if(mysqli_query($connect, $query) or die(mysqli_error($connect)))  
 		    {  
 		    	$msg = "Registration Successful!"; 
 		    }
-		    header('location: register.php?msg=' . $msg);	  	
+		    header('location: admin_dash.php#manageDept');	  	
 		}else{
-			header('location: register.php?img="Upload an image!"');
+			header('location: admin_dash.php#manageDept?img="Upload an image!"');
 		}    
 	}else{
-		$query = "INSERT INTO user(name, email, password, dept) VALUES ('$name', '$email', '$pass', '$dept')";  
+		$query = "INSERT INTO user(`user_type`, `name`, `email`, `password`, `dept`) VALUES ('$user_type', '$name', '$email', '$pass', '$dept')";  
 	    if(mysqli_query($connect, $query) or die(mysqli_error($connect)))  
 	    {  
 	    	$msg = "Registration Successful!"; 
 	    }else{
 	 		$msg = "User not Registered. Try Again!";
 	    }
-	    header('location: register.php?msg=' . $msg);
+	    header('location: admin_dash.php#manageDept');
 	}
 	
 }  

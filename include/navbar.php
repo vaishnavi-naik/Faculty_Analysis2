@@ -1,8 +1,8 @@
 <div class="navbar-wrapper" >
-    <nav class="navbar navbar-default navstyle ">
+    <nav class="navbar navbar-default navstyle " >
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header"  >
           <a class="navbar-brand navImg" href="index.php" id = "sjeclogo">
             <img src="img/long_logo_transparent.png" alt="Faculty Analysis" height="60px" width="250px" style="margin-top:7px;">
           </a>
@@ -18,18 +18,18 @@
         <?php if(isset($_SESSION['email'])){?>
           <div class="collapse navbar-collapse" id="mynav">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="register.php">REGISTER</a></li>
+            <li><a href="admin_dash.php#manageDept">REGISTER</a></li>
             <li><a href="dashboard.php">DASHBOARD</a></li>
-            <li><a href="#">CONTACT US</a></li>
+            <li><a href="logout.php">LOGOUT</a></li>
+            <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>
           </ul>
         </div>
        <?php }else{ ?>
         <div class="collapse navbar-collapse" id="mynav">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="register.php">REGISTER</a></li>
             <li><a href="login.php">LOGIN</a></li>
             <!-- <li><a href="dashboard.php">DASHBOARD</a></li> -->
-            <li><a href="#">CONTACT US</a></li>
+            <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
         <?php }?>
