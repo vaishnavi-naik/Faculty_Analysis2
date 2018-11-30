@@ -285,7 +285,13 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 </head>
 
 <body>
- <?php $user_name = $_SESSION['name'] ?>
+ <?php $user_name = $_SESSION['name']; 
+        if(isset($_GET['msg']))
+            echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
+        if(isset($_GET['error']))
+            echo '<script>$(document).ready(function(){$("#passFail").show();});</script>';
+
+        ?>
         <aside id="left-panel" class="left-panel">
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -598,7 +604,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:650px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
+                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -757,26 +763,26 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                     </div>
                 
 
-                </div>
+                
               
             
 
 
             <div class="col-md-4" id ="personalDetails" style="padding-bottom: 5px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-2">
-                            <div class="card-body" style="">
+                            <div class="card-body" >
                                 <h3 class=" white-color ">MANAGE ACCOUNT</h4>
                             </div>
                         </div>
-                    </div>
+            </div>
 
                     <!-- To Do and Live Chat -->
-                    <div class="row" style="margin-left:0px;"id="changePass" >                        
+                    <div class="row" id="changePass" style="margin-left: 0px;">                        
                         <div class="card col-lg-6">
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
                                 <div class="card-content">
-                                    <form name="changePassword" class="form-horizontal" action="change_password.php" method= "POST" id="form1" onsubmit="return Validate()">
+                                    <form class="form-horizontal" action="change_password_user.php" method= "POST" id="passForm">
                                         <div class="form-group">
                                             <label class="col-md-6 control-label" for="oldpassword">Old Password</label>
                                             <div class="col-md-7">
@@ -803,16 +809,30 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-md-offset-5 col-md-4"> 
-                                            <button id="Submit" class="btn btn-lg btn-success" type="submit" >Change</button>
+
+                                        <div class="alert alert-danger alert-dismissible offset-md-1 col-md-10 collapse" role="alert" id ="passFail">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <center><strong>Error!</strong> &nbsp; Wrong Password Entered</center>
                                         </div>
-                                    </form>                                       
+
+                                        <div class="col-md-offset-5 col-md-4"> 
+                                            <button id="Submit" class="btn btn-success" type="submit">Change</button>
+                                        </div>
+                                    </form>
+                                    <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" style="margin-top: 10px;" role="alert" id ="passSuccess">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <center><strong>Success!</strong> Password Changed!</center>
+                                    </div>                                               
                                 </div>
-                            </div> <!-- /.card-body -->
-                        </div><!-- /.card -->
-            <!-- .animated -->
-        </div>
+                            </div>
+                        </div>
+                        
+    
+                    </div>
+         
+                
+                </div>
+
 
         </div>
         <!-- /.content -->
@@ -833,27 +853,9 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         <!-- /.site-footer -->
     </div>
 
- </body>
 
- <script type="text/javascript">
-function validate() {
-var currentPassword,newPassword,confirmPassword,output = true;
 
-currentPassword = document.changePassword.oldpassword;
-newPassword = document.changePassword.newpassword;
-confirmPassword = document.changePassword.newpassword1;
 
-if(newPassword.value != confirmPassword.value) {
-    newPassword.value="";
-    confirmPassword.value="";
-    newPassword.focus();
-    document.getElementById("newpassword1").innerHTML = "Passwords doesn't match";
-    output = false;
-}   
-return output;
-}
-
- </script>
 
     <script type="text/javascript">
            $(".sliding-link").click(function(e) {
@@ -890,6 +892,9 @@ return output;
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
         <script src="assets/js/main.js"></script>
+         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
+
 
         <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
         <script src="assets/js/init/weather-init.js"></script>
@@ -897,7 +902,7 @@ return output;
         <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
         <script src="assets/js/init/fullcalendar-init.js"></script>
-    
+     </body>
     <!--Local Stuff-->
    
 </html>
