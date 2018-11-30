@@ -60,6 +60,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Admin - Faculty Analysis</title>
@@ -98,13 +100,22 @@ function chartLine($xAxisData, $seriesData, $title = '')
             .iclass{
                 font-size: 16px; margin-top: 7px;
             }
+            .red-border{
+                border-color: #e45545;
+            }
         </style>
     </head>
 
     <body>
         <!-- Left Panel -->
         <!-- Dashboard -->
-        <?php $user_name = $_SESSION['name'] ?>
+        <?php $user_name = $_SESSION['name']; 
+        if(isset($_GET['msg']))
+            echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
+        if(isset($_GET['error']))
+            echo '<script>$(document).ready(function(){$("#passFail").show();});</script>';
+
+        ?>
         <aside id="left-panel" class="left-panel">
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -183,6 +194,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
             </div>
             </header>
             <!-- /#header -->
+
             <!-- Content -->
             <div class="content">
                 <!-- Animated -->
@@ -265,6 +277,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
+                    <!-- HEADING - VIEW PERFORMANCE -->
                     <div class="col-md-4" id="viewPerformance" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-2">
                             <div class="card-body" style="">
@@ -327,9 +340,9 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     echo chartLine(
                                                     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'bar'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'bar'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'bar']
+                                                         ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
                                                          
                                                     ],
                                                     ''                                                
@@ -478,6 +491,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
+                    <!-- HEADING - MANAGE DEPARTMENT -->
                     <div class="col-md-5" id="manageDept" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-6" >
                             <div class="card-body" style="">
@@ -485,14 +499,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             </div>
                         </div>
                     </div>
-
                
-                    <!-- MANAGE FACULTY -->
+                    <!-- ADD FACULTY -->
                     <div style="height:500px; overflow-y: hidden;" id="addFaculty">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
-                                    <p style="font-size:20px;">MANAGE FACULTY </p> <hr>
+                                    <p style="font-size:20px;">ADD FACULTY </p> <hr>
                                         <form action="reg_submit.php" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
                                                 <label for="name" class="col-sm-4 control-label">Name</label>
@@ -572,12 +585,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
-                    <!-- MANAGE ADMIN -->
+                    <!-- ADD ADMIN -->
                     <div style="height:500px; overflow-y: hidden;" id="addAdmin">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
-                                    <p style="font-size:20px;">MANAGE ADMIN </p> <hr>
+                                    <p style="font-size:20px;">ADD ADMIN </p> <hr>
                                     <form class="form-horizontal" action="reg_submit.php" method="post" enctype="multipart/form-data">
 
                                             <div class="form-group row">
@@ -658,7 +671,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
-                 <!-- ADD PERFORMANCE -->
+                    <!-- ADD PERFORMANCE -->
                     <div style="height:890px; overflow-y: hidden; " id="addPerformance">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
@@ -781,7 +794,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
-
+                    <!-- HEADING - PERSONAL DETAILS -->
                     <div class="col-md-4" id ="personalDetails" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-5">
                             <div class="card-body" style="">
@@ -790,13 +803,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
-                    <!-- To Do and Live Chat -->
+                    <!-- CHANGE PASSWORD -->
                     <div class="row" id="changePass" style="margin-left: 0px;">                        
                         <div class="card col-lg-6">
                             <div class="card-body">
                                 <h4 class="card-title box-title">Change Password</h4>
                                 <div class="card-content">
-                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="form1">
+                                    <form class="form-horizontal" action="change_password.php" method= "POST" id="passForm">
                                         <div class="form-group">
                                             <label class="col-md-6 control-label" for="oldpassword">Old Password</label>
                                             <div class="col-md-7">
@@ -824,15 +837,24 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                             </div>
                                         </div>
 
-                                        <div class="col-md-offset-5 col-md-4"> 
-                                            <button id="Submit" class="btn btn-lg btn-success" type="submit">Change</button>
+                                        <div class="alert alert-danger alert-dismissible offset-md-1 col-md-10 collapse" role="alert" id ="passFail">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <center><strong>Error!</strong> &nbsp; Wrong Password Entered</center>
                                         </div>
-                                    </form>                                                
-                                </div>
-                            </div> <!-- /.card-body -->
-                        </div><!-- /.card -->
-                        
 
+                                        <div class="col-md-offset-5 col-md-4"> 
+                                            <button id="Submit" class="btn btn-success" type="submit">Change</button>
+                                        </div>
+                                    </form>
+                                    <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" style="margin-top: 10px;" role="alert" id ="passSuccess">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <center><strong>Success!</strong> Password Changed!</center>
+                                    </div>                                               
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- LIVE CHAT -->
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
@@ -891,69 +913,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
                             </div><!-- /.card -->
                         </div>
                     </div>
-                    <!-- /To Do and Live Chat -->
-
-                    <!-- Modal - Calendar - Add New Event -->
-                    <div class="modal fade none-border" id="event-modal">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                                </div>
-                                <div class="modal-body"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                    <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /#event-modal -->
-
-                    <!-- Modal - Calendar - Add Category -->
-                    <div class="modal fade none-border" id="add-category">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"><strong>Add a category </strong></h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label class="control-label">Category Name</label>
-                                                <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name"/>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="control-label">Choose Category Color</label>
-                                                <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                    <option value="success">Success</option>
-                                                    <option value="danger">Danger</option>
-                                                    <option value="info">Info</option>
-                                                    <option value="pink">Pink</option>
-                                                    <option value="primary">Primary</option>
-                                                    <option value="warning">Warning</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /#add-category -->
+                    
                 </div>
                 <!-- .animated -->
             </div>
             <!-- /.content -->
             <div class="clearfix"></div>
+
             <!-- Footer -->
             <footer class="site-footer">
                 <div class="footer-inner bg-white">
@@ -967,12 +933,12 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
                 </div>
             </footer>
-            <!-- /.site-footer -->
+           
         </div>
         <!-- /#right-panel -->
 
-        <!-- Scripts -->
-
+        <!-- SCRIPTS -->
+        <!-- LOCAL SCRIPTS -->
         <script type="text/javascript">
             // $("#depTrigger").on('click',function(){
             //     $('html,body').animate({
@@ -1061,14 +1027,15 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 }
             });
         </script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-        <script src="js/confirmPass.js"></script>
 
+        <!-- OTHER SCRIPTS -->
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
         <script src="assets/js/main.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
         <script src="assets/js/init/weather-init.js"></script>

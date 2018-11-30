@@ -5,34 +5,36 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-$('#form1').validate({
+$('#passForm').validate({
     rules:{
-    Email:
+    oldpassword:
             {
             required:true,
-            email:true
+            minlength:3,
+            maxlength:20
             },
     newpassword:
             {
             required:true,
             minlength:3,
-            maxlength:10
+            maxlength:20
             },
     newpassword1:{
             required:true,
-            equalTo:"#password"
+            equalTo:"#newpassword"
             }
           },
 
           highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error');
+            $(element).addClass('is-invalid');
+
         
         },
         unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error');
+            $(element).addClass('is-invalid');
         },
         errorElement: 'span',
-        errorClass: 'help-block',
+        errorClass: 'invalid-feedback',
         errorPlacement: function(error, element) {
             if(element.parent('.input-group').length) {
                 error.insertAfter(element.parent());

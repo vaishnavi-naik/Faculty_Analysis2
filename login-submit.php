@@ -8,7 +8,7 @@ $user_type = mysqli_real_escape_string($connect, $_POST['usertype']);
 
 $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password' AND user_type = '$user_type'";
 // echo $query;
-$query_result = mysqli_query($connect, $query);
+$query_result = mysqli_query($connect, $query)  or die(mysqli_error($connect));
 $num = mysqli_num_rows($query_result);
 // echo $num;
 if ($num == 1) {
