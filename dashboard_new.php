@@ -579,10 +579,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
 
                                                 [
-                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR1,$ODD,$USER_ID),'type' => 'line'],
-                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR1,$EVEN,$USER_ID),  'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR1[0],$ODD,$USER_ID),'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR1[0],$EVEN,$USER_ID),  'type' => 'line']
                                                 ],
-                                                'MY CREDITS FOR '.$YEAR1                                                
+                                                'MY CREDITS FOR '.$YEAR1[0]                                                
                                             );
                                     ?>
                                     </div>
@@ -621,7 +621,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
 
                                                     ],
-                                                    'FROM MY PAST 5 YEARS'                                                
+                                                    'MY PAST 5 YEARS'                                                
                                                 );
                                                 ?>
 
