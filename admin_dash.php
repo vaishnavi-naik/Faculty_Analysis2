@@ -162,7 +162,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     $result = mysqli_query($connect, $query);  
                                     if(mysqli_num_rows($result) == 1){
                                       $row = mysqli_fetch_array($result);                               
-                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />'; 
+                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=40 width=40/>'; 
                                   }else 
                                   echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
                               }
@@ -488,7 +488,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                
                     <!-- MANAGE FACULTY -->
-                    <div style="height:450px; overflow-y: hidden;" id="addFaculty">
+                    <div style="height:500px; overflow-y: hidden;" id="addFaculty">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
@@ -573,7 +573,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                     </div>
 
                     <!-- MANAGE ADMIN -->
-                    <div style="height:450px; overflow-y: hidden;" id="addAdmin">
+                    <div style="height:500px; overflow-y: hidden;" id="addAdmin">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
@@ -629,10 +629,13 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <div class="custom-file" style="margin-left:15px;width:385px;">
-                                                    <input type="file" class="custom-file-input" id="image">
-                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                <div class="col-sm-7" style="margin-top: 6px;" >
+                                                    <input type="file" id="image" name="image">
                                                 </div>
+                                                <!-- <div class="custom-file" style="margin-left:15px;width:385px;">
+                                                    <input type="file" class="custom-file-input" name="image" id="image">
+                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                </div> -->
                                             </div>
 
 

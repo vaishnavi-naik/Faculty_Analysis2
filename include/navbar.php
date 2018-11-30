@@ -28,6 +28,7 @@
         <div class="collapse navbar-collapse" id="mynav">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="login.php">LOGIN</a></li>
+            
             <!-- <li><a href="dashboard.php">DASHBOARD</a></li> -->
             <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>
           </ul>
