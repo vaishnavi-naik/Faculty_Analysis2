@@ -28,8 +28,8 @@
                                                 <label for="utype" class="col-sm-4 control-label">User Type</label>
                                                 <div class="col-sm-5">
                                                 <select name="utype" id="utype" class="form-control">
-                                                        <option value="user" selected="true">Faculty</option>
-                                                        <option value="admin"> Admin</option>
+                                                        <option value="User" selected="true">Faculty</option>
+                                                        <option value="Admin"> Admin</option>
                                                 </select>
                                                 </div>
                                             </div>

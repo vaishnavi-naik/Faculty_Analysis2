@@ -22,7 +22,7 @@ if ($num == 1) {
     	$_SESSION['profile_pic'] = "null";
     else
     	$_SESSION['profile_pic'] = "yes";
-    if($user_type == 'admin')
+    if($user_type == 'Admin')
         header('location: admin_dash.php');
     else
         header('location: dashboard_new.php');

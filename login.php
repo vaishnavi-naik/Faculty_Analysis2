@@ -28,8 +28,8 @@
         <label for="usertype" class="col-sm-3 control-label">User Type</label>
         <div class="col-sm-7">
           <select name="usertype" class="form-control">
-            <option value="admin"> Admin</option>
-            <option value="user"> Staff</option>
+            <option value="Admin"> Admin</option>
+            <option value="User"> Staff</option>
           </select>
         </div>
       </div>

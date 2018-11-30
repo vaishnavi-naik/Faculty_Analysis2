@@ -6,7 +6,7 @@ if(!isset($_SESSION['type'])){
     header('location:login.php');
 }
 
-if(isset($_SESSION['type']) && $_SESSION['type']!='admin')
+if(isset($_SESSION['type']) && $_SESSION['type']!='Admin')
     header('location:index.php');
 
 require('./vendor/autoload.php');
@@ -309,7 +309,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                 <select name="faculty_name" style="margin-left: 20px;" class="form-control col-md-4">
                                                     <?php
                                                     $dept = $_SESSION['dept'];
-                                                    $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
+                                                    $query = "SELECT user_id, name FROM user WHERE user_type = 'User' AND dept = '$dept'";
                                                     $result = mysqli_query($connect, $query);
                                                     $num = mysqli_num_rows($result);
                                                     while($array = mysqli_fetch_array($result)){
@@ -501,23 +501,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                 </div>
                                             </div>
 
-                                            <input type="hidden" class="form-control" id="utype" name="utype" value="user">
-
                                             <div class="form-group row">
-                                                <label for="email" class="col-sm-4 control-label">Email</label>
-                                                <div class="col-sm-5">
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="pass" class="col-sm-4 control-label">Password</label>
-                                                <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
-                                                </div>
-                                            </div>
-
-                                             <div class="form-group row">
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
                                                 <div class="col-sm-5">
                                                     <select name="dept" id="dept" class="form-control">
@@ -533,6 +517,29 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group row">
+                                                <label for="email" class="col-sm-4 control-label">Register As</label>
+                                                <div class="col-sm-5">
+                                                 <input readonly class="form-control" id="utype" name="utype" value="User">
+                                             </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="email" class="col-sm-4 control-label">Email</label>
+                                                <div class="col-sm-5">
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="pass" class="col-sm-4 control-label">Password</label>
+                                                <div class="col-sm-5">
+                                                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                                                </div>
+                                            </div>
+
+
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
@@ -580,23 +587,6 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                 </div>
                                             </div>
 
-                                            <input type="hidden" class="form-control" id="utype" name="utype" value="admin">
-
-
-                                            <div class="form-group row">
-                                                <label for="email" class="col-sm-4 control-label">Email</label>
-                                                <div class="col-sm-5">
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="true">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label for="pass" class="col-sm-4 control-label">Password</label>
-                                                <div class="col-sm-5">
-                                                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"required="true">
-                                                </div>
-                                            </div>
-
                                             <div class="form-group row">
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
                                                 <div class="col-sm-5">
@@ -613,6 +603,29 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="form-group row">
+                                                <label for="email" class="col-sm-4 control-label">Register As</label>
+                                                <div class="col-sm-5">
+                                                 <input readonly class="form-control" id="utype" name="utype" value="Admin">
+                                             </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="email" class="col-sm-4 control-label">Email</label>
+                                                <div class="col-sm-5">
+                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="true">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="pass" class="col-sm-4 control-label">Password</label>
+                                                <div class="col-sm-5">
+                                                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"required="true">
+                                                </div>
+                                            </div>
+
+
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
@@ -657,7 +670,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                                         <!-- fetching faculty names from the database -->
                                                         <?php
                                                             $dept = $_SESSION['dept'];
-                                                            $query = "SELECT user_id, name FROM user WHERE user_type = 'user' AND dept = '$dept'";
+                                                            $query = "SELECT user_id, name FROM user WHERE user_type = 'User' AND dept = '$dept'";
                                                             $result = mysqli_query($connect, $query);
                                                             $num = mysqli_num_rows($result);
                                                             while($array = mysqli_fetch_array($result)){
