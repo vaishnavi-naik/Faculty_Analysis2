@@ -68,13 +68,13 @@
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <!-- <div class="col-sm-7" style="margin-top: 6px;" >
+                                                <div class="col-sm-7" style="margin-top: 6px;" >
                                                     <input type="file" id="image" name="image">
-                                                </div> -->
-                                                <div class="custom-file " style="margin-left: 15px; width:385px;">
+                                                </div>
+                                                <!-- <div class="custom-file " style="margin-left: 15px; width:385px;">
                                                     <input type="file" class="custom-file-input" id="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
@@ -83,7 +83,7 @@
                                             </div>
 
                                             <br>
-                                            <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
+                                            <button type="submit" name="submit" class="btn btn-primary col-md-offset-4 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
                                             <br>
                                         </form>
             <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
