@@ -573,14 +573,21 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                          $YEAR1=max($yr);
                                          $EVEN='even';
                                          $ODD='odd';
+
+                                        
+                                        if(strlen($YEAR1[0]>1))
+                                        {
+                                            $YEAR=$YEAR1[0];
+
+                                        }
                                  // echo $chart1->render('simple-custom-id');
                                    echo chartLine(
 
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
 
                                                 [
-                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR1[0],$ODD,$USER_ID),'type' => 'line'],
-                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR1[0],$EVEN,$USER_ID),  'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR,$ODD,$USER_ID),'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN,$USER_ID),  'type' => 'line']
                                                 ],
                                                 'MY CREDITS FOR '.$YEAR1[0]                                                
                                             );
@@ -591,7 +598,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
+                 <div style="height:650px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -608,6 +615,16 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                        $i++;
                                                        
                                                    }
+                                                   // echo "<h4>YEARS</h4><br>";
+                                                   // echo "<h4>".$yrs[0]."</h4><br>";
+                                                   // echo "<h4>".$yrs[1]."</h4><br>";
+                                                   // echo "<h4>".$yrs[2]."</h4><br>";
+                                                   // echo "<h4>".$yrs[3]."</h4><br>";
+                                                   // echo "<h4>YEARSUM</h1><br>";
+                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[0]."</h4><br>";
+                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[1]."</h4><br>";
+                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[2]."</h4><br>";
+                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[3]."</h4><br>";
 
 
                                                     echo chartLine(
