@@ -455,9 +455,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
 
 
-                    <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="compareTopper">
+                    <div style="height:500px;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
+                                <div class="card-body">
                                 <h1 class="card-title">SEE WHERE YOU STAND..!</h1> 
                                     <div  >
                                                    <?php 
@@ -482,6 +483,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 );
                                                 ?>
                                      </div>
+                                 </div>
                                 </div> 
                             </div>
                         </div><!-- /# column -->
@@ -531,6 +533,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                  <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
+                                <div class="card-body">
                                 <h1 class="card-title">DID YOU IMPROVE..?</h1> 
                                     <div  >
                                                    <?php 
@@ -557,9 +560,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          ['name' => $yrs[4], 'data' => YEARSUM($yrs[4]), 'type' => 'line']
 
                                                     ],
-                                                    'FOR THE PAST 7 YEARS'                                                
+                                                    'FOR THE PAST 5 YEARS'                                                
                                                 );
                                                 ?>
+
+                                            </div>    
                                      </div>
                                 </div> 
                             </div>
