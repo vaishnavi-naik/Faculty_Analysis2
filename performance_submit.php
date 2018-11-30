@@ -47,6 +47,8 @@ $tot_student_credits = ($pass_credits + $stud_credits) / 2;
 $query1 = "INSERT INTO `academic_performance`(`tot_pub`, `pub_credits`, `attendance`, `att_credits`, `tot_org`, `org_credits`, `tot_research`, `res_credits`, `tot_extra_act`, `ext_credits`, `tot_credits`) VALUES('$tot_pub','$pub_credits','$attendance','$att_credits','$tot_org','$org_credits','$tot_research','$res_credits','$tot_extra_act','$ext_credits','$tot_academics_credits')";
 $id_query = "SELECT LAST_INSERT_ID()";
 $error_flag = 0;
+
+
 if((mysqli_query($connect, $query1) ) or die(mysqli_error($connect)))
 {  
     $academic_perf_res = mysqli_query($connect, $id_query) or die(mysqli_error($connect));
@@ -67,7 +69,8 @@ if((mysqli_query($connect, $query2) ) or die(mysqli_error($connect)))
     }
 }
 
-$query3 = "INSERT INTO `performance`(`user_id`, `year`, `sem`, `academic_id`, `student_id`) VALUES('$user_id','$year','$sem','$academic_id','$student_perf_id')";
+$tot_faculty_credits = ($tot_student_credits + $tot_academics_credits)/2;
+$query3 = "INSERT INTO `performance`(`user_id`, `year`, `sem`, `academic_id`, `student_id`, `total_credits`) VALUES('$user_id','$year','$sem','$academic_id','$student_perf_id','$tot_faculty_credits')";
 if((mysqli_query($connect, $query3)) or die(mysqli_error($connect))){
     $successMsg = "Inserted Data Successfully";
 }

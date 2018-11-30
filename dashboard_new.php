@@ -69,11 +69,11 @@ $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
 
 
-function YEARSUM($YEAR)
+function YEARSUM($YEAR,$USER_ID)
 {
 
-$TOTALODD=MYPOINTS($YEAR,'odd');
-$TOTALEVEN=MYPOINTS($YEAR,'even');
+$TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
+$TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
 for ($i=0;$i<count($TOTALODD);$i++)
 {
 $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
@@ -84,7 +84,35 @@ return $TOTALYEAR;
 
 }
 
-function GETYEAR()
+
+function GET_COLLEGE_TOPPER_YEAR()
+{
+
+$def = ['2014-19','2017-18'];
+$connect = mysqli_connect("localhost", "root", "", "faculty");
+$user_id= $_SESSION['id'];
+
+
+
+$query="SELECT DISTINCT year FROM performance where user_id = '$user_id' order by year desc ";
+
+$year=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($year);
+if ($num >= 1)
+{
+while($row = $year->fetch_row())
+{
+ $rows[]=$row;
+}
+return $rows;
+}
+
+else{
+return  $def;
+}
+}
+
+function GET_DEPT_TOPPER_YEAR()
 {
 
 $def = ['2014-19','2017-18'];
@@ -109,13 +137,40 @@ return  $def;
 }
 }
 
-function MYPOINTS($YEAR,$SEM){
+
+
+function GETYEAR($USER_ID)
+{
+
+$def = ['2014-19','2017-18'];
 $connect = mysqli_connect("localhost", "root", "", "faculty");
-$user_id= $_SESSION['id'];
+;
+
+$query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
+
+$year=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($year);
+if ($num >= 1)
+{
+while($row = $year->fetch_row())
+{
+ $rows[]=$row;
+}
+return $rows;
+}
+
+else{
+return  $def;
+}
+}
+
+function MYPOINTS($YEAR,$SEM,$USER_ID){
+$connect = mysqli_connect("localhost", "root", "", "faculty");
+
 $MYPOINTS_EVEN= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 $MYPOINTS_ODD= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
 
-$query = "SELECT DISTINCT academic_id,student_id FROM performance WHERE user_id = $user_id and year='$YEAR' and sem='$SEM'" ;
+$query = "SELECT DISTINCT academic_id,student_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
 
 if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 {  
@@ -156,8 +211,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         $MYPOINTS_SEM[5]=$sd[4];
         $MYPOINTS_SEM[6]=$sd[1];
         return $MYPOINTS_SEM;
-     
-      
+
     
 }
 }
@@ -417,22 +471,22 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title">SEE WHAT YOU HAVE EARNED..!</h1> 
+                                    <h1 class="card-title">SEE WHAT I HAVE EARNED..!</h1> 
                                     <div>
                                          <?php   
-
+                                            $USER_ID= $_SESSION['id'];
                                             $EVEN='even';
                                             
-                                            $yr=GETYEAR();
+                                            $yr=GETYEAR($USER_ID);
                                             $i=0;
 
                                             foreach ($yr as $r) {
 
                                             $yrs[$i] = $r[0];
 
-                                            echo $yrs[$i];
+                                            //echo $yrs[$i];
                                             $i++;
-                                            echo "<br>";
+                                            //echo "<br>";
                                             }
 
                                             $YEAR=max($yrs);
@@ -440,10 +494,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                             echo chartLine(
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => $YEAR.' EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN),'type' => 'line'],
+                                                    ['name' => $YEAR.' EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN,$USER_ID),'type' => 'line'],
                                                    
                                                 ],
-                                               'YOUR CREDITS FOR THE SEM'                                                
+                                               'MY CREDITS FOR THIS SEM'                                                
                                             );
                                          ?>
                                     </div>
@@ -455,31 +509,37 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
 
 
-                    <div style="height:500px;margin-left:-12px;" id="compareTopper">
+                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                <h1 class="card-title">SEE WHERE YOU STAND..!</h1> 
+                                <h1 class="card-title">SEE WHERE I STAND..!</h1> 
                                     <div  >
                                                    <?php 
-                                                    
-                                                   $res=GETYEAR();
+                                                   $USER_ID=$_SESSION['id'];
+                                                   $yr=GETYEAR($USER_ID);
+                                                   $i=0;
 
-                                                   foreach ($res as $r) {
+                                                   $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
+
+                                                   foreach ($yr as $r) {
+                                                       $yrs[$i] = $r[0];
+                                                       $i++;
                                                        
-                                                       echo $r[0];
-                                                       echo "<br>";
                                                    }
                                                     
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'YOU SCORE', 'data' => [5, 20, 40, 10, 10, 20,40], 'type' => 'line'],
+                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
                                                          ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
                                                          ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
+
+                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
+                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
-                                                    'PERFORMANCE IN THIS SEM'                                                
+                                                    'ME IN THIS SEM'                                                
                                                 );
                                                 ?>
                                      </div>
@@ -494,22 +554,23 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title">HOW DO YO FEEL NOW..!</h1> 
+                                    <h1 class="card-title">HOW DO I FEEL NOW..!?</h1> 
                                     <div  >
                                          <?php 
-                                            $yr=GETYEAR();
+                                            $USER_ID= $_SESSION['id'];
+                                            $yr=GETYEAR($USER_ID);
                                             $i=0;
 
                                             foreach ($yr as $r) {
 
                                             $yrs[$i] = $r[0];
 
-                                            echo $yrs[$i];
+                                           // echo $yrs[$i];
                                             $i++;
-                                            echo "<br>";
+                                           // echo "<br>";
                                             }
 
-                                         $YEAR=max($yrs);
+                                         $YEAR1=max($yr);
                                          $EVEN='even';
                                          $ODD='odd';
                                  // echo $chart1->render('simple-custom-id');
@@ -518,10 +579,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
 
                                                 [
-                                                    ['name' => $YEAR.' ODD SEM', 'data'  =>MYPOINTS($YEAR,$ODD),'type' => 'line'],
-                                                    ['name' => $YEAR.'  SEM', 'data' =>MYPOINTS($YEAR,$EVEN),  'type' => 'line']
+                                                    ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR1,$ODD,$USER_ID),'type' => 'line'],
+                                                    ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR1,$EVEN,$USER_ID),  'type' => 'line']
                                                 ],
-                                                'YOUR CREDITS FOR THE YEAR'                                                
+                                                'MY CREDITS FOR '.$YEAR1                                                
                                             );
                                     ?>
                                     </div>
@@ -530,14 +591,14 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:500px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
+                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                <h1 class="card-title">DID YOU IMPROVE..?</h1> 
+                                <h1 class="card-title">DID I IMPROVE..?</h1> 
                                     <div  >
                                                    <?php 
-                                                   $yr=GETYEAR();
+                                                   $yr=GETYEAR($USER_ID);
                                                    $i=0;
 
                                                    $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
@@ -553,14 +614,14 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
 
-                                                         ['name' => $yrs[0], 'data' => YEARSUM($yrs[0]), 'type' => 'line'],
-                                                         ['name' => $yrs[1], 'data' => YEARSUM($yrs[1]), 'type' => 'line'],
-                                                         ['name' => $yrs[2], 'data' => YEARSUM($yrs[2]), 'type' => 'line'],
-                                                         ['name' => $yrs[3], 'data' => YEARSUM($yrs[3]), 'type' => 'line'],
-                                                         ['name' => $yrs[4], 'data' => YEARSUM($yrs[4]), 'type' => 'line']
+                                                         ['name' => $yrs[0], 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[1], 'data' => YEARSUM($yrs[1],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[2], 'data' => YEARSUM($yrs[2],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[3], 'data' => YEARSUM($yrs[3],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
 
                                                     ],
-                                                    'FOR THE PAST 5 YEARS'                                                
+                                                    'FROM MY PAST 5 YEARS'                                                
                                                 );
                                                 ?>
 

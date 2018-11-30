@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2018 at 08:56 AM
+-- Generation Time: Nov 30, 2018 at 11:23 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `academic_performance` (
   `ext_credits` float NOT NULL,
   `tot_credits` float NOT NULL,
   PRIMARY KEY (`academic_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `academic_performance`
@@ -59,7 +59,9 @@ INSERT INTO `academic_performance` (`academic_id`, `tot_pub`, `pub_credits`, `at
 (8, 2, 2.85714, 98.3, 9.83, 3, 6, 5, 10, 1, 2, 6.13743),
 (9, 2, 2.85714, 92.9, 9.29, 1, 2, 2, 4, 2, 4, 4.42943),
 (10, 8, 10, 78.9, 7.89, 2, 4, 4, 8, 8, 10, 7.978),
-(11, 7, 10, 100, 10, 5, 10, 0, 0, 3, 6, 7.2);
+(11, 7, 10, 100, 10, 5, 10, 0, 0, 3, 6, 7.2),
+(12, 2, 2.85714, 89, 8.9, 7, 10, 3, 6, 4, 8, 7.15143),
+(13, 5, 7.14286, 77.2, 7.72, 3, 6, 0, 0, 3, 6, 5.37257);
 
 -- --------------------------------------------------------
 
@@ -102,24 +104,27 @@ CREATE TABLE IF NOT EXISTS `performance` (
   `sem` enum('odd','even') NOT NULL,
   `academic_id` int(20) NOT NULL,
   `student_id` int(20) NOT NULL,
+  `total_credits` float NOT NULL,
   PRIMARY KEY (`perf_id`),
   KEY `academics` (`academic_id`),
   KEY `student` (`student_id`),
   KEY `faculty` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `performance`
 --
 
-INSERT INTO `performance` (`perf_id`, `user_id`, `year`, `sem`, `academic_id`, `student_id`) VALUES
-(1, 4, '2018-19', 'odd', 4, 2),
-(4, 6, '2018-19', 'even', 6, 4),
-(5, 6, '2018-19', 'odd', 7, 5),
-(6, 6, '2017-18', 'odd', 8, 6),
-(7, 6, '2017-18', 'even', 9, 7),
-(8, 6, '2016-17', 'odd', 10, 8),
-(9, 6, '2016-17', 'even', 11, 9);
+INSERT INTO `performance` (`perf_id`, `user_id`, `year`, `sem`, `academic_id`, `student_id`, `total_credits`) VALUES
+(1, 4, '2018-19', 'odd', 4, 2, 9.5),
+(4, 6, '2018-19', 'even', 6, 4, 8.3),
+(5, 6, '2018-19', 'odd', 7, 5, 7.2),
+(6, 6, '2017-18', 'odd', 8, 6, 8.2),
+(7, 6, '2017-18', 'even', 9, 7, 10),
+(8, 6, '2016-17', 'odd', 10, 8, 6.5),
+(9, 6, '2016-17', 'even', 11, 9, 7.6),
+(10, 6, '2015-16', 'odd', 12, 10, 7.2132),
+(11, 6, '2015-16', 'odd', 13, 11, 6.52);
 
 -- --------------------------------------------------------
 
@@ -136,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `student_performance` (
   `pass_credits` float NOT NULL,
   `total_credits` float NOT NULL,
   PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student_performance`
@@ -151,7 +156,9 @@ INSERT INTO `student_performance` (`student_id`, `stud_credits`, `tot_students`,
 (6, 7.3, 90, 54, 6, 6.65),
 (7, 6.7, 89, 41, 4.60674, 5.65337),
 (8, 7.9, 94, 91, 9.68085, 8.79043),
-(9, 9.2, 78, 77, 9.87179, 9.5359);
+(9, 9.2, 78, 77, 9.87179, 9.5359),
+(10, 8.4, 200, 123, 6.15, 7.275),
+(11, 8.9, 200, 145, 7.25, 8.075);
 
 -- --------------------------------------------------------
 
