@@ -251,6 +251,13 @@ function GETYEAR($USER_ID)
             th, td{
                 text-align: center;
             }
+            #loading {
+            background: white;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 999999;
+        }
         </style>
     </head>
 
@@ -269,12 +276,12 @@ function GETYEAR($USER_ID)
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed" id="myNav">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <ul class="nav navbar-nav list-group">
-                        <!-- <li class="active">
-                            <a  href="#widgets" class="sliding-link"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
-                        </li> -->
                         <li class="active">
-                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                            <a  href="admin_dash.php" class="sliding-link"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                         </li>
+                        <!-- <li class="active">
+                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        </li> -->
 
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"  style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3; font-weight: 900;"></i>View Performance</a></li><!-- /.menu-title -->
                         <li><a href="#depPerformance" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Department </a></li>
@@ -288,7 +295,7 @@ function GETYEAR($USER_ID)
                         <li><a href="#addPerformance" class="sliding-link"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                         
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link" style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i>Personal Details</a></li><!-- /.menu-title -->
-                        <li><a href="#" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                        <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
                         <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                     </ul>
@@ -345,8 +352,11 @@ function GETYEAR($USER_ID)
             </div>
             </header>
             <!-- /#header -->
-
+            <div id="loading">
+                <img src="img/loading1.gif" style="margin-left: 120px;" />
+            </div>
             <!-- Content -->
+            <div id="content">
             <div class="content">
                 <!-- Animated -->
                 <div class="animated fadeIn" id="contentDivs">
@@ -461,7 +471,7 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- FACULTY PERFORMANCE -->
-                    <div style="height:600px; overflow-y: hidden;" id="faculty" >
+                    <div id="faculty" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="faculty">
@@ -490,18 +500,6 @@ function GETYEAR($USER_ID)
                                            
                                             <div class="col-sm-12" style="margin-left: 0px;">
                                                 <?php 
-                                                    //     echo chartLine(
-                                                    //     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
-                                                    //     [
-                                                    //          ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
-                                                    //          ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
-                                                    //          ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
-                                                             
-                                                    //     ],
-                                                    //     ''                                                
-                                                    // );
-                                                ?> 
-                                                <?php 
                                                     $USER_ID = $_GET['faculty_name'];
                                                     $sql = "SELECT name FROM user WHERE user_id = $USER_ID";
                                                     $res = mysqli_query($connect, $sql);
@@ -519,14 +517,14 @@ function GETYEAR($USER_ID)
                                                     }
                                                    
                                                     echo chartLine(
-                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                     [
 
-                                                         ['name' => $yrs[0], 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
-                                                         ['name' => $yrs[1], 'data' => YEARSUM($yrs[1],$USER_ID), 'type' => 'line'],
-                                                         ['name' => $yrs[2], 'data' => YEARSUM($yrs[2],$USER_ID), 'type' => 'line'],
-                                                         ['name' => $yrs[3], 'data' => YEARSUM($yrs[3],$USER_ID), 'type' => 'line'],
-                                                         ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
+                                                        ['name' => $yrs[0], 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
+                                                        ['name' => $yrs[1], 'data' => YEARSUM($yrs[1],$USER_ID), 'type' => 'line'],
+                                                        ['name' => $yrs[2], 'data' => YEARSUM($yrs[2],$USER_ID), 'type' => 'line'],
+                                                        ['name' => $yrs[3], 'data' => YEARSUM($yrs[3],$USER_ID), 'type' => 'line'],
+                                                        ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
 
                                                     ],
                                                     "$row[0]");
@@ -1011,61 +1009,14 @@ function GETYEAR($USER_ID)
                             </div>
                         </div>
                         
-                        <!-- LIVE CHAT -->
+                        <!-- EDIT PROGILE -->
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title box-title">Live Chat</h4>
+                                    <h4 class="card-title box-title">Edit Profile</h4>
                                     <div class="card-content">
-                                        <div class="messenger-box">
-                                            <ul>
-                                                <li>
-                                                    <div class="msg-received msg-container">
-                                                        <div class="avatar">
-                                                           <img src="images/avatar/64-1.jpg" alt="">
-                                                           <div class="send-time">11.11 am</div>
-                                                       </div>
-                                                       <div class="msg-box">
-                                                        <div class="inner-box">
-                                                            <div class="name">
-                                                                John Doe
-                                                            </div>
-                                                            <div class="meg">
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis sunt placeat velit ad reiciendis ipsam
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- /.msg-received -->
-                                            </li>
-                                            <li>
-                                                <div class="msg-sent msg-container">
-                                                    <div class="avatar">
-                                                       <img src="images/avatar/64-2.jpg" alt="">
-                                                       <div class="send-time">11.11 am</div>
-                                                    </div>
-                                                    <div class="msg-box">
-                                                        <div class="inner-box">
-                                                            <div class="name">
-                                                                John Doe
-                                                            </div>
-                                                            <div class="meg">
-                                                                Hay how are you doing?
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </div><!-- /.msg-sent -->
-                                        </li>
-                                    </ul>
-                                    <div class="send-mgs">
-                                        <div class="yourmsg">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                        <button class="btn msg-send-btn">
-                                            <i class="pe-7s-paper-plane"></i>
-                                        </button>
+                                        <br><p style="font-size: 50px;line-height: 50px;">Feature Coming Soon!<br>Stay Tuned.</p>
                                     </div>
-                                </div><!-- /.messenger-box -->
-                            </div>
                                 </div> <!-- /.card-body -->
                             </div><!-- /.card -->
                         </div>
@@ -1078,7 +1029,7 @@ function GETYEAR($USER_ID)
             <div class="clearfix"></div>
 
             <!-- Footer -->
-            <footer class="site-footer">
+            <footer class="site-footer" style="margin-top: 30px;">
                 <div class="footer-inner bg-white">
                     <div class="row">
                         <div class="col-sm-6">
@@ -1090,13 +1041,17 @@ function GETYEAR($USER_ID)
                     </div>
                 </div>
             </footer>
-           
+        </div>
         </div>
         <!-- /#right-panel -->
 
         <!-- SCRIPTS -->
         <!-- LOCAL SCRIPTS -->
         <script type="text/javascript">
+
+            $(window).ready(function() {
+                $('#loading').hide();
+            });
             // $("#depTrigger").on('click',function(){
             //     $('html,body').animate({
             //         scrollTop: $('#depPerformance').offset().top-75
