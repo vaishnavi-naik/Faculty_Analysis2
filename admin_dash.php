@@ -53,6 +53,85 @@ function chartLine($xAxisData, $seriesData, $title = '')
 
     return $chart->render(uniqid());
 }
+
+function MYPOINTS($YEAR,$SEM,$USER_ID){
+    $connect = mysqli_connect("localhost", "root", "", "faculty");
+
+    $MYPOINTS_EVEN= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+    $MYPOINTS_ODD= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+
+    $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
+
+    if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+    {  
+            $res=mysqli_query($connect, $query); 
+            $row = mysqli_fetch_row($res);
+            
+            $academic_id=$row[0];
+            $stud_id=$row[1];
+            $perf_id=$row[2];
+
+
+            $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+            $academic=mysqli_query($connect, $query1); 
+            $ad = mysqli_fetch_row($academic);
+            $num = mysqli_num_rows($academic);
+
+            $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+            $student=mysqli_query($connect, $query2); 
+            $sd = mysqli_fetch_row($student);
+            $num1 = mysqli_num_rows($student);
+
+            $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
+            $student=mysqli_query($connect, $query3); 
+            $pd = mysqli_fetch_row($student);
+            $num2 = mysqli_num_rows($student);
+
+            if($num==0)
+            {
+                $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+            }
+
+            if($num1==0)
+            {
+                $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+            }
+            if($num2==0)
+            {
+                $pd = array(0.0);
+            }
+            
+            $MYPOINTS_SEM[0]=$ad[4];
+            $MYPOINTS_SEM[1]=$ad[2];
+            $MYPOINTS_SEM[2]=$ad[8];
+            $MYPOINTS_SEM[3]=$ad[6];
+            $MYPOINTS_SEM[4]=$ad[10];
+            $MYPOINTS_SEM[5]=$sd[4];
+            $MYPOINTS_SEM[6]=$sd[1];
+            $MYPOINTS_SEM[7]=$ad[11];
+            $MYPOINTS_SEM[8]=$sd[5];
+            $MYPOINTS_SEM[9]=$pd[0];
+
+            return $MYPOINTS_SEM;
+
+        
+    }
+}
+
+function YEARSUM($YEAR,$USER_ID){
+
+    $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
+    $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+    for ($i=0;$i<count($TOTALODD);$i++)
+    {
+    $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+    }
+
+    return $TOTALYEAR;
+
+}
+
+
 ?>
 
 <!doctype html>
@@ -100,43 +179,43 @@ function chartLine($xAxisData, $seriesData, $title = '')
             .iclass{
                 font-size: 16px; margin-top: 7px;
             }
-            .red-border{
-                border-color: #e45545;
+            th, td{
+                text-align: center;
             }
         </style>
     </head>
 
     <body>
+        <!-- PHP CODE TO TRIGGER THE ALERTS FOR CHANGE PASSWORD -->
+        <?php 
+            $user_name = $_SESSION['name']; 
+            if(isset($_GET['msg']))
+                echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
+            if(isset($_GET['error']))
+                echo '<script>$(document).ready(function(){$("#passFail").show();});</script>';
+        ?>
         <!-- Left Panel -->
         <!-- Dashboard -->
-        <?php $user_name = $_SESSION['name']; 
-        if(isset($_GET['msg']))
-            echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
-        if(isset($_GET['error']))
-            echo '<script>$(document).ready(function(){$("#passFail").show();});</script>';
-
-        ?>
         <aside id="left-panel" class="left-panel">
-            <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
+            <nav class="navbar navbar-expand-sm navbar-default navbar-fixed" id="myNav">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
-                    <ul class="nav navbar-nav list-group" id="myNav">
-
+                    <ul class="nav navbar-nav list-group">
                         <li class="active">
-                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                            <a  href="#widgets" class="sliding-link"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                         </li>
 
-                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i>View Performance</a></li><!-- /.menu-title -->
+                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"  style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3; font-weight: 900;"></i>View Performance</a></li><!-- /.menu-title -->
                         <li><a href="#depPerformance" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Department </a></li>
                         <li><a href="#faculty" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>Faculty </a></li>
                         <li><a href="#compare" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Compare </a></li>
                         <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>Top Faculty </a></li>
 
-                        <li class="sidebarHeading"><a href="#manageDept" class="sliding-link"><i class="menu-icon fas fa-code-branch iclass" style="color:#03a9f3;"></i>Manage</a></li><!-- /.menu-title -->
+                        <li class="sidebarHeading"><a href="#manageDept" class="sliding-link" style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-code-branch iclass" style="color:#03a9f3;"></i>Manage</a></li><!-- /.menu-title -->
                         <li><a href="#addFaculty" class="sliding-link"> <i class="menu-icon fas fa-user-plus"></i>Faculty </a></li>
                         <li><a href="#addAdmin" class="sliding-link"> <i class="menu-icon fas fa-user-plus"></i>Admin </a></li>
                         <li><a href="#addPerformance" class="sliding-link"> <i class="menu-icon fas fa-stopwatch"></i>Performance Details </a></li>
                         
-                        <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i>Personal Details</a></li><!-- /.menu-title -->
+                        <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link" style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i>Personal Details</a></li><!-- /.menu-title -->
                         <li><a href="#" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
                         <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
@@ -198,10 +277,9 @@ function chartLine($xAxisData, $seriesData, $title = '')
             <!-- Content -->
             <div class="content">
                 <!-- Animated -->
-                <div class="animated fadeIn" data-spy="scroll" data-target="#myNav" data-offset="50">
+                <div class="animated fadeIn" id="contentDivs">
                     <!-- Widgets Top Small Cards -->
-                    <div class="row">
-
+                    <div class="row" id="widgets">
                         <div class="col-lg-3 col-md-6" >
                             <div class="card">
                                 <div class="card-body">
@@ -294,6 +372,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
                                     <h1 class="card-title">YOUR DEPARTMENT </h1> 
                                     <div  >
                                          <?php 
+                                         
                                          // echo $chart1->render('simple-custom-id');
                                          echo chartLine(
                                             ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
@@ -382,104 +461,74 @@ function chartLine($xAxisData, $seriesData, $title = '')
                         </div>
                     </div>
 
-                    <!-- TOPP FACULTY DETAILS -->
+                    <!-- TOP FACULTY DETAILS -->
                     <div class="orders" id="topFaculty">
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="box-title">Orders </h4>
+                                        <h4 class="box-title">TOP FACULTY IN YOUR DEPARTMENT</h4>
                                     </div>
                                     <div class="card-body--">
+                                        <?php
+                                                $adminDept = $_SESSION['dept'];
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = 'CSE') ORDER BY total_credits DESC";
+                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                                while ($row = mysqli_fetch_array($res)){ 
+                                                    $user_ids[] = $row['user_id'];
+                                                }
+                                                $topUserCount = mysqli_num_rows($res);
+
+                                                // construct query to obtain user details
+                                                $sql = "SELECT name, profile_pic FROM user WHERE user_id = $user_ids[0]";
+                                                for($i = 1 ; $i < $topUserCount ; $i++)
+                                                    $sql .= " OR user_id = $user_ids[$i]";                                                   
+                                                    
+                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                                while($row = mysqli_fetch_array($res)){
+                                                    $names[] = $row['name'];
+                                                    $pics[] = $row['profile_pic'];
+                                                }
+                                                for($i = 0 ; $i < $topUserCount ; $i++){
+                                                    $userCredits = YEARSUM('2018-19', $user_ids[$i]);
+                                                    $academic_credits[] = $userCredits[7];
+                                                    $student_credits[] = $userCredits[8];
+                                                    $overall_credits[] = $userCredits[9];
+                                                }
+                                            ?>  
                                         <div class="table-stats order-table ov-h">
+                                           
+                                            
                                             <table class="table ">
                                                 <thead>
                                                     <tr>
                                                         <th class="serial">#</th>
-                                                        <th class="avatar">Avatar</th>
-                                                        <th>ID</th>
+                                                        <th class="avatar">Image</th>
+                                                        <!-- <th>something</th> -->
                                                         <th>Name</th>
-                                                        <th>Product</th>
-                                                        <th>Quantity</th>
-                                                        <th>Status</th>
+                                                        <th>Academic</th>
+                                                        <th>Student</th>
+                                                        <th>Overall</th>
+                                                        <th>Department</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="serial">1.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5469 </td>
-                                                        <td>  <span class="name">Louis Stanley</span> </td>
-                                                        <td> <span class="product">iMax</span> </td>
-                                                        <td><span class="count">231</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">2.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5468 </td>
-                                                        <td>  <span class="name">Gregory Dixon</span> </td>
-                                                        <td> <span class="product">iPad</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">3.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5467 </td>
-                                                        <td>  <span class="name">Catherine Dixon</span> </td>
-                                                        <td> <span class="product">SSD</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">4.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5466 </td>
-                                                        <td>  <span class="name">Mary Silva</span> </td>
-                                                        <td> <span class="product">Magic Mouse</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-pending">Pending</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class=" pb-0">
-                                                        <td class="serial">5.</td>
-                                                        <td class="avatar pb-0">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/6.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5465 </td>
-                                                        <td>  <span class="name">Johnny Stephens</span> </td>
-                                                        <td> <span class="product">Monitor</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
+                                                <tbody>                                
+                                                    <?php
+                                                    for($i = 0 ; $i < $topUserCount ; $i++){
+                                                        $rank = $i+1;
+                                                        echo "<tr><td>$rank.</td>";
+                                                        if($pics[$i] == NULL)
+                                                            echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                        else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                        echo "
+                                                        <td>$names[$i]</td>
+                                                        <td>$academic_credits[$i]</td>
+                                                        <td>$student_credits[$i]</td>
+                                                        <td>$overall_credits[$i]</td>
+                                                        <td><span class='badge badge-complete'>$adminDept</span></td>
+                                                        </tr>";
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div> <!-- /.table-stats -->
@@ -1011,6 +1060,8 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 $('html,body').animate({scrollTop: $(aid).offset().top-75},'slow');
             });
 
+
+
             $(document).ready(function() {
                 $('html, body').hide();
 
@@ -1025,6 +1076,16 @@ function chartLine($xAxisData, $seriesData, $title = '')
                 else {
                     $('html, body').show();
                 }
+            });
+
+            $(document).ready(function(){
+
+               $("div").mouseenter(function(){
+                 var id = $(this).attr('id');
+                 $('a').removeClass('active');
+                 $("[href=#"+id+"]").addClass('active');
+               });
+
             });
         </script>
 
