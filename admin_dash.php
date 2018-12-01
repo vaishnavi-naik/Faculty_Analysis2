@@ -2,14 +2,18 @@
 header('Content-Type: text/html; charset=utf-8');
 require('include/connection.php');
 
+// redirects to the login page if the user isn't loggeed in
 if(!isset($_SESSION['type'])){
     header('location:login.php');
 }
 
+// only allows admins access to the page, redirects others to the index page
 if(isset($_SESSION['type']) && $_SESSION['type']!='Admin')
     header('location:index.php');
 
 require('./vendor/autoload.php');
+
+// renders a chart for the given data using the EchartsPHP library
 function chartLine($xAxisData, $seriesData, $title = '')
 {
     $chart = new Hisune\EchartsPHP\ECharts();
@@ -54,84 +58,68 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 
+// returns an array of the different credit values for the given sem and year of the given user
 function MYPOINTS($YEAR,$SEM,$USER_ID){
     $connect = mysqli_connect("localhost", "root", "", "faculty");
-
-    $MYPOINTS_EVEN= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-    $MYPOINTS_ODD= array(0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-
     $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
 
     if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     {  
-            $res=mysqli_query($connect, $query); 
-            $row = mysqli_fetch_row($res);
-            
-            $academic_id=$row[0];
-            $stud_id=$row[1];
-            $perf_id=$row[2];
-
-
-            $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
-            $academic=mysqli_query($connect, $query1); 
-            $ad = mysqli_fetch_row($academic);
-            $num = mysqli_num_rows($academic);
-
-            $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
-            $student=mysqli_query($connect, $query2); 
-            $sd = mysqli_fetch_row($student);
-            $num1 = mysqli_num_rows($student);
-
-            $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
-            $student=mysqli_query($connect, $query3); 
-            $pd = mysqli_fetch_row($student);
-            $num2 = mysqli_num_rows($student);
-
-            if($num==0)
-            {
-                $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-            }
-
-            if($num1==0)
-            {
-                $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
-            }
-            if($num2==0)
-            {
-                $pd = array(0.0);
-            }
-            
-            $MYPOINTS_SEM[0]=$ad[4];
-            $MYPOINTS_SEM[1]=$ad[2];
-            $MYPOINTS_SEM[2]=$ad[8];
-            $MYPOINTS_SEM[3]=$ad[6];
-            $MYPOINTS_SEM[4]=$ad[10];
-            $MYPOINTS_SEM[5]=$sd[4];
-            $MYPOINTS_SEM[6]=$sd[1];
-            $MYPOINTS_SEM[7]=$ad[11];
-            $MYPOINTS_SEM[8]=$sd[5];
-            $MYPOINTS_SEM[9]=$pd[0];
-
-            return $MYPOINTS_SEM;
-
+        $res=mysqli_query($connect, $query); 
+        $row = mysqli_fetch_row($res);
         
+        $academic_id=$row[0];
+        $stud_id=$row[1];
+        $perf_id=$row[2];
+
+        $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+        $academic=mysqli_query($connect, $query1); 
+        $ad = mysqli_fetch_row($academic);
+        $num = mysqli_num_rows($academic);
+
+        $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+        $student=mysqli_query($connect, $query2); 
+        $sd = mysqli_fetch_row($student);
+        $num1 = mysqli_num_rows($student);
+
+        $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
+        $student=mysqli_query($connect, $query3); 
+        $pd = mysqli_fetch_row($student);
+        $num2 = mysqli_num_rows($student);
+
+        if($num==0)
+            $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+
+        if($num1==0)
+            $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+        
+        if($num2==0)
+            $pd = array(0.0);
+        
+        $MYPOINTS_SEM[0]=$ad[4];
+        $MYPOINTS_SEM[1]=$ad[2];
+        $MYPOINTS_SEM[2]=$ad[8];
+        $MYPOINTS_SEM[3]=$ad[6];
+        $MYPOINTS_SEM[4]=$ad[10];
+        $MYPOINTS_SEM[5]=$sd[4];
+        $MYPOINTS_SEM[6]=$sd[1];
+        $MYPOINTS_SEM[7]=$ad[11];
+        $MYPOINTS_SEM[8]=$sd[5];
+        $MYPOINTS_SEM[9]=$pd[0];
+
+        return $MYPOINTS_SEM;
     }
 }
 
+// return the sum of the credits for the even and odd sem of the given year
 function YEARSUM($YEAR,$USER_ID){
-
     $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
     $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
     for ($i=0;$i<count($TOTALODD);$i++)
-    {
-    $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
-    }
+        $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
 
     return $TOTALYEAR;
-
 }
-
-
 ?>
 
 <!doctype html>
@@ -200,8 +188,11 @@ function YEARSUM($YEAR,$USER_ID){
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed" id="myNav">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <ul class="nav navbar-nav list-group">
-                        <li class="active">
+                        <!-- <li class="active">
                             <a  href="#widgets" class="sliding-link"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                        </li> -->
+                        <li class="active">
+                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                         </li>
 
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"  style="color:#03a9f3; font-weight: 900;"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3; font-weight: 900;"></i>View Performance</a></li><!-- /.menu-title -->
