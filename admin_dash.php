@@ -349,7 +349,7 @@ function GETYEAR($USER_ID)
                           </a>
 
                           <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#changePass"><i class="fa fa- user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
@@ -728,7 +728,7 @@ function GETYEAR($USER_ID)
                                                 </div>
                                             </div>
 
-                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFailUser">
+                                            <div class="alert alert-danger alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regFailUser">
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                               <center><strong>Error!</strong> <?php $error = $_GET['userError']; echo "$error"; ?></center>
                                             </div>
@@ -737,7 +737,7 @@ function GETYEAR($USER_ID)
                                             <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
                                             <br>
                                         </form><br>
-                                        <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regSuccessUser">
+                                        <div class="alert alert-success alert-dismissible offset-md-3 col-md-6 collapse" role="alert" id ="regSuccessUser">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <center><strong>Success!</strong> Registration Successful.</center>
                                         </div>
@@ -807,7 +807,7 @@ function GETYEAR($USER_ID)
                                                 </div>
                                             </div>
 
-                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFailAdmin">
+                                            <div class="alert alert-danger alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regFailAdmin">
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                               <center><strong>Error!</strong> <?php $error = $_GET['adminError']; echo "$error"; ?></center>
                                             </div>
@@ -815,7 +815,7 @@ function GETYEAR($USER_ID)
                                           <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
                                           <br>
                                     </form><br>
-                                    <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regSuccessAdmin">
+                                    <div class="alert alert-success alert-dismissible offset-md-3 col-md-6 collapse" role="alert" id ="regSuccessAdmin">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <center><strong>Success!</strong> Registration Successful.</center>
                                     </div>
