@@ -471,7 +471,7 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- FACULTY PERFORMANCE -->
-                    <div id="faculty" >
+                    <div style="height:600px; margin-left: 0px; overflow-y: hidden;" id="faculty" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="faculty">
