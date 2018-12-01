@@ -28,7 +28,7 @@
             <h1 style="text-shadow:3px 3px 5px black;margin-top:-75%;color:#c90219;font-size:60px;">WELCOME TO FACULTY ANALYSIS</h1>
             <p></p>
             <?php if(isset($_SESSION['email'])){?>
-              <p><a class="btn btn-lg btn-primary" href="dashboard.php" style="width:auto;margin-top: 230px;" role="button">GO TO DASHBOARD</a></p>
+              <p><a class="btn btn-lg btn-primary" href="dashboard_new.php" style="width:auto;margin-top: 230px;" role="button">GO TO DASHBOARD</a></p>
             <?php }else{?>
             <p><a class="btn btn-lg btn-primary" href="login.php" style="width:auto;margin-top: 230px;" role="button">LOGIN</a></p>
             <?php }?>
