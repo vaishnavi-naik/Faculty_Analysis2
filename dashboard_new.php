@@ -59,7 +59,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     $chart->addYAxis($yAxis);
 
     $chart->initOptions->renderer = 'canvas';
-   // $chart->initOptions->height = '1000px';
+    //$chart->width = '800px';
 
     return $chart->render(uniqid());
 }
@@ -69,50 +69,32 @@ $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
 
 
-function YEARSUM($YEAR,$USER_ID)
+
+
+function GET_COLLEGE_TOPPER($USER_ID)
 {
-
-$TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
-$TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
-for ($i=0;$i<count($TOTALODD);$i++)
-{
-$TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
-}
-
-return $TOTALYEAR;
-
-
-}
-
-
-function GET_COLLEGE_TOPPER_YEAR()
-{
-
-$def = ['2014-19','2017-18'];
+$YEAR= GETYEAR($USER_ID);
+$YEAR = max($YEAR[0]);
 $connect = mysqli_connect("localhost", "root", "", "faculty");
-$user_id= $_SESSION['id'];
 
+$query="SELECT user_id FROM performance where year = '$YEAR' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR') ";
 
-
-$query="SELECT DISTINCT year FROM performance where user_id = '$user_id' order by year desc ";
-
-$year=mysqli_query($connect, $query);  
-$num = mysqli_num_rows($year);
+$topper=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($topper);
 if ($num >= 1)
 {
-while($row = $year->fetch_row())
-{
- $rows[]=$row;
-}
-return $rows;
+$row = mysqli_fetch_row($topper);
+
+$topper_id=$row[0];
+return $topper_id;
 }
 
 else{
-return  $def;
+return 'no data';
 }
 }
 
-function GET_DEPT_TOPPER_YEAR()
+function GET_DEPT_TOPPER()
 {
 
 $def = ['2014-19','2017-18'];
@@ -137,6 +119,37 @@ return  $def;
 }
 }
 
+// function GETSEM($USER_ID)
+// {
+// $connect = mysqli_connect("localhost", "root", "", "faculty");
+
+// $YEAR1= GETYEAR($USER_ID);
+// $YEAR=$YEAR1[0][0];
+
+// $query = "SELECT min(sem) FROM performance WHERE user_id = '$USER_ID' and year='$YEAR'" ;
+
+// if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+// {  
+//         $res=mysqli_query($connect, $query); 
+//         $row = mysqli_fetch_row($res);
+       
+//         $num = mysqli_num_rows($res);
+
+//         if($num==0)
+//         {
+//            return 'no sem';
+//         }
+
+//         else
+//         {
+//             return $row;
+//         }
+
+
+
+    
+// }
+// }
 
 
 function GETYEAR($USER_ID)
@@ -163,6 +176,22 @@ else{
 return  $def;
 }
 }
+
+function YEARSUM($YEAR,$USER_ID)
+{
+
+$TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
+$TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+for ($i=0;$i<count($TOTALODD);$i++)
+{
+$TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+}
+
+return $TOTALYEAR;
+
+
+}
+
 
 function MYPOINTS($YEAR,$SEM,$USER_ID){
 $connect = mysqli_connect("localhost", "root", "", "faculty");
@@ -302,17 +331,21 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </li>
 
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>MY PERFORMANCE</b></a></li><!-- /.menu-title -->
-                        <li><a href="#thisSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>My Credits </a></li>
-                        <li><a href="#compareTopper" class="sliding-link"> <i class="menu-icon fas fa-school"></i>Comparison</a></li>
-                        <li><a href="#thisYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>This Year</a></li>
-                        <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>Previous Years</a></li>
-                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>Rank List</a></li>
+                        <li><a href="#evenSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>In Even Sem </a></li>
+                        <li><a href="#oddSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>In Odd Sem </a></li>
+                        <li><a href="#thisYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>In This Year</a></li>
+                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>COMPARISON</b></a></li>
+                        <li><a href="#compareTopperEven" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Odd Sem</a></li>
+                        <li><a href="#compareTopperOdd" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Even Sem</a></li>
+                        
+                        <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>For Previous Years</a></li>
+                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>
                         
 
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
-                        <li><a href="#personalDetails" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
+                        <!--<li><a href="#personalDetails" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>-->
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
-                        <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
+                        <!--<li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>-->
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
@@ -473,129 +506,78 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                     </div>
 
 
-                 <div  style="height:600px; margin-left:-12px;" id="thisSem">
+                <div  style="height:550px; margin-left:-12px;" id="evenSem">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" >
                                 
-                                    <h1 class="card-title">SEE WHAT I HAVE EARNED..!</h1>
-                                    <div class="form-group inline col-md-12">
-                                    <h4 style="display: inline;">Select Sem: </h4>
-                                    <select style="display: inline;" name="selectthis" id="selectthis"style="margin-left: 20px;" class="form-control col-md-2">
-                                        <option value ="even" selected="true" >EVEN</option>
-                                        <option value ="odd" >ODD</option>
-                                    </select>
-                                    <button id="submitSem" value="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" onclick="getSem()">GO</button>
-                                   </div>
-
-
-                              
-                                
-                              <div id="selectSem">  
+                                    <h2 class="card-title">MY PERFORMANCE IN EVEN SEM!</h2>
+                                 
                                          <?php
 
                                             $USER_ID= $_SESSION['id'];
-                                            $SEM='even';
-                                            $SEM_NAME=' EVEN SEM';
-
-                                           // echo "<script>$.alert({title: 'Alert!',content: 'Simple alert!',});</script>";
-
-                                            //  if (getSem($(Document).getElementById('selectthis')->nodeValue)=='odd') 
-                                            // {
-                                            //      $SEM='odd';
-                                            //      $SEM_NAME=' ODD SEM';
-                                            //      # code...
-                                            //  }
-                                            
-                                            
+                                   
                                             $yr=GETYEAR($USER_ID);
                                             $i=0;
+                                            $YEAR = max($yr[0]);
 
-                                            foreach ($yr as $r) {
 
-                                            $yrs[$i] = $r[0];
-
-                                            //echo $yrs[$i];
-                                            $i++;
-                                            //echo "<br>";
-                                            }
-
-                                            $YEAR=max($yrs);
-
+                                           
                                             echo chartLine(
-                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
+                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => $YEAR.$SEM_NAME, 'data' =>MYPOINTS($YEAR,$SEM,$USER_ID),'type' => 'line'],
+                                                    ['name' => $YEAR.' EVEN', 'data' =>MYPOINTS($YEAR,'even',$USER_ID),'type' => 'line'],
                                                    
                                                 ],
-                                               'MY CREDITS FOR THIS SEM'                                                
+                                               'CREDITS FOR '.$YEAR.' EVEN SEM'                                                
                                             );
                                         
                                          ?>
-                                    </div>
+                                    
                                 
                                 </div> 
                             </div>
                         </div><!-- /# column -->
                     </div>
 
-
-
-
-                    <div style="height:600px;margin-left:-12px;" id="compareTopper">
+        <div  style="height:550px; margin-left:-12px;" id="oddSem">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
-                                <div class="card-body">
-                                <h1 class="card-title">SEE WHERE I STAND..!</h1> 
-                                    <div class="form-group inline col-md-12">
-                                    <h4 style="display: inline;">Select Sem: </h4>
-                                    <select style="display: inline;" name="selectthis" id="selectthis"style="margin-left: 20px;" class="form-control col-md-2">
-                                        <option value ="even" selected="true" >EVEN</option>
-                                        <option value ="odd" >ODD</option>
-                                    </select>
-                                    <button id="submitSem" value="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" onclick="getSem()">GO</button>
-                                   </div>
-                                    <div  >
-                                                   <?php 
-                                                   $USER_ID=$_SESSION['id'];
-                                                   $yr=GETYEAR($USER_ID);
-                                                   $i=0;
+                                <div class="card-body" >
+                                
+                                    <h2 class="card-title">MY PERFORMANCE IN ODD SEM!</h2>
+                                 
+                                         <?php
 
-                                                   $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
+                                            $USER_ID= $_SESSION['id'];
+                                            
+                                            $yr=GETYEAR($USER_ID);
+                                            $i=0;
+                                            $YEAR = max($yr[0]);
 
-                                                   foreach ($yr as $r) {
-                                                       $yrs[$i] = $r[0];
-                                                       $i++;
-                                                       
-                                                   }
-                                                    
-                                                    echo chartLine(
-                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
-                                                    [
-                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
 
-                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
-                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
-                                                         
-                                                    ],
-                                                    'MY SCORE IN THIS SEM'                                                
-                                                );
-                                                ?>
-                                     </div>
-                                 </div>
+                                            echo chartLine(
+                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
+                                                [
+                                                    ['name' => $YEAR.' ODD', 'data' =>MYPOINTS($YEAR,'odd',$USER_ID),'type' => 'line'],
+                                                   
+                                                ],
+                                               'CREDITS FOR '.$YEAR.' ODD SEM'                                                
+                                            );
+                                        
+                                         ?>
+                                    
+                                
                                 </div> 
                             </div>
                         </div><!-- /# column -->
-                    
+                    </div>
 
-
-                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="thisYear">
+                <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="thisYear">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title">HOW DO I FEEL NOW..!?</h1> 
+                                    <h2 class="card-title">ALL ABOUT THIS YEAR!!</h2> 
                                     <div  >
                                          <?php 
                                             $USER_ID= $_SESSION['id'];
@@ -624,13 +606,13 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                  // echo $chart1->render('simple-custom-id');
                                    echo chartLine(
 
-                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
+                                                ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
 
                                                 [
                                                     ['name' => 'ODD SEM', 'data'  =>MYPOINTS($YEAR,$ODD,$USER_ID),'type' => 'line'],
                                                     ['name' => 'EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN,$USER_ID),  'type' => 'line']
                                                 ],
-                                                'MY CREDITS FOR '.$YEAR1[0]                                                
+                                                'CREDITS FOR '.$YEAR1[0]                                                
                                             );
                                     ?>
                                     </div>
@@ -639,11 +621,58 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </div><!-- /# column -->
                     </div>
 
-                 <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
+         
+
+
+                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                <h1 class="card-title">DID I IMPROVE..?</h1> 
+                                <h2 class="card-title">SEE WHERE I STAND!</h2>
+                                
+                                    <div  >
+                                                   <?php 
+                                                   $USER_ID=$_SESSION['id'];
+
+                                                    $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
+
+                                                      $yr=GETYEAR($USER_ID);
+                                                       $YEAR = max($yr[0]);
+                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID);
+                                                       echo "<h1>".$COLL_TOPPER."<h2>";
+
+
+                                                   
+                                                   // echo $SEM1[0];
+                                                   // echo $YEAR;
+                                                    
+                                                    echo chartLine(
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
+                                                    [
+                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($YEAR,$USER_ID), 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,'0'), 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => YEARSUM($YEAR,$COLL_TOPPER), 'type' => 'line']
+
+                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
+                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
+                                                         
+                                                    ],
+                                                    'COMPARISON FOR '.$YEAR 
+                                                );
+                                                    ?>
+                                     </div>
+                                 </div>
+                                </div> 
+                            </div>
+                        </div><!-- /# column -->
+                    
+
+
+         <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
+                        <div class="col-sm-12 cardStyle">
+                            <div class="card">
+                                <div class="card-body">
+                                <h2 class="card-title">DID I IMPROVE..?</h2> 
                                     <div >
                                                    <?php 
 
@@ -670,7 +699,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
 
                                                     echo chartLine(
-                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                     [
 
                                                          ['name' => $yrs[0], 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
@@ -680,7 +709,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
 
                                                     ],
-                                                    'MY PAST 5 YEARS'                                                
+                                                    'FOR PAST 5 YEARS'                                                
                                                 );
                                                 ?>
 
@@ -695,7 +724,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h1 class="card-title">RANK LIST..! </h1>
+                                        <h2 class="card-title">RANK LIST FOR THIS YEAR! </h2>
                                     </div>
                                     <div class="card-body--">
                                         <div class="table-stats order-table ov-h">
