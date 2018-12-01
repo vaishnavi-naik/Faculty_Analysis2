@@ -77,7 +77,7 @@ $YEAR= GETYEAR($USER_ID);
 $YEAR = max($YEAR[0]);
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 
-$query="SELECT user_id FROM performance where year = '$YEAR' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR') ";
+$query="SELECT user_id  FROM performance where year = '$YEAR' and sem='even' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='even')  UNION SELECT user_id as toper_id FROM performance where year = '$YEAR' and sem='odd' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='odd')" ;
 
 $topper=mysqli_query($connect, $query);  
 $num = mysqli_num_rows($topper);
@@ -97,25 +97,25 @@ return 'no data';
 function GET_DEPT_TOPPER()
 {
 
-$def = ['2014-19','2017-18'];
+$YEAR= GETYEAR($USER_ID);
+$YEAR = max($YEAR[0]);
+$DEPT=$_SESSION['dept'];
 $connect = mysqli_connect("localhost", "root", "", "faculty");
-$user_id= $_SESSION['id'];
 
-$query="SELECT DISTINCT year FROM performance where user_id = '$user_id' order by year desc ";
+$query="SELECT user_id  FROM performance where year = '$YEAR' and sem='even'  and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='even')  UNION SELECT user_id as toper_id FROM performance where year = '$YEAR' and sem='odd' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='odd')" ;
 
-$year=mysqli_query($connect, $query);  
-$num = mysqli_num_rows($year);
+$topper=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($topper);
 if ($num >= 1)
 {
-while($row = $year->fetch_row())
-{
- $rows[]=$row;
-}
-return $rows;
+$row = mysqli_fetch_row($topper);
+
+$topper_id=$row[0];
+return $topper_id;
 }
 
 else{
-return  $def;
+return 'no data';
 }
 }
 
@@ -335,8 +335,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <li><a href="#oddSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>In Odd Sem </a></li>
                         <li><a href="#thisYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>In This Year</a></li>
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>COMPARISON</b></a></li>
-                        <li><a href="#compareTopperEven" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Odd Sem</a></li>
-                        <li><a href="#compareTopperOdd" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Even Sem</a></li>
+                        <li><a href="#compareTopper" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For This Year</a></li>
                         
                         <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>For Previous Years</a></li>
                         <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>
@@ -345,7 +344,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
                         <!--<li><a href="#personalDetails" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>-->
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
-                        <!--<li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>-->
+                        <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </nav>
@@ -624,7 +623,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
          
 
 
-                    <div style="height:550px;margin-left:-12px;" id="compareTopperEven">
+                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -638,7 +637,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
                                                       $yr=GETYEAR($USER_ID);
                                                        $YEAR = max($yr[0]);
-                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'even');
+                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID);
                                                        echo "<h1>".$COLL_TOPPER."<h2>";
 
 
@@ -657,7 +656,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
-                                                    'COMPARISON FOR '.$YEAR.' EVEN SEM' 
+                                                    'COMPARISON FOR '.$YEAR 
                                                 );
                                                     ?>
                                      </div>
@@ -666,7 +665,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             </div>
                         </div><!-- /# column -->
                     
-
+                 
 
          <div style="height:550px; overflow-y: hidden;margin-left:-12px;" id="prevYear">
                         <div class="col-sm-12 cardStyle">
