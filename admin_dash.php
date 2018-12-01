@@ -252,7 +252,8 @@ function GETYEAR($USER_ID)
                 text-align: center;
             }
             #loading {
-            background: white;
+            /*background: white;*/
+            background: #f1f2f7;
             position: absolute;
             height: 5000px;
             width: 100%;
@@ -353,7 +354,8 @@ function GETYEAR($USER_ID)
             </header>
             <!-- /#header -->
             <div id="loading">
-                <img src="img/loading1.gif" style="margin-left: 120px;" />
+                <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
+                <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
             </div>
             <!-- Content -->
             <div id="content">
