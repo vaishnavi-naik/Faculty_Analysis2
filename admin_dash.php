@@ -716,7 +716,7 @@ function YEARSUM($YEAR,$USER_ID){
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
-                                    <p style="font-size:20px;">MANAGE FACULTY PERFORMANCE</p> <hr>
+                                    <p style="font-size:20px;">ADD FACULTY PERFORMANCE</p> <hr>
                                     <h1 class="box-title">ADD PERFORMANCE </h1> 
                                         <form action="performance_submit.php" method="post" enctype="multipart/form-data">
                                             <div class="form-group row">
