@@ -31,7 +31,7 @@ $('#passForm').validate({
         
         },
         unhighlight: function(element) {
-            $(element).addClass('is-invalid');
+            $(element).removeClass('is-invalid');
         },
         errorElement: 'span',
         errorClass: 'invalid-feedback',
