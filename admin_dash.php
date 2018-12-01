@@ -206,34 +206,27 @@ function GETYEAR($USER_ID)
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-        <script src="js/confirmPass.js"></script>
+        
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Admin - Faculty Analysis</title>
         <meta name="description" content="Faculty Analysis">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
         <link rel="shortcut icon" href="newfav.ico" />
-
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+
         <link rel="stylesheet" type="text/css" href="css/all.css">
         <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
         <link rel="stylesheet" href="assets/css/style.css">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
 
-        <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
         <style type="text/css">
             .cardStyle{
               padding-left: 0px;
@@ -349,19 +342,21 @@ function GETYEAR($USER_ID)
                           </a>
 
                           <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#changePass"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#changePass"><i class="fas fa-user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#changePass" id="changePassTrigger1"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#changePass" id="changePassTrigger1"><i class="fas fa-cog"></i>Settings</a>
 
-                            <a class="nav-link" href="logout.php"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php"><i class="fas fa-power-off"></i>Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
             </header>
             <!-- /#header -->
+
+            <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
             <div id="loading">
                 <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
                 <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
@@ -382,7 +377,13 @@ function GETYEAR($USER_ID)
                                             </div>
                                             <div class="stat-content">
                                                 <div class="text-left dib">
-                                                    <div class="stat-text"><span class="count">45</span></div>
+                                                    <?php
+                                                        $sql = "SELECT AVG(total_credits) FROM performance WHERE user_id IN(SELECT user_id FROM user WHERE dept = '$adminDept')";
+                                                        $res = mysqli_query($connect, $sql);
+                                                        $row = mysqli_fetch_row($res);
+                                                    ?>
+                                                    <!-- <div class="stat-text"><span class="count"></span></div> -->
+                                                    <div class="stat-text"><?php echo number_format($row[0], 2, '.', '');?></div>
                                                     <div class="stat-heading" >Dept Avg</div>
                                                 </div>
                                             </div>
@@ -402,7 +403,17 @@ function GETYEAR($USER_ID)
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text">Vaishnavi</div>
+                                                <?php 
+                                                    $sql = "SELECT user_id,avg(total_credits) FROM performance WHERE year='2018-19'group by user_id ORDER BY total_credits DESC LIMIT 1";
+                                                    $res = mysqli_query($connect, $sql);
+                                                    $row = mysqli_fetch_row($res);
+                                                    $topper_id = $row[0];
+                                                    $sql = "SELECT name FROM user WHERE user_id = $topper_id";
+                                                    $res = mysqli_query($connect, $sql);
+                                                    $row = mysqli_fetch_row($res);
+
+                                                ?>
+                                                <div class="stat-text"><?=$row[0]?></div>
                                                 <div class="stat-heading">Topper</div>
                                             </div>
                                         </div>
@@ -420,7 +431,11 @@ function GETYEAR($USER_ID)
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">40</span></div>
+                                                <?php 
+                                                    $res = mysqli_query($connect, "SELECT SUM(tot_pub) FROM academic_performance WHERE academic_id IN (SELECT academic_id FROM performance WHERE user_id IN (SELECT user_id from user WHERE dept = '$adminDept') )");
+                                                    $count = mysqli_fetch_row($res);
+                                                ?>
+                                                <div class="stat-text"><span class="count"><?=$count[0]?></span></div>
                                                 <div class="stat-heading">Publications</div>
                                             </div>
                                         </div>
@@ -438,7 +453,11 @@ function GETYEAR($USER_ID)
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">23</span></div>
+                                                <?php 
+                                                    $res = mysqli_query($connect, "SELECT COUNT(*) FROM user WHERE dept = '$adminDept'");
+                                                    $count = mysqli_fetch_row($res);
+                                                ?>
+                                                <div class="stat-text"><span class="count"><?=$count[0]?></span></div>
                                                 <div class="stat-heading">Members</div>
                                             </div>
                                         </div>
@@ -1164,11 +1183,5 @@ function GETYEAR($USER_ID)
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
-        <script src="assets/js/init/weather-init.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
-        <script src="assets/js/init/fullcalendar-init.js"></script>
     </body>
 </html>
