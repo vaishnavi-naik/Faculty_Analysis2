@@ -473,39 +473,39 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                     </div>
 
 
-                 <div  style="height:550px; margin-left:-12px;" id="thisSem">
+                 <div  style="height:600px; margin-left:-12px;" id="thisSem">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-body" >
+                                
                                     <h1 class="card-title">SEE WHAT I HAVE EARNED..!</h1>
-                                    <form method="post" action=""> 
                                     <div class="form-group inline col-md-12">
-                                    
                                     <h4 style="display: inline;">Select Sem: </h4>
                                     <select style="display: inline;" name="selectthis" id="selectthis"style="margin-left: 20px;" class="form-control col-md-2">
-                                        <option value ="even" >EVEN</option>
-                                        <option value ="odd" selected="true">ODD</option>
+                                        <option value ="even" selected="true" >EVEN</option>
+                                        <option value ="odd" >ODD</option>
                                     </select>
-                                    <button id="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" type="Submit">GO</button>
-                                    </div>
-                                </form>
+                                    <button id="submitSem" value="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" onclick="getSem()">GO</button>
+                                   </div>
 
-                                    <div id="selectSem-wrapper">
-                                    <div id="selectSem">
-                                         <?php   
+
+                              
+                                
+                              <div id="selectSem">  
+                                         <?php
 
                                             $USER_ID= $_SESSION['id'];
                                             $SEM='even';
                                             $SEM_NAME=' EVEN SEM';
 
-                                            
+                                           // echo "<script>$.alert({title: 'Alert!',content: 'Simple alert!',});</script>";
 
-                                            if ($_POST['selectthis'] =='odd') 
-                                            {
-                                                $SEM='odd';
-                                                $SEM_NAME=' ODD SEM';
-                                                # code...
-                                            }
+                                            //  if (getSem($(Document).getElementById('selectthis')->nodeValue)=='odd') 
+                                            // {
+                                            //      $SEM='odd';
+                                            //      $SEM_NAME=' ODD SEM';
+                                            //      # code...
+                                            //  }
                                             
                                             
                                             $yr=GETYEAR($USER_ID);
@@ -530,9 +530,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 ],
                                                'MY CREDITS FOR THIS SEM'                                                
                                             );
+                                        
                                          ?>
                                     </div>
-                                </div>
+                                
                                 </div> 
                             </div>
                         </div><!-- /# column -->
@@ -541,11 +542,19 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
 
 
-                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
+                    <div style="height:600px;margin-left:-12px;" id="compareTopper">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
                                 <h1 class="card-title">SEE WHERE I STAND..!</h1> 
+                                    <div class="form-group inline col-md-12">
+                                    <h4 style="display: inline;">Select Sem: </h4>
+                                    <select style="display: inline;" name="selectthis" id="selectthis"style="margin-left: 20px;" class="form-control col-md-2">
+                                        <option value ="even" selected="true" >EVEN</option>
+                                        <option value ="odd" >ODD</option>
+                                    </select>
+                                    <button id="submitSem" value="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" onclick="getSem()">GO</button>
+                                   </div>
                                     <div  >
                                                    <?php 
                                                    $USER_ID=$_SESSION['id'];
@@ -571,7 +580,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
-                                                    'ME IN THIS SEM'                                                
+                                                    'MY SCORE IN THIS SEM'                                                
                                                 );
                                                 ?>
                                      </div>
@@ -881,17 +890,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     </div>
 
 
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-         <script>       
-                    
-                     $(document).ready(function() {
-                        $('#submitSem').on('click', function() {
-                        var url = 'dasboard_new.php'; //please insert the url of the your current page here, we are assuming the url is 'index.php'          
-                        $('#selectSem-wrapper').load(url + ' #selectSem'); //note: the space before #div1 is very important
-                        });
-                    });
-
-        </script>    
+ 
 
 
     <script type="text/javascript">
