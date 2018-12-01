@@ -266,6 +266,7 @@ function GETYEAR($USER_ID)
         <!-- PHP CODE TO TRIGGER THE ALERTS FOR CHANGE PASSWORD -->
         <?php 
             $user_name = $_SESSION['name']; 
+            $adminDept = $_SESSION['dept'];
             if(isset($_GET['msg']))
                 echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
             if(isset($_GET['error']))
@@ -449,21 +450,30 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- DEPARTMENT PERFORMANCE -->
-                    <div style="height:550px; margin-left: 0px; overflow-y: hidden;" id="depPerformance">
+                    <div style="height:525px; margin-left: 0px; overflow-y: hidden;" id="depPerformance">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
                                     <h3 class="card-title">YOUR DEPARTMENT </h3> 
                                     <div  >
-                                         <?php 
+                                        <?php 
+                                        $sql_academic = "SELECT AVG(att_credits),AVG(pub_credits),AVG(res_credits),AVG(ext_credits) FROM academic_performance WHERE academic_id IN (SELECT academic_id FROM performance WHERE user_id IN (SELECT user_id from user WHERE dept = '$adminDept') AND year = '2018-19')";
+                                        $res_academic = mysqli_query($connect, $sql_academic);
+                                        $row_academic = mysqli_fetch_row($res_academic);
+
+                                        $sql_student = "SELECT AVG(pass_credits), AVG(stud_credits) FROM student_performance WHERE student_id IN(SELECT academic_id FROM performance WHERE user_id IN (SELECT user_id from user WHERE dept = '$adminDept') AND year = '2018-19')";
+                                        $res_student = mysqli_query($connect, $sql_student);
+                                        $row_student = mysqli_fetch_row($res_student);
+
+                                        $tot_result = array_merge($row_academic, $row_student);
+
                                          
-                                         // echo $chart1->render('simple-custom-id');
-                                         echo chartLine(
-                                            ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                        echo chartLine(
+                                            ['ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                             [
-                                                ['name' => '2018-19', 'data' => [11, 20, 40, 15, 35, 20], 'type' => 'line']
+                                                ['name' => '2018-19', 'data' => $tot_result, 'type' => 'line']
                                             ],
-                                            ''                                                
+                                            'Department Performance'                                                
                                         );
                                         ?>
                                     </div>
@@ -527,14 +537,10 @@ function GETYEAR($USER_ID)
                                                         ['name' => $yrs[2], 'data' => YEARSUM($yrs[2],$USER_ID), 'type' => 'line'],
                                                         ['name' => $yrs[3], 'data' => YEARSUM($yrs[3],$USER_ID), 'type' => 'line'],
                                                         ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
-
                                                     ],
                                                     "$row[0]");
-                                               
                                                 ?>
-
                                             </div>
-                                        
                                         </div>
                                         <?php }?>
                                     </div>
@@ -544,7 +550,7 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- COMPARE DEPARTMENT PERFORMANCE -->
-                    <div style="height:550px; overflow-y: hidden; margin-top: 10px;" id="compare" >
+                    <div style="height:525px; overflow-y: hidden; margin-top: 10px;" id="compare" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="">
@@ -552,15 +558,15 @@ function GETYEAR($USER_ID)
                                     <div class="col-sm-12" style="margin-left: 0px;" >
                                         <?php 
                                         echo chartLine(
-                                            ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                            ['ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                             [
-                                                ['name' => 'Your Department', 'data' => [5,6,7,9,8,6]],
+                                                ['name' => 'Your Department', 'data' => $tot_result],
                                                 ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
                                                 ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
                                                 ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
                                                 ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
                                             ],
-                                            ''                                                
+                                            'Compare 2018-19'                                                
                                         );
                                         ?>
                                     </div>
@@ -579,8 +585,8 @@ function GETYEAR($USER_ID)
                                     </div>
                                     <div class="card-body--">
                                         <?php
-                                                $adminDept = $_SESSION['dept'];
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = 'CSE') ORDER BY total_credits DESC";
+                                                
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 
                                                     $user_ids[] = $row['user_id'];
@@ -643,8 +649,6 @@ function GETYEAR($USER_ID)
                                     </div>
                                 </div> <!-- /.card -->
                             </div>  <!-- /.col-lg-8 -->
-
-
                         </div>
                     </div>
 
@@ -683,7 +687,6 @@ function GETYEAR($USER_ID)
                                                         <option value="bca">Bachelor of Computer Applications</option>
                                                         <option value="mba">Master of Business Administration</option>
                                                         <option value="me"> Mechanical Engineering</option>
-                                                     
                                                     </select>
                                                 </div>
                                             </div>
@@ -743,7 +746,7 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- ADD ADMIN -->
-                    <div style="height:500px; overflow-y: hidden;" id="addAdmin">
+                    <div style="height:495px; overflow-y: hidden;" id="addAdmin">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
