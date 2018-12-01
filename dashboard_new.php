@@ -9,7 +9,7 @@ if(!isset($_SESSION['email'])){
 if($_SESSION['type'] == 'Admin' )
     header('location:admin_dash.php');
 
-
+$GLOBALS['semVal'] = 'even';
 
 require('./vendor/autoload.php');
 
@@ -477,11 +477,36 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title">SEE WHAT I HAVE EARNED..!</h1> 
-                                    <div>
+                                    <h1 class="card-title">SEE WHAT I HAVE EARNED..!</h1>
+                                    <form method="post" action=""> 
+                                    <div class="form-group inline col-md-12">
+                                    
+                                    <h4 style="display: inline;">Select Sem: </h4>
+                                    <select style="display: inline;" name="selectthis" id="selectthis"style="margin-left: 20px;" class="form-control col-md-2">
+                                        <option value ="even" >EVEN</option>
+                                        <option value ="odd" selected="true">ODD</option>
+                                    </select>
+                                    <button id="submitSem" style="display: inline; margin-top: -5px;" class="btn btn-primary" type="Submit">GO</button>
+                                    </div>
+                                </form>
+
+                                    <div id="selectSem-wrapper">
+                                    <div id="selectSem">
                                          <?php   
+
                                             $USER_ID= $_SESSION['id'];
-                                            $EVEN='even';
+                                            $SEM='even';
+                                            $SEM_NAME=' EVEN SEM';
+
+                                            
+
+                                            if ($_POST['selectthis'] =='odd') 
+                                            {
+                                                $SEM='odd';
+                                                $SEM_NAME=' ODD SEM';
+                                                # code...
+                                            }
+                                            
                                             
                                             $yr=GETYEAR($USER_ID);
                                             $i=0;
@@ -500,13 +525,14 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                             echo chartLine(
                                                 ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                 [
-                                                    ['name' => $YEAR.' EVEN SEM', 'data' =>MYPOINTS($YEAR,$EVEN,$USER_ID),'type' => 'line'],
+                                                    ['name' => $YEAR.$SEM_NAME, 'data' =>MYPOINTS($YEAR,$SEM,$USER_ID),'type' => 'line'],
                                                    
                                                 ],
                                                'MY CREDITS FOR THIS SEM'                                                
                                             );
                                          ?>
                                     </div>
+                                </div>
                                 </div> 
                             </div>
                         </div><!-- /# column -->
@@ -609,8 +635,9 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             <div class="card">
                                 <div class="card-body">
                                 <h1 class="card-title">DID I IMPROVE..?</h1> 
-                                    <div  >
+                                    <div >
                                                    <?php 
+
                                                    $yr=GETYEAR($USER_ID);
                                                    $i=0;
 
@@ -854,7 +881,17 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     </div>
 
 
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+         <script>       
+                    
+                     $(document).ready(function() {
+                        $('#submitSem').on('click', function() {
+                        var url = 'dasboard_new.php'; //please insert the url of the your current page here, we are assuming the url is 'index.php'          
+                        $('#selectSem-wrapper').load(url + ' #selectSem'); //note: the space before #div1 is very important
+                        });
+                    });
 
+        </script>    
 
 
     <script type="text/javascript">
