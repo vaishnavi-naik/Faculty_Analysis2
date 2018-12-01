@@ -624,11 +624,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
          
 
 
-                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
+                    <div style="height:550px;margin-left:-12px;" id="compareTopperEven">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                <h2 class="card-title">SEE WHERE I STAND!</h2>
+                                <h2 class="card-title">MY STATUS FOR EVEN SEM!</h2>
                                 
                                     <div  >
                                                    <?php 
@@ -638,7 +638,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
                                                       $yr=GETYEAR($USER_ID);
                                                        $YEAR = max($yr[0]);
-                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID);
+                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'even');
                                                        echo "<h1>".$COLL_TOPPER."<h2>";
 
 
@@ -657,7 +657,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                          // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
-                                                    'COMPARISON FOR '.$YEAR 
+                                                    'COMPARISON FOR '.$YEAR.' EVEN SEM' 
                                                 );
                                                     ?>
                                      </div>
