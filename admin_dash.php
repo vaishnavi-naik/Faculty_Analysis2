@@ -254,7 +254,7 @@ function GETYEAR($USER_ID)
             #loading {
             background: white;
             position: absolute;
-            height: 100%;
+            height: 5000px;
             width: 100%;
             z-index: 999999;
         }
