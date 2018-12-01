@@ -111,8 +111,64 @@ function MYPOINTS($YEAR,$SEM,$USER_ID){
     }
 }
 
+// returns an array of the different credit values for the given sem and year of the given user
+function MYPOINTS2($YEAR,$SEM,$USER_ID){
+    $connect = mysqli_connect("localhost", "root", "", "faculty");
+    $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
+
+    if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+    {  
+        $res=mysqli_query($connect, $query); 
+        $row = mysqli_fetch_row($res);
+        
+        $academic_id=$row[0];
+        $stud_id=$row[1];
+
+
+        $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+        $academic=mysqli_query($connect, $query1); 
+        $ad = mysqli_fetch_row($academic);
+        $num = mysqli_num_rows($academic);
+
+        $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+        $student=mysqli_query($connect, $query2); 
+        $sd = mysqli_fetch_row($student);
+        $num1 = mysqli_num_rows($student);
+
+
+        if($num==0)
+        {
+            $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+        }
+
+        if($num1==0)
+        {
+            $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+        }
+        
+        
+        $MYPOINTS_SEM[0]=$ad[4];
+        $MYPOINTS_SEM[1]=$ad[2];
+        $MYPOINTS_SEM[2]=$ad[8];
+        $MYPOINTS_SEM[3]=$ad[6];
+        $MYPOINTS_SEM[4]=$ad[10];
+        $MYPOINTS_SEM[5]=$sd[4];
+        $MYPOINTS_SEM[6]=$sd[1];
+        return $MYPOINTS_SEM;
+    }
+}
+
 // return the sum of the credits for the even and odd sem of the given year
 function YEARSUM($YEAR,$USER_ID){
+    $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
+    $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
+    for ($i=0;$i<count($TOTALODD);$i++)
+        $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+
+    return $TOTALYEAR;
+}
+
+function YEARSUM1($YEAR,$USER_ID){
     $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
     $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
     for ($i=0;$i<count($TOTALODD);$i++)
@@ -120,6 +176,31 @@ function YEARSUM($YEAR,$USER_ID){
 
     return $TOTALYEAR;
 }
+
+function GETYEAR($USER_ID)
+{
+
+    $def = ['2014-19','2017-18'];
+    $connect = mysqli_connect("localhost", "root", "", "faculty");
+
+    $query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
+
+    $year=mysqli_query($connect, $query);  
+    $num = mysqli_num_rows($year);
+    if ($num >= 1)
+    {
+        while($row = $year->fetch_row())
+        {
+           $rows[]=$row;
+        }
+        return $rows;
+    }
+
+    else{
+        return  $def;
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -347,10 +428,10 @@ function YEARSUM($YEAR,$USER_ID){
                     </div>
 
                     <!-- HEADING - VIEW PERFORMANCE -->
-                    <div class="col-md-4" id="viewPerformance" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
+                    <div class="col-md-5" id="viewPerformance" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
                         <div class="card bg-flat-color-2">
                             <div class="card-body" style="">
-                                <h3 class=" white-color ">VIEW PERFORMANCE</h4>
+                                <h2 class=" white-color ">VIEW PERFORMANCE</h2>
                             </div>
                         </div>
                     </div>
@@ -360,7 +441,7 @@ function YEARSUM($YEAR,$USER_ID){
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
-                                    <h1 class="card-title">YOUR DEPARTMENT </h1> 
+                                    <h3 class="card-title">YOUR DEPARTMENT </h3> 
                                     <div  >
                                          <?php 
                                          
@@ -380,11 +461,11 @@ function YEARSUM($YEAR,$USER_ID){
                     </div>
 
                     <!-- FACULTY PERFORMANCE -->
-                    <div style="height:650px; overflow-y: hidden;" id="faculty" >
+                    <div style="height:600px; overflow-y: hidden;" id="faculty" >
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="faculty">
-                                    <h1 class="card-title">VIEW FACULTY PERFORMANCE</h1>
+                                    <h3 class="card-title">VIEW FACULTY PERFORMANCE</h3>
                                     <div class="col-sm-12" style="margin-left: 0px;" >
                                         <form action="#faculty" method="GET" class="form-inline">
                                             <div class="form-group inline col-md-12">
@@ -392,7 +473,7 @@ function YEARSUM($YEAR,$USER_ID){
                                                 <select name="faculty_name" style="margin-left: 20px;" class="form-control col-md-4">
                                                     <?php
                                                     $dept = $_SESSION['dept'];
-                                                    $query = "SELECT user_id, name FROM user WHERE user_type = 'User' AND dept = '$dept'";
+                                                    $query = "SELECT user_id, name FROM user WHERE user_type = 'User' AND dept = '$dept' AND user_id IN (SELECT DISTINCT user_id FROM performance)";
                                                     $result = mysqli_query($connect, $query);
                                                     $num = mysqli_num_rows($result);
                                                     while($array = mysqli_fetch_array($result)){
@@ -401,25 +482,61 @@ function YEARSUM($YEAR,$USER_ID){
                                                         echo "<option value = $opt_val>$opt_content</option>";
                                                     }?>                                      
                                                 </select>
-                                                <button id="Submit" style="margin-left: 20px;" class="btn btn-primary" type="submit">GO</button>    
+                                                <button id="facultySubmit" value="facultySubmit" style="margin-left: 20px;" class="btn btn-primary" type="submit">GO</button>    
                                             </div>
                                         </form>
-                                        <div id="facultyDetails" style="height: 450px;margin-top: 25px;">
-                                            <div class="col-sm-12" style="margin-left: 0px;" >
-                                                 <?php 
+                                         <?php if(isset($_GET['faculty_name'])){?>
+                                        <div id="facultyDetails" style="height: 400px;margin-top: 50px;">
+                                           
+                                            <div class="col-sm-12" style="margin-left: 0px;">
+                                                <?php 
+                                                    //     echo chartLine(
+                                                    //     ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    //     [
+                                                    //          ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
+                                                    //          ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
+                                                    //          ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
+                                                             
+                                                    //     ],
+                                                    //     ''                                                
+                                                    // );
+                                                ?> 
+                                                <?php 
+                                                    $USER_ID = $_GET['faculty_name'];
+                                                    $sql = "SELECT name FROM user WHERE user_id = $USER_ID";
+                                                    $res = mysqli_query($connect, $sql);
+                                                    $row = mysqli_fetch_row($res);
+
+
+                                                    $yr=GETYEAR($USER_ID);
+                                                    $i=0;
+
+                                                    $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
+
+                                                    foreach ($yr as $r) {
+                                                       $yrs[$i] = $r[0];
+                                                       $i++;                                                     
+                                                    }
+                                                   
                                                     echo chartLine(
-                                                    ['SEM RESULTS','ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','STUDENT RATING'],
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'FACULTY', 'data' => [5, 20, 40, 10, 10, 20], 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30], 'type' => 'line'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10], 'type' => 'line']
-                                                         
+
+                                                         ['name' => $yrs[0], 'data' => YEARSUM($yrs[0],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[1], 'data' => YEARSUM($yrs[1],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[2], 'data' => YEARSUM($yrs[2],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[3], 'data' => YEARSUM($yrs[3],$USER_ID), 'type' => 'line'],
+                                                         ['name' => $yrs[4], 'data' => YEARSUM($yrs[4],$USER_ID), 'type' => 'line']
+
                                                     ],
-                                                    ''                                                
-                                                );
+                                                    "$row[0]");
+                                               
                                                 ?>
+
                                             </div>
+                                        
                                         </div>
+                                        <?php }?>
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +548,7 @@ function YEARSUM($YEAR,$USER_ID){
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="">
-                                    <h1 class="card-title">COMPARE DEPARTMENTS</h1>
+                                    <h3 class="card-title">COMPARE DEPARTMENTS</h3>
                                     <div class="col-sm-12" style="margin-left: 0px;" >
                                         <?php 
                                         echo chartLine(
@@ -481,7 +598,7 @@ function YEARSUM($YEAR,$USER_ID){
                                                     $pics[] = $row['profile_pic'];
                                                 }
                                                 for($i = 0 ; $i < $topUserCount ; $i++){
-                                                    $userCredits = YEARSUM('2018-19', $user_ids[$i]);
+                                                    $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
                                                     $academic_credits[] = $userCredits[7];
                                                     $student_credits[] = $userCredits[8];
                                                     $overall_credits[] = $userCredits[9];
@@ -497,9 +614,9 @@ function YEARSUM($YEAR,$USER_ID){
                                                         <th class="avatar">Image</th>
                                                         <!-- <th>something</th> -->
                                                         <th>Name</th>
-                                                        <th>Academic</th>
-                                                        <th>Student</th>
-                                                        <th>Overall</th>
+                                                        <th>Academic Credits</th>
+                                                        <th>Student Credits</th>
+                                                        <th>Overall Credits</th>
                                                         <th>Department</th>
                                                     </tr>
                                                 </thead>
