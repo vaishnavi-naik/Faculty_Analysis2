@@ -263,7 +263,7 @@ function GETYEAR($USER_ID)
     </head>
 
     <body>
-        <!-- PHP CODE TO TRIGGER THE ALERTS FOR CHANGE PASSWORD -->
+        <!-- PHP CODE TO TRIGGER THE ALERTS FOR CHANGE PASSWORD AND USER/ADMIN REGISTRATION-->
         <?php 
             $user_name = $_SESSION['name']; 
             $adminDept = $_SESSION['dept'];
@@ -271,6 +271,14 @@ function GETYEAR($USER_ID)
                 echo '<script>$(document).ready(function(){$("#passSuccess").show();});</script>';
             if(isset($_GET['error']))
                 echo '<script>$(document).ready(function(){$("#passFail").show();});</script>';
+            if(isset($_GET['userError']))
+                echo '<script>$(document).ready(function(){$("#regFailUser").show();});</script>';
+            if(isset($_GET['adminError']))
+                echo '<script>$(document).ready(function(){$("#regFailAdmin").show();});</script>';
+            if(isset($_GET['userSuccess']))
+                echo '<script>$(document).ready(function(){$("#regSuccessUser").show();});</script>';
+            if(isset($_GET['adminSuccess']))
+                echo '<script>$(document).ready(function(){$("#regSuccessAdmin").show();});</script>';
         ?>
         <!-- Left Panel -->
         <!-- Dashboard -->
@@ -662,7 +670,7 @@ function GETYEAR($USER_ID)
                     </div>
                
                     <!-- ADD FACULTY -->
-                    <div style="height:500px; overflow-y: hidden;" id="addFaculty">
+                    <div style="margin-bottom: 25px; " id="addFaculty">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
@@ -712,33 +720,26 @@ function GETYEAR($USER_ID)
                                                 </div>
                                             </div>
 
-
-
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <!-- <div class="col-sm-7" style="margin-top: 6px;" >
-                                                    <input type="file" id="image" name="image">
-                                                </div> -->
                                                 <div class="custom-file " style="margin-left: 15px; width:385px;">
                                                     <input type="file" class="custom-file-input" id="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
                                                 </div>
                                             </div>
 
-                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
+                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFailUser">
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                              <center><strong>Error!</strong> Upload an image!</center>
+                                              <center><strong>Error!</strong> <?php $error = $_GET['userError']; echo "$error"; ?></center>
                                             </div>
 
                                             <br>
                                             <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
                                             <br>
-                                        </form>
-                                        <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
+                                        </form><br>
+                                        <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regSuccessUser">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <center>
-                                                <strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a>
-                                            </center>
+                                            <center><strong>Success!</strong> Registration Successful.</center>
                                         </div>
                                 </div>                   
                             </div>
@@ -746,7 +747,7 @@ function GETYEAR($USER_ID)
                     </div>
 
                     <!-- ADD ADMIN -->
-                    <div style="height:495px; overflow-y: hidden;" id="addAdmin">
+                    <div style="margin-bottom: 25px; " id="addAdmin">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body" id="depPerformance">
@@ -798,33 +799,25 @@ function GETYEAR($USER_ID)
                                                 </div>
                                             </div>
 
-
-
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <div class="col-sm-7" style="margin-top: 6px;" >
-                                                    <input type="file" id="image" name="image">
-                                                </div>
-                                                <!-- <div class="custom-file" style="margin-left:15px;width:385px;">
-                                                    <input type="file" class="custom-file-input" name="image" id="image">
+                                                <div class="custom-file " style="margin-left: 15px; width:385px;">
+                                                    <input type="file" class="custom-file-input" id="image">
                                                     <label class="custom-file-label" for="image">Choose file</label>
-                                                </div> -->
+                                                </div>
                                             </div>
 
-
-
-
-                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFail">
+                                            <div class="alert alert-danger alert-dismissible col-md-offset-1 collapse" role="alert" id ="regFailAdmin">
                                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                              <center><strong>Error!</strong> Upload an image!</center>
-                                          </div>
+                                              <center><strong>Error!</strong> <?php $error = $_GET['adminError']; echo "$error"; ?></center>
+                                            </div>
                                           <br>
                                           <button type="submit" name="submit" class="btn btn-primary col-md-offset-5 col-md-4" style="margin-left: center;margin-top: -20px;">Register</button>
                                           <br>
-                                    </form>
-                                    <div class="alert alert-success alert-dismissible col-md-offset-1 collapse" role="alert" id ="regSuccess">
+                                    </form><br>
+                                    <div class="alert alert-success alert-dismissible offset-md-2 col-md-8 collapse" role="alert" id ="regSuccessAdmin">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <center><strong>Success!</strong> Registration Successful. <a href="login.php" class="alert-link">Click here to login.</a></center>
+                                        <center><strong>Success!</strong> Registration Successful.</center>
                                     </div>
                                 </div>      
                             </div>
@@ -1057,6 +1050,11 @@ function GETYEAR($USER_ID)
             $(window).ready(function() {
                 $('#loading').hide();
             });
+
+            $('.custom-file input').change(function (e) {
+                $(this).next('.custom-file-label').html(e.target.files[0].name);
+            });
+
             // $("#depTrigger").on('click',function(){
             //     $('html,body').animate({
             //         scrollTop: $('#depPerformance').offset().top-75
