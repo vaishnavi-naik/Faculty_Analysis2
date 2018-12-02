@@ -18,7 +18,7 @@
         <?php if(isset($_SESSION['email'])){?>
           <div class="collapse navbar-collapse" id="mynav">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="admin_dash.php#manageDept">REGISTER</a></li>
+            <!--<li><a href="admin_dash.php#manageDept">REGISTER</a></li>-->
             <li><a href="dashboard_new.php">DASHBOARD</a></li>
             <li><a href="logout.php">LOGOUT</a></li>
             <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>

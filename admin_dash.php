@@ -334,7 +334,7 @@ function GETYEAR($USER_ID)
                                     $result = mysqli_query($connect, $query);  
                                     if(mysqli_num_rows($result) == 1){
                                       $row = mysqli_fetch_array($result);                               
-                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=40 width=40/>'; 
+                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=24 width=24/>'; 
                                   }else 
                                   echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
                               }

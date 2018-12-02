@@ -119,51 +119,20 @@ return 'no data';
 
 }
 
-// function GETSEM($USER_ID)
-// {
-// $connect = mysqli_connect("localhost", "root", "", "faculty");
-
-// $YEAR1= GETYEAR($USER_ID);
-// $YEAR=$YEAR1[0][0];
-
-// $query = "SELECT min(sem) FROM performance WHERE user_id = '$USER_ID' and year='$YEAR'" ;
-
-// if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
-// {  
-//         $res=mysqli_query($connect, $query); 
-//         $row = mysqli_fetch_row($res);
-       
-//         $num = mysqli_num_rows($res);
-
-//         if($num==0)
-//         {
-//            return 'no sem';
-//         }
-
-//         else
-//         {
-//             return $row;
-//         }
-
-
-
-    
-// }
-// }
 
 
 function GETYEAR($USER_ID)
 {
 
-$def = ['2014-19','2017-18'];
+$def = [['2018-19'],['2017-18']];
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 ;
 
-$query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
+$query="SELECT max(year) FROM performance where user_id = '$USER_ID' order by year desc ";
 
 $year=mysqli_query($connect, $query);  
 $num = mysqli_num_rows($year);
-if ($num >= 1)
+if ($num >= 0)
 {
 while($row = $year->fetch_row())
 {
@@ -249,11 +218,14 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Admin - Faculty Analysis</title>
+        <title>User - Faculty Analysis</title>
         <meta name="description" content="Faculty Analysis">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -276,41 +248,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
         <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
   
-    <style>
-        #weatherWidget .currentDesc {
-            color: #ffffff!important;
-        }
-        .traffic-chart {
-            min-height: 335px;
-        }
-        #flotPie1  {
-            height: 150px;
-        }
-        #flotPie1 td {
-            padding:3px;
-        }
-        #flotPie1 table {
-            top: 20px!important;
-            right: -10px!important;
-        }
-        .chart-container {
-            display: table;
-            min-width: 270px ;
-            text-align: left;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #flotLine5  {
-             height: 105px;
-        }
-
-        #flotBarChart {
-            height: 150px;
-        }
-        #cellPaiChart{
-            height: 160px;
-        }
-    </style>
+   
 </head>
 
 <body>
@@ -339,7 +277,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <li><a href="#compareTopperOdd" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Odd Sem</a></li>
                         
                         <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>For Previous Years</a></li>
-                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>
+                        <!--<li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>-->
                         
 
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
@@ -366,7 +304,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <p><?=$user_name;?></p>
                     </div>
 
-                    <div class="user-area dropdown float-right">
+                        <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php 
 
@@ -385,19 +323,19 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                             </td>
                                         </tr>'; 
                                 }else 
-                                  echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
                             }
                             ?>
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#personalDetails"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#personalDetails"><i class="fas fa-user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fas fa-cog"></i>Settings</a>
 
-                            <a class="nav-link" href="logout.php" ><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php" ><i class="fas fa-power-off"></i>Logout</a>
                         </div>
                     </div>
 
@@ -423,13 +361,37 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                 <a href="#mypoints">
                                 <div class="stat-widget-five" >
                                     <div class="stat-icon dib flat-color-1">
-                                        <i class="pe-7s-medal"></i>
+                                        <i class="pe-7s-star"></i>
                                     </div>
 
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">10</span></div>
-                                            <div class="stat-heading" >Your Rank</div>
+                                            <?php
+                                            $USER_ID=$_SESSION['id'];
+                                            $YEAR=GETYEAR($USER_ID);
+                                            $YEAR = max($YEAR[0]);
+                                            $sql = "SELECT total_credits FROM performance WHERE user_id ='$USER_ID' and year='$YEAR' and sem='even'";
+                                            $res1 = mysqli_query($connect, $sql);
+                                            $row1 = mysqli_fetch_row($res1);
+                                            $num1 = mysqli_num_rows($res1);
+                                            if($num1==0)
+                                            {
+                                            $row1[0]=0;
+                                            }
+
+                                            $sq2 = "SELECT total_credits FROM performance WHERE user_id ='$USER_ID' and year='$YEAR' and sem='odd'";
+                                            $res2 = mysqli_query($connect, $sq2);
+                                            $row2 = mysqli_fetch_row($res2);
+                                            $num2 = mysqli_num_rows($res2);
+                                            if($num2==0)
+                                            {
+                                            $row2[0]=0;
+                                            }
+                                            $row=($row1[0]+$row2[0])/2;
+
+                                            ?>
+                                            <div class="stat-text"><span class="count"><?php echo number_format($row, 2, '.', '');?></span></div>
+                                            <div class="stat-heading" >Your Score</div>
                                         </div>
                                     </div>
 
@@ -445,12 +407,36 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-2">
-                                        <i class="pe-7s-star"></i>
+                                        <i class="pe-7s-medal"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text">Vaishnavi</span></div>
-                                            <div class="stat-heading">Topper</div>
+                                            <?php
+                                            $USER_ID=$_SESSION['id'];
+                                            $YEAR=GETYEAR($USER_ID);
+                                            $YEAR = max($YEAR[0]);
+                                            $sql = "SELECT max(total_credits) FROM performance WHERE year='$YEAR' and sem='even'";
+                                            $res1 = mysqli_query($connect, $sql);
+                                            $row1 = mysqli_fetch_row($res1);
+                                            $num1 = mysqli_num_rows($res1);
+                                            if($num1==0)
+                                            {
+                                            $row1[0]=0;
+                                            }
+
+                                            $sq2 = "SELECT max(total_credits) FROM performance WHERE  year='$YEAR' and sem='odd'";
+                                            $res2 = mysqli_query($connect, $sq2);
+                                            $row2 = mysqli_fetch_row($res2);
+                                            $num2 = mysqli_num_rows($res2);
+                                            if($num2==0)
+                                            {
+                                            $row2[0]=0;
+                                            }
+                                            $row=($row1[0]+$row2[0])/2;
+
+                                            ?>                                      
+                                            <div class="stat-text"><?php echo number_format($row, 2, '.', '');?></span></div>
+                                            <div class="stat-heading">Top Score</div>
                                         </div>
                                     </div>
                                 </div>
@@ -463,7 +449,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             <div class="card-body">
                                 <div class="stat-widget-five">
                                     <div class="stat-icon dib flat-color-3">
-                                        <i class="pe-7s-copy-file"></i>
+                                        <i class="menu-icon fas fa-school"></i>
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
@@ -650,7 +636,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                        $YEAR = max($yr[0]);
                                                        $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'even');
                                                        $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'even');
-                                                       echo "<h4><b>COMPARISON FOR ".$YEAR." EVEN SEM<b><h4><br>";
+                                                      //  echo "<h2>".$YEAR."<h2><br>";
+                                                      // echo "<h2>".$COLL_TOPPER."<h2><br>";
+                                                      // echo "<h2>".$DEPT_TOPPER."<h2>";
+                                                      //  echo "<h4><b>COMPARISON FOR ".$YEAR." EVEN SEM<b><h4><br>";
 
 
                                                    
@@ -660,13 +649,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($YEAR,$USER_ID), 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,$DEPT_TOPPER), 'type' => 'line'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => YEARSUM($YEAR,$COLL_TOPPER), 'type' => 'line']
+                                                         ['name' => 'MY SCORE', 'data' => MYPOINTS($YEAR,'even',$USER_ID), 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>MYPOINTS($YEAR,'even',$DEPT_TOPPER), 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => MYPOINTS($YEAR,'even',$COLL_TOPPER), 'type' => 'line']
 
-                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
-                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
-                                                         
+                                                       
                                                     ],
                                                     '' 
                                                 );
@@ -693,8 +680,9 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                        $YEAR = max($yr[0]);
                                                        $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'odd');
                                                        $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'odd');
-                                                      // echo "<h1>".$COLL_TOPPER."<h2>";
-                                                       echo "<h4><b>COMPARISON FOR ".$YEAR." ODD SEM<b><h4><br>";
+                                                      // echo "<h2>".$COLL_TOPPER."<h2><br>";
+                                                      // echo "<h2>".$DEPT_TOPPER."<h2>";
+                                                      //  echo "<h4><b>COMPARISON FOR ".$YEAR." ODD SEM<b><h4><br>";
 
 
                                                    
@@ -704,12 +692,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     echo chartLine(
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                     [
-                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($YEAR,$USER_ID), 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,$DEPT_TOPPER), 'type' => 'line'],
-                                                         ['name' => 'COLLEGE TOPPER', 'data' => YEARSUM($YEAR,$COLL_TOPPER), 'type' => 'line']
+                                                         ['name' => 'MY SCORE', 'data' => MYPOINTS($YEAR,'odd',$USER_ID), 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' => MYPOINTS($YEAR,'odd',$DEPT_TOPPER), 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' =>  MYPOINTS($YEAR,'odd',$COLL_TOPPER), 'type' => 'line']
 
-                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
-                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
                                                     '' 
@@ -741,16 +727,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                        $i++;
                                                        
                                                    }
-                                                   // echo "<h4>YEARS</h4><br>";
-                                                   // echo "<h4>".$yrs[0]."</h4><br>";
-                                                   // echo "<h4>".$yrs[1]."</h4><br>";
-                                                   // echo "<h4>".$yrs[2]."</h4><br>";
-                                                   // echo "<h4>".$yrs[3]."</h4><br>";
-                                                   // echo "<h4>YEARSUM</h1><br>";
-                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[0]."</h4><br>";
-                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[1]."</h4><br>";
-                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[2]."</h4><br>";
-                                                   // echo "<h4>".YEARSUM($yrs[3],$USER_ID)[3]."</h4><br>";
+
 
 
                                                     echo chartLine(
