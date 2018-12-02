@@ -146,6 +146,31 @@ return  $def;
 }
 }
 
+function GETYEAR_ALL($USER_ID)
+{
+
+$def = [['2018-19'],['2017-18']];
+$connect = mysqli_connect("localhost", "root", "", "faculty");
+;
+
+$query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
+
+$year=mysqli_query($connect, $query);  
+$num = mysqli_num_rows($year);
+if ($num >= 0)
+{
+while($row = $year->fetch_row())
+{
+ $rows[]=$row;
+}
+return $rows;
+}
+
+else{
+return  $def;
+}
+}
+
 function YEARSUM($YEAR,$USER_ID)
 {
 
@@ -218,7 +243,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    
+
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
@@ -718,7 +743,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     <div >
                                                    <?php 
 
-                                                   $yr=GETYEAR($USER_ID);
+                                                   $yr=GETYEAR_ALL($USER_ID);
                                                    $i=0;
 
                                                    $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
