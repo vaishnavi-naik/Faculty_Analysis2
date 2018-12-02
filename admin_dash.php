@@ -1,205 +1,205 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
-require('include/connection.php');
+    header('Content-Type: text/html; charset=utf-8');
+    require('include/connection.php');
 
-// redirects to the login page if the user isn't loggeed in
-if(!isset($_SESSION['type'])){
-    header('location:login.php');
-}
-
-// only allows admins access to the page, redirects others to the index page
-if(isset($_SESSION['type']) && $_SESSION['type']!='Admin')
-    header('location:index.php');
-
-require('./vendor/autoload.php');
-
-// renders a chart for the given data using the EchartsPHP library
-function chartLine($xAxisData, $seriesData, $title = '')
-{
-    $chart = new Hisune\EchartsPHP\ECharts();
-    $xAxis = new Hisune\EchartsPHP\Doc\IDE\XAxis();
-    $yAxis = new Hisune\EchartsPHP\Doc\IDE\YAxis();
-
-    $color = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
-    shuffle($color);
-
-    $title && $chart->title->text = $title;
-    $chart->color = $color;
-    $chart->tooltip->trigger = 'axis';
-    $chart->toolbox->show = true;
-    $chart->toolbox->feature->dataView->show = false;
-    $chart->toolbox->feature->magicType->type = ['line', 'bar', 'stack', 'tiled'];
-    $chart->toolbox->feature->magicType->title->line = 'Line Chart';
-    $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
-    $chart->toolbox->feature->magicType->title->stack = 'Stacked View';
-    $chart->toolbox->feature->magicType->title->tiled = 'Tiled View';
-    $chart->toolbox->feature->saveAsImage->name = 'My Credits';
-    $chart->toolbox->feature->saveAsImage->title = 'Save';
-
-    $xAxis->type = 'category';
-    $xAxis->boundaryGap = false;
-    $xAxis->data = $xAxisData;
-
-    foreach($seriesData as $ser){
-        $chart->legend->data[] = $ser['name'];
-        $series = new \Hisune\EchartsPHP\Doc\IDE\Series();
-        $series->name = $ser['name'];
-        $series->type = isset($ser['type']) ? $ser['type'] : 'line';
-        $series->data = $ser['data'];
-        $chart->addSeries($series);
+    // redirects to the login page if the user isn't loggeed in
+    if(!isset($_SESSION['type'])){
+        header('location:login.php');
     }
 
-    $chart->addXAxis($xAxis);
-    $chart->addYAxis($yAxis);
+    // only allows admins access to the page, redirects others to the index page
+    if(isset($_SESSION['type']) && $_SESSION['type']!='Admin')
+        header('location:index.php');
 
-    $chart->initOptions->renderer = 'svg';
-        //$chart->initOptions->width = '800px';
+    require('./vendor/autoload.php');
 
-    return $chart->render(uniqid());
-}
-
-// returns an array of the different credit values for the given sem and year of the given user
-function MYPOINTS($YEAR,$SEM,$USER_ID){
-    $connect = mysqli_connect("localhost", "root", "", "faculty");
-    $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
-
-    if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
-    {  
-        $res=mysqli_query($connect, $query); 
-        $row = mysqli_fetch_row($res);
-        
-        $academic_id=$row[0];
-        $stud_id=$row[1];
-        $perf_id=$row[2];
-
-        $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
-        $academic=mysqli_query($connect, $query1); 
-        $ad = mysqli_fetch_row($academic);
-        $num = mysqli_num_rows($academic);
-
-        $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
-        $student=mysqli_query($connect, $query2); 
-        $sd = mysqli_fetch_row($student);
-        $num1 = mysqli_num_rows($student);
-
-        $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
-        $student=mysqli_query($connect, $query3); 
-        $pd = mysqli_fetch_row($student);
-        $num2 = mysqli_num_rows($student);
-
-        if($num==0)
-            $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-
-        if($num1==0)
-            $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
-        
-        if($num2==0)
-            $pd = array(0.0);
-        
-        $MYPOINTS_SEM[0]=$ad[4];
-        $MYPOINTS_SEM[1]=$ad[2];
-        $MYPOINTS_SEM[2]=$ad[8];
-        $MYPOINTS_SEM[3]=$ad[6];
-        $MYPOINTS_SEM[4]=$ad[10];
-        $MYPOINTS_SEM[5]=$sd[4];
-        $MYPOINTS_SEM[6]=$sd[1];
-        $MYPOINTS_SEM[7]=$ad[11];
-        $MYPOINTS_SEM[8]=$sd[5];
-        $MYPOINTS_SEM[9]=$pd[0];
-
-        return $MYPOINTS_SEM;
-    }
-}
-
-// returns an array of the different credit values for the given sem and year of the given user
-function MYPOINTS2($YEAR,$SEM,$USER_ID){
-    $connect = mysqli_connect("localhost", "root", "", "faculty");
-    $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
-
-    if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
-    {  
-        $res=mysqli_query($connect, $query); 
-        $row = mysqli_fetch_row($res);
-        
-        $academic_id=$row[0];
-        $stud_id=$row[1];
-
-
-        $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
-        $academic=mysqli_query($connect, $query1); 
-        $ad = mysqli_fetch_row($academic);
-        $num = mysqli_num_rows($academic);
-
-        $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
-        $student=mysqli_query($connect, $query2); 
-        $sd = mysqli_fetch_row($student);
-        $num1 = mysqli_num_rows($student);
-
-
-        if($num==0)
-        {
-            $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
-        }
-
-        if($num1==0)
-        {
-            $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
-        }
-        
-        
-        $MYPOINTS_SEM[0]=$ad[4];
-        $MYPOINTS_SEM[1]=$ad[2];
-        $MYPOINTS_SEM[2]=$ad[8];
-        $MYPOINTS_SEM[3]=$ad[6];
-        $MYPOINTS_SEM[4]=$ad[10];
-        $MYPOINTS_SEM[5]=$sd[4];
-        $MYPOINTS_SEM[6]=$sd[1];
-        return $MYPOINTS_SEM;
-    }
-}
-
-// return the sum of the credits for the even and odd sem of the given year
-function YEARSUM($YEAR,$USER_ID){
-    $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
-    $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
-    for ($i=0;$i<count($TOTALODD);$i++)
-        $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
-
-    return $TOTALYEAR;
-}
-
-function YEARSUM1($YEAR,$USER_ID){
-    $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
-    $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
-    for ($i=0;$i<count($TOTALODD);$i++)
-        $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
-
-    return $TOTALYEAR;
-}
-
-function GETYEAR($USER_ID)
-{
-
-    $def = ['2014-19','2017-18'];
-    $connect = mysqli_connect("localhost", "root", "", "faculty");
-
-    $query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
-
-    $year=mysqli_query($connect, $query);  
-    $num = mysqli_num_rows($year);
-    if ($num >= 1)
+    // renders a chart for the given data using the EchartsPHP library
+    function chartLine($xAxisData, $seriesData, $title = '')
     {
-        while($row = $year->fetch_row())
-        {
-           $rows[]=$row;
+        $chart = new Hisune\EchartsPHP\ECharts();
+        $xAxis = new Hisune\EchartsPHP\Doc\IDE\XAxis();
+        $yAxis = new Hisune\EchartsPHP\Doc\IDE\YAxis();
+
+        $color = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'];
+        shuffle($color);
+
+        $title && $chart->title->text = $title;
+        $chart->color = $color;
+        $chart->tooltip->trigger = 'axis';
+        $chart->toolbox->show = true;
+        $chart->toolbox->feature->dataView->show = false;
+        $chart->toolbox->feature->magicType->type = ['line', 'bar', 'stack', 'tiled'];
+        $chart->toolbox->feature->magicType->title->line = 'Line Chart';
+        $chart->toolbox->feature->magicType->title->bar = 'Bar Chart';
+        $chart->toolbox->feature->magicType->title->stack = 'Stacked View';
+        $chart->toolbox->feature->magicType->title->tiled = 'Tiled View';
+        $chart->toolbox->feature->saveAsImage->name = 'My Credits';
+        $chart->toolbox->feature->saveAsImage->title = 'Save';
+
+        $xAxis->type = 'category';
+        $xAxis->boundaryGap = false;
+        $xAxis->data = $xAxisData;
+
+        foreach($seriesData as $ser){
+            $chart->legend->data[] = $ser['name'];
+            $series = new \Hisune\EchartsPHP\Doc\IDE\Series();
+            $series->name = $ser['name'];
+            $series->type = isset($ser['type']) ? $ser['type'] : 'line';
+            $series->data = $ser['data'];
+            $chart->addSeries($series);
         }
-        return $rows;
+
+        $chart->addXAxis($xAxis);
+        $chart->addYAxis($yAxis);
+
+        $chart->initOptions->renderer = 'svg';
+            //$chart->initOptions->width = '800px';
+
+        return $chart->render(uniqid());
     }
 
-    else{
-        return  $def;
+    // returns an array of the different credit values for the given sem and year of the given user
+    function MYPOINTS($YEAR,$SEM,$USER_ID){
+        $connect = mysqli_connect("localhost", "root", "", "faculty");
+        $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
+
+        if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+        {  
+            $res=mysqli_query($connect, $query); 
+            $row = mysqli_fetch_row($res);
+            
+            $academic_id=$row[0];
+            $stud_id=$row[1];
+            $perf_id=$row[2];
+
+            $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+            $academic=mysqli_query($connect, $query1); 
+            $ad = mysqli_fetch_row($academic);
+            $num = mysqli_num_rows($academic);
+
+            $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+            $student=mysqli_query($connect, $query2); 
+            $sd = mysqli_fetch_row($student);
+            $num1 = mysqli_num_rows($student);
+
+            $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
+            $student=mysqli_query($connect, $query3); 
+            $pd = mysqli_fetch_row($student);
+            $num2 = mysqli_num_rows($student);
+
+            if($num==0)
+                $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+
+            if($num1==0)
+                $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+            
+            if($num2==0)
+                $pd = array(0.0);
+            
+            $MYPOINTS_SEM[0]=$ad[4];
+            $MYPOINTS_SEM[1]=$ad[2];
+            $MYPOINTS_SEM[2]=$ad[8];
+            $MYPOINTS_SEM[3]=$ad[6];
+            $MYPOINTS_SEM[4]=$ad[10];
+            $MYPOINTS_SEM[5]=$sd[4];
+            $MYPOINTS_SEM[6]=$sd[1];
+            $MYPOINTS_SEM[7]=$ad[11];
+            $MYPOINTS_SEM[8]=$sd[5];
+            $MYPOINTS_SEM[9]=$pd[0];
+
+            return $MYPOINTS_SEM;
+        }
     }
-}
+
+    // returns an array of the different credit values for the given sem and year of the given user
+    function MYPOINTS2($YEAR,$SEM,$USER_ID){
+        $connect = mysqli_connect("localhost", "root", "", "faculty");
+        $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
+
+        if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+        {  
+            $res=mysqli_query($connect, $query); 
+            $row = mysqli_fetch_row($res);
+            
+            $academic_id=$row[0];
+            $stud_id=$row[1];
+
+
+            $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+            $academic=mysqli_query($connect, $query1); 
+            $ad = mysqli_fetch_row($academic);
+            $num = mysqli_num_rows($academic);
+
+            $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+            $student=mysqli_query($connect, $query2); 
+            $sd = mysqli_fetch_row($student);
+            $num1 = mysqli_num_rows($student);
+
+
+            if($num==0)
+            {
+                $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+            }
+
+            if($num1==0)
+            {
+                $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+            }
+            
+            
+            $MYPOINTS_SEM[0]=$ad[4];
+            $MYPOINTS_SEM[1]=$ad[2];
+            $MYPOINTS_SEM[2]=$ad[8];
+            $MYPOINTS_SEM[3]=$ad[6];
+            $MYPOINTS_SEM[4]=$ad[10];
+            $MYPOINTS_SEM[5]=$sd[4];
+            $MYPOINTS_SEM[6]=$sd[1];
+            return $MYPOINTS_SEM;
+        }
+    }
+
+    // return the sum of the credits for the even and odd sem of the given year
+    function YEARSUM($YEAR,$USER_ID){
+        $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
+        $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
+        for ($i=0;$i<count($TOTALODD);$i++)
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+
+        return $TOTALYEAR;
+    }
+
+    function YEARSUM1($YEAR,$USER_ID){
+        $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
+        $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+        for ($i=0;$i<count($TOTALODD);$i++)
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+
+        return $TOTALYEAR;
+    }
+
+    function GETYEAR($USER_ID)
+    {
+
+        $def = ['2014-19','2017-18'];
+        $connect = mysqli_connect("localhost", "root", "", "faculty");
+
+        $query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
+
+        $year=mysqli_query($connect, $query);  
+        $num = mysqli_num_rows($year);
+        if ($num >= 1)
+        {
+            while($row = $year->fetch_row())
+            {
+               $rows[]=$row;
+            }
+            return $rows;
+        }
+
+        else{
+            return  $def;
+        }
+    }
 
 ?>
 
