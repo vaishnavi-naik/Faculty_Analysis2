@@ -302,12 +302,16 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-       <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
+
+
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>User - Faculty Analysis</title>
@@ -392,25 +396,19 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?php 
-
-
-                            if($_SESSION['profile_pic'] == "null")
-                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                            else{
-                                $email = $_SESSION['email'];
-                                $query = "SELECT profile_pic from user where email = '$email'";  
-                                $result = mysqli_query($connect, $query);  
-                                if(mysqli_num_rows($result) == 1){
-                                  $row= mysqli_fetch_array($result);                               
-                                  echo '<tr>
-                                            <td>
-                                                <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
-                                            </td>
-                                        </tr>'; 
-                                }else 
-                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                            }
-                            ?>
+                                if($_SESSION['profile_pic'] == "null")
+                                    echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                                else{
+                                    $email = $_SESSION['email'];
+                                    $query = "SELECT profile_pic from user where email = '$email'";  
+                                    $result = mysqli_query($connect, $query);  
+                                    if(mysqli_num_rows($result) == 1){
+                                      $row = mysqli_fetch_array($result);                               
+                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=40 width=40/>'; 
+                                  }else 
+                                  echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                              }
+                              ?>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -1049,14 +1047,17 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     <!-- /#right-panel -->
 
     <!-- Scripts -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
         <script src="assets/js/main.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-        <script src="js/confirmPass.js"></script>
-
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
