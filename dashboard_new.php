@@ -302,10 +302,10 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-
-        <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <meta charset="utf-8">
@@ -362,7 +362,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <li><a href="#compareTopperOdd" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Odd Sem</a></li>
                         
                         <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>For Previous Years</a></li>
-                        <!--<li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>-->
+                        <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>
                         
 
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
@@ -414,11 +414,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#personalDetails"><i class="fas fa-user"></i>My Profile</a>
+                            <a class="nav-link" href="#changePass"><i class="fas fa-user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fas fa-cog"></i>Settings</a>
+                            <a class="nav-link" href="#changePass" class="sliding-link"><i class="fas fa-cog"></i>Settings</a>
 
                             <a class="nav-link" href="logout.php" ><i class="fas fa-power-off"></i>Logout</a>
                         </div>
@@ -850,7 +850,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 $YEAR = max($YEAR[0]);
                                                 $DEPT=$_SESSION['dept'];
                                                 
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' AND user_id IN (SELECT user_id FROM user WHERE dept = '$DEPT') ORDER BY total_credits DESC";
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR'  ORDER BY total_credits DESC";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 
                                                     $user_ids[] = $row['user_id'];
@@ -858,7 +858,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 $topUserCount = mysqli_num_rows($res);
 
                                                 // construct query to obtain user details
-                                                $sql = "SELECT name, profile_pic FROM user WHERE user_id = $user_ids[0]";
+                                                $sql = "SELECT name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
                                                 for($i = 1 ; $i < $topUserCount ; $i++)
                                                     $sql .= " OR user_id = $user_ids[$i]";                                                   
                                                     
@@ -866,6 +866,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                 while($row = mysqli_fetch_array($res)){
                                                     $names[] = $row['name'];
                                                     $pics[] = $row['profile_pic'];
+                                                    $dept[]=$row['dept'];
                                                 }
                                                 for($i = 0 ; $i < $topUserCount ; $i++){
                                                     $userCredits = YEARSUM1($YEAR, $user_ids[$i]);
@@ -903,7 +904,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                         <td>$academic_credits[$i]</td>
                                                         <td>$student_credits[$i]</td>
                                                         <td>$overall_credits[$i]</td>
-                                                        <td><span class='badge badge-complete'>$DEPT</span></td>
+                                                        <td><span class='badge badge-complete'>$dept[$i]</span></td>
                                                         </tr>";
                                                     }
                                                     ?>
@@ -1048,14 +1049,18 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-
-        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-        <script src="js/confirmPass.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
+
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+        <script src="js/confirmPass.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script>
+     
         <script src="assets/js/main.js"></script>
          <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
