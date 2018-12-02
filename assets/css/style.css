@@ -466,8 +466,8 @@ canvas {
     left: -1px; }
   .order-table tr th {
     background: #e8e9ef; }
-  .order-table tr td:last-child, .order-table tr th:last-child {
-    text-align: right; }
+  /*.order-table tr td:last-child, .order-table tr th:last-child {
+    text-align: right; }*/
   .order-table tr:last-child td {
     border: none; }
   .order-table .badge {
