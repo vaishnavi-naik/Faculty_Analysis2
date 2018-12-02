@@ -307,6 +307,20 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
         <script src="js/confirmPass.js"></script>
+
+        <style type="text/css">
+            th, td{
+                text-align: center;
+            }
+            #loading {
+                /*background: white;*/
+                background: #f1f2f7;
+                position: absolute;
+                height: 5000px;
+                width: 100%;
+                z-index: 999999;
+            }
+        </style>
     </head>
 
     <body>
@@ -396,6 +410,12 @@
                 </div>
             </header>
             <!-- /#header -->
+
+            <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
+            <div id="loading">
+                <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
+                <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
+            </div>
 
             <!-- Content -->
             <div class="content">
@@ -903,7 +923,11 @@
 
         <!-- SCRIPTS -->
         <script type="text/javascript">
-           $(".sliding-link").click(function(e) {
+            $(window).ready(function() {
+                $('#loading').hide();
+            });
+
+            $(".sliding-link").click(function(e) {
                 // e.preventDefault();
                 var aid = $(this).attr("href");
                 $('html,body').animate({scrollTop: $(aid).offset().top-75},'slow');
