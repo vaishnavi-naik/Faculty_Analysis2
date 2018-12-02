@@ -752,9 +752,11 @@
                                                             <td>$names[$i]</td>
                                                             <td>$academic_credits[$i]</td>
                                                             <td>$student_credits[$i]</td>
-                                                            <td>$overall_credits[$i]</td>
-                                                            <td><span class='badge badge-complete'>$depts[$i]</span></td>
-                                                            </tr>";
+                                                            <td>$overall_credits[$i]</td>";
+                                                            if($depts[$i] == $adminDept)
+                                                                echo "<td><span class='badge badge-complete'>$depts[$i]</span></td>";
+                                                            else echo "<td><span class='badge badge-pending'>$depts[$i]</span></td>";
+                                                            echo "</tr>";
                                                         }
                                                     ?>
                                                 </tbody>
