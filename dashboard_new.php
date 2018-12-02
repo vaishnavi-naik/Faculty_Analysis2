@@ -71,13 +71,13 @@ $user_id= $_SESSION['id'];
 
 
 
-function GET_COLLEGE_TOPPER($USER_ID)
+function GET_COLLEGE_TOPPER($USER_ID,$SEM)
 {
 $YEAR= GETYEAR($USER_ID);
 $YEAR = max($YEAR[0]);
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 
-$query="SELECT user_id  FROM performance where year = '$YEAR' and sem='even' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='even')  UNION SELECT user_id as toper_id FROM performance where year = '$YEAR' and sem='odd' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='odd')" ;
+$query="SELECT user_id  FROM performance where year = '$YEAR' and sem='$SEM' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='$SEM')" ;
 
 $topper=mysqli_query($connect, $query);  
 $num = mysqli_num_rows($topper);
@@ -94,15 +94,14 @@ return 'no data';
 }
 }
 
-function GET_DEPT_TOPPER()
+function GET_DEPT_TOPPER($USER_ID,$SEM)
 {
-
 $YEAR= GETYEAR($USER_ID);
 $YEAR = max($YEAR[0]);
 $DEPT=$_SESSION['dept'];
 $connect = mysqli_connect("localhost", "root", "", "faculty");
 
-$query="SELECT user_id  FROM performance where year = '$YEAR' and sem='even'  and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='even')  UNION SELECT user_id as toper_id FROM performance where year = '$YEAR' and sem='odd' and total_credits=(SELECT max(total_credits) FROM performance where year = '$YEAR' and sem='odd')" ;
+$query = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' AND sem='$SEM' AND user_id IN (SELECT user_id FROM user WHERE dept = '$DEPT') ORDER BY total_credits DESC";
 
 $topper=mysqli_query($connect, $query);  
 $num = mysqli_num_rows($topper);
@@ -117,6 +116,7 @@ return $topper_id;
 else{
 return 'no data';
 }
+
 }
 
 // function GETSEM($USER_ID)
@@ -334,16 +334,17 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         <li><a href="#evenSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>In Even Sem </a></li>
                         <li><a href="#oddSem" class="sliding-link" > <i class="menu-icon fas fa-user-alt"></i>In Odd Sem </a></li>
                         <li><a href="#thisYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>In This Year</a></li>
-                        <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>COMPARISON</b></a></li>
-                        <li><a href="#compareTopper" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For This Year</a></li>
+                        <li class="sidebarHeading"><a href="#comparePerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>COMPARISON</b></a></li>
+                        <li><a href="#compareTopperEven" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Even Sem</a></li>
+                        <li><a href="#compareTopperOdd" class="sliding-link"> <i class="menu-icon fas fa-school"></i>For Odd Sem</a></li>
                         
                         <li><a href="#prevYear" class="sliding-link"> <i class="menu-icon ti-ruler-pencil"></i>For Previous Years</a></li>
                         <li><a href="#topFaculty" class="sliding-link"> <i class="menu-icon fas fa-award"></i>View Toppers</a></li>
                         
 
                         <li class="sidebarHeading"><a href="#personalDetails" class="sliding-link"><i class="menu-icon fas fa-info-circle iclass" style="color:#03a9f3;"></i><b>MANAGE ACCOUNT</b></a></li>
-                        <!--<li><a href="#personalDetails" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>-->
                         <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-key"></i>Change Password</a></li>
+                        <li><a href="#changePass" class="sliding-link"> <i class="menu-icon ti-id-badge"></i>Edit Profile</a></li>
                         <li><a href="logout.php"> <i class="menu-icon fas fa-sign-out-alt"></i>Logout</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -359,50 +360,42 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
-            <div class="top-right">
-                <div class="header-menu">
-                    <div style="padding-top: 15px;">
-                        <p><?=$user_name;?></p>
-                    </div>
+                <div class="top-right">
+                    <div class="header-menu">
+                        <div style="padding-top: 15px;">
+                            <p><?=$user_name;?></p>
+                        </div>
 
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php 
-
-
-                            if($_SESSION['profile_pic'] == "null")
-                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                            else{
-                                $email = $_SESSION['email'];
-                                $query = "SELECT profile_pic from user where email = '$email'";  
-                                $result = mysqli_query($connect, $query);  
-                                if(mysqli_num_rows($result) == 1){
-                                  $row= mysqli_fetch_array($result);                               
-                                  echo '<tr>
-                                            <td>
-                                                <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
-                                            </td>
-                                        </tr>'; 
-                                }else 
+                        <div class="user-area dropdown float-right">
+                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php 
+                                if($_SESSION['profile_pic'] == "null")
+                                    echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                                else{
+                                    $email = $_SESSION['email'];
+                                    $query = "SELECT profile_pic from user where email = '$email'";  
+                                    $result = mysqli_query($connect, $query);  
+                                    if(mysqli_num_rows($result) == 1){
+                                      $row = mysqli_fetch_array($result);                               
+                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=40 width=40/>'; 
+                                  }else 
                                   echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                            }
-                            ?>
-                        </a>
+                              }
+                              ?>
+                          </a>
 
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#personalDetails"><i class="fa fa- user"></i>My Profile</a>
+                          <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#changePass"><i class="fas fa-user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#changePass" id="changePassTrigger1"><i class="fas fa-cog"></i>Settings</a>
 
-                            <a class="nav-link" href="logout.php" ><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php"><i class="fas fa-power-off"></i>Logout</a>
                         </div>
                     </div>
-
                 </div>
             </div>
-
 
 
 
@@ -620,10 +613,16 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                         </div><!-- /# column -->
                     </div>
 
-         
+                      <div class="col-md-5" id="comparePerformance" style="margin-bottom: -9px; width: 100%; padding-left: 0px; padding-right: 0px;">
+                        <div class="card bg-flat-color-2">
+                            <div class="card-body" style="">
+                                <h3 class=" white-color ">COMPARE PERFORMANCE</h4>
+                            </div>
+                        </div>
+                    </div>      
 
 
-                    <div style="height:550px;margin-left:-12px;" id="compareTopper">
+                    <div style="height:580px;margin-left:-12px;" id="compareTopperEven">
                         <div class="col-sm-12 cardStyle">
                             <div class="card">
                                 <div class="card-body">
@@ -637,8 +636,9 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
 
                                                       $yr=GETYEAR($USER_ID);
                                                        $YEAR = max($yr[0]);
-                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID);
-                                                       echo "<h1>".$COLL_TOPPER."<h2>";
+                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'even');
+                                                       $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'even');
+                                                       echo "<h4><b>COMPARISON FOR ".$YEAR." EVEN SEM<b><h4><br>";
 
 
                                                    
@@ -649,14 +649,58 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                                     [
                                                          ['name' => 'MY SCORE', 'data' => YEARSUM($YEAR,$USER_ID), 'type' => 'line'],
-                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,'0'), 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,$DEPT_TOPPER), 'type' => 'line'],
                                                          ['name' => 'COLLEGE TOPPER', 'data' => YEARSUM($YEAR,$COLL_TOPPER), 'type' => 'line']
 
                                                          // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
                                                          // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
                                                          
                                                     ],
-                                                    'COMPARISON FOR '.$YEAR 
+                                                    '' 
+                                                );
+                                                    ?>
+                                     </div>
+                                 </div>
+                                </div> 
+                            </div>
+                        </div><!-- /# column -->
+
+<div style="height:580px;margin-left:-12px;" id="compareTopperOdd">
+                        <div class="col-sm-12 cardStyle">
+                            <div class="card">
+                                <div class="card-body">
+                                <h2 class="card-title">MY STATUS FOR ODD SEM!</h2>
+                                
+                                    <div  >
+                                                   <?php 
+                                                   $USER_ID=$_SESSION['id'];
+
+                                                    $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
+
+                                                      $yr=GETYEAR($USER_ID);
+                                                       $YEAR = max($yr[0]);
+                                                       $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'odd');
+                                                       $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'odd');
+                                                      // echo "<h1>".$COLL_TOPPER."<h2>";
+                                                       echo "<h4><b>COMPARISON FOR ".$YEAR." ODD SEM<b><h4><br>";
+
+
+                                                   
+                                                   // echo $SEM1[0];
+                                                   // echo $YEAR;
+                                                    
+                                                    echo chartLine(
+                                                    ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
+                                                    [
+                                                         ['name' => 'MY SCORE', 'data' => YEARSUM($YEAR,$USER_ID), 'type' => 'line'],
+                                                         ['name' => 'DEPARTMENT TOPPER', 'data' =>YEARSUM($YEAR,$DEPT_TOPPER), 'type' => 'line'],
+                                                         ['name' => 'COLLEGE TOPPER', 'data' => YEARSUM($YEAR,$COLL_TOPPER), 'type' => 'line']
+
+                                                         // ['name' => 'DEPARTMENT TOPPER', 'data' => [15, 10, 30, 40, 20, 30,60], 'type' => 'line'],
+                                                         // ['name' => 'COLLEGE TOPPER', 'data' => [35, 30, 20, 30, 50, 10,35], 'type' => 'line']
+                                                         
+                                                    ],
+                                                    '' 
                                                 );
                                                     ?>
                                      </div>
@@ -718,6 +762,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                             </div>
                         </div><!-- /# column -->
                    
+
                     <div class="orders" id="topFaculty">
                         <div class="row">
                             <div class="col-xl-12">
@@ -726,103 +771,71 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                         <h2 class="card-title">RANK LIST FOR THIS YEAR! </h2>
                                     </div>
                                     <div class="card-body--">
+                                        <?php
+                                                
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC";
+                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                                while ($row = mysqli_fetch_array($res)){ 
+                                                    $user_ids[] = $row['user_id'];
+                                                }
+                                                $topUserCount = mysqli_num_rows($res);
+
+                                                // construct query to obtain user details
+                                                $sql = "SELECT name, profile_pic FROM user WHERE user_id = $user_ids[0]";
+                                                for($i = 1 ; $i < $topUserCount ; $i++)
+                                                    $sql .= " OR user_id = $user_ids[$i]";                                                   
+                                                    
+                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                                while($row = mysqli_fetch_array($res)){
+                                                    $names[] = $row['name'];
+                                                    $pics[] = $row['profile_pic'];
+                                                }
+                                                for($i = 0 ; $i < $topUserCount ; $i++){
+                                                    $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
+                                                    $academic_credits[] = $userCredits[7];
+                                                    $student_credits[] = $userCredits[8];
+                                                    $overall_credits[] = $userCredits[9];
+                                                }
+                                            ?>  
                                         <div class="table-stats order-table ov-h">
+                                           
+                                            
                                             <table class="table ">
                                                 <thead>
                                                     <tr>
                                                         <th class="serial">#</th>
-                                                        <th class="avatar">Avatar</th>
-                                                        <th>ID</th>
+                                                        <th class="avatar">Image</th>
+                                                        <!-- <th>something</th> -->
                                                         <th>Name</th>
-                                                        <th>Product</th>
-                                                        <th>Quantity</th>
-                                                        <th>Status</th>
+                                                        <th>Academic Credits</th>
+                                                        <th>Student Credits</th>
+                                                        <th>Overall Credits</th>
+                                                        <th>Department</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="serial">1.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/1.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5469 </td>
-                                                        <td>  <span class="name">Louis Stanley</span> </td>
-                                                        <td> <span class="product">iMax</span> </td>
-                                                        <td><span class="count">231</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">2.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/2.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5468 </td>
-                                                        <td>  <span class="name">Gregory Dixon</span> </td>
-                                                        <td> <span class="product">iPad</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">3.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/3.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5467 </td>
-                                                        <td>  <span class="name">Catherine Dixon</span> </td>
-                                                        <td> <span class="product">SSD</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="serial">4.</td>
-                                                        <td class="avatar">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/4.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5466 </td>
-                                                        <td>  <span class="name">Mary Silva</span> </td>
-                                                        <td> <span class="product">Magic Mouse</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-pending">Pending</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class=" pb-0">
-                                                        <td class="serial">5.</td>
-                                                        <td class="avatar pb-0">
-                                                            <div class="round-img">
-                                                                <a href="#"><img class="rounded-circle" src="images/avatar/6.jpg" alt=""></a>
-                                                            </div>
-                                                        </td>
-                                                        <td> #5465 </td>
-                                                        <td>  <span class="name">Johnny Stephens</span> </td>
-                                                        <td> <span class="product">Monitor</span> </td>
-                                                        <td><span class="count">250</span></td>
-                                                        <td>
-                                                            <span class="badge badge-complete">Complete</span>
-                                                        </td>
-                                                    </tr>
+                                                <tbody>                                
+                                                    <?php
+                                                    for($i = 0 ; $i < $topUserCount ; $i++){
+                                                        $rank = $i+1;
+                                                        echo "<tr><td>$rank.</td>";
+                                                        if($pics[$i] == NULL)
+                                                            echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                        else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                        echo "
+                                                        <td>$names[$i]</td>
+                                                        <td>$academic_credits[$i]</td>
+                                                        <td>$student_credits[$i]</td>
+                                                        <td>$overall_credits[$i]</td>
+                                                        <td><span class='badge badge-complete'>$adminDept</span></td>
+                                                        </tr>";
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div> <!-- /.table-stats -->
                                     </div>
                                 </div> <!-- /.card -->
                             </div>  <!-- /.col-lg-8 -->
-
-
                         </div>
                     </div>
                 
@@ -890,9 +903,20 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                 </div>
                             </div>
                         </div>
-                        
-    
+
+
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title box-title">Edit Profile</h4>
+                                    <div class="card-content">
+                                        <br><p style="font-size: 50px;line-height: 50px;">Feature Coming Soon!<br>Stay Tuned.</p>
+                                    </div>
+                                </div> <!-- /.card-body -->
+                            </div><!-- /.card -->
+                        </div>
                     </div>
+
          
                 
                 </div>
