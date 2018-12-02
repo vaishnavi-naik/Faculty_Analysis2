@@ -247,7 +247,7 @@
             #loading {
             /*background: white;*/
             background: #f1f2f7;
-            position: absolute;
+            position: fixed;
             height: 5000px;
             width: 100%;
             z-index: 999999;
@@ -357,10 +357,10 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-            <div id="loading">
+            <!-- <div id="loading"> -->
                 <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
-                <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
-            </div>
+                <!-- <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" /> -->
+            <!-- </div> -->
             <!-- Content -->
             <div id="content">
             <div class="content">
@@ -602,7 +602,7 @@
                         </div>
                     </div>
 
-                    <!-- TOP FACULTY DETAILS -->
+                    <!-- TOP FACULTY - DEPARTMENT DETAILS -->
                     <div class="orders" id="topFaculty">
                         <div class="row">
                             <div class="col-xl-12">
@@ -612,7 +612,6 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php
-                                                
                                                 $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 
@@ -669,6 +668,94 @@
                                                         <td><span class='badge badge-complete'>$adminDept</span></td>
                                                         </tr>";
                                                     }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div> <!-- /.table-stats -->
+                                    </div>
+                                </div> <!-- /.card -->
+                            </div>  <!-- /.col-lg-8 -->
+                        </div>
+                    </div>
+
+                    <!-- TOP FACULTY - INSTITUTION DETAILS -->
+                    <div class="orders" id="topFaculty">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="box-title">TOP FACULTY IN YOUR INSTITUTION</h4>
+                                    </div>
+                                    <div class="card-body--">
+                                        <?php                                            
+                                            $user_ids = array();
+                                            $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19'  ORDER BY total_credits DESC";
+                                            $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                            while ($row = mysqli_fetch_array($res)){ 
+                                                $user_ids[] = $row['user_id'];
+                                            }
+                                            $topUserCount = mysqli_num_rows($res);
+
+                                            // construct query to obtain user details
+                                            $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
+                                            for($i = 1 ; $i < $topUserCount ; $i++)
+                                                $sql .= " OR user_id = $user_ids[$i]";                                                   
+                                                
+                                            $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                            while($row = mysqli_fetch_array($res)){
+                                                $id = $row['user_id'];
+                                                $val=0;
+                                                foreach($user_ids as $order){
+                                                    if($order == $id)
+                                                        $index = $val;
+                                                    $val+=1;
+                                                }
+                                                $names[$index] = $row['name'];
+                                                $pics[$index] = $row['profile_pic'];
+                                                $depts[$index] = $row['dept'];
+                                                $ids[$index] = $row['user_id'];
+                                            }
+                                            foreach($ids as $id){
+                                                $userCredits = YEARSUM1('2018-19', $id);
+                                                $academic_credits[] = $userCredits[7];
+                                                $student_credits[] = $userCredits[8];
+                                                $overall_credits[] = $userCredits[9];
+                                            }
+                                        ?>
+                                        <div class="table-stats order-table ov-h">
+                                           
+                                            
+                                            <table class="table ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="serial">#</th>
+                                                        <th class="avatar">Image</th>
+                                                        <!-- <th>something</th> -->
+                                                        <th>Name</th>
+                                                        <th>Academic Credits</th>
+                                                        <th>Student Credits</th>
+                                                        <th>Overall Credits</th>
+                                                        <th>Department</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>                                
+                                                    <?php
+                                                        $rank=0;
+                                                        for($i = 0 ; $i < $topUserCount ; $i++){
+                                                        // foreach($ids as $id){
+                                                            $rank = $i+1;
+                                                            echo "<tr><td>$rank.</td>";
+                                                            if($pics[$i] == NULL)
+                                                                echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                            else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                            echo "
+                                                            <td>$names[$i]</td>
+                                                            <td>$academic_credits[$i]</td>
+                                                            <td>$student_credits[$i]</td>
+                                                            <td>$overall_credits[$i]</td>
+                                                            <td><span class='badge badge-complete'>$depts[$i]</span></td>
+                                                            </tr>";
+                                                        }
                                                     ?>
                                                 </tbody>
                                             </table>
@@ -836,7 +923,7 @@
                                     </form><br>
                                     <div class="alert alert-success alert-dismissible offset-md-3 col-md-6 collapse" role="alert" id ="regSuccessAdmin">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <center><strong>Success!</strong> Registration Successful.</center>
+                                        <center><strong>Success!</strong> New Admin Added Successfully.</center>
                                     </div>
                                 </div>      
                             </div>
@@ -860,8 +947,7 @@
                                                             $dept = $_SESSION['dept'];
                                                             $query = "SELECT user_id, name FROM user WHERE user_type = 'User' AND dept = '$dept'";
                                                             $result = mysqli_query($connect, $query);
-                                                            $num = mysqli_num_rows($result);
-                                                            while($array = mysqli_fetch_array($result)){
+                                                            $num = mysqli_num_rows($result);                                                           while($array = mysqli_fetch_array($result)){
                                                                 $opt_val = $array['user_id'];
                                                                 $opt_content = $array['name'];
                                                                 echo "<option value = $opt_val>$opt_content</option>";
@@ -1080,72 +1166,11 @@
             //     }, 1000);
             // });
 
-            // $("#facultyTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#faculty').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#compareTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#compare').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#topTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#topFaculty').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#addFacultyTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#addFaculty').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#addAdminTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#addAdmin').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#addPerformanceTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#addPerformance').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#changePassTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#changePass').offset().top-75
-            //     }, 1000);
-            // });
-            // $("#changePassTrigger1").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#changePass').offset().top-75
-            //     }, 1000);
-            // });
-
-            // $("#viewTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#viewPerformance').offset().top-75
-            //     }, 1000);
-            // });
-
-            // $("#manageTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#manageDept').offset().top-75
-            //     }, 1000);
-            // });
-
-            // $("#personalTrigger").on('click',function(){
-            //     $('html,body').animate({
-            //         scrollTop: $('#personalDetails').offset().top-75
-            //     }, 1000);
-            // });
-
             $(".sliding-link").click(function(e) {
                 // e.preventDefault();
                 var aid = $(this).attr("href");
                 $('html,body').animate({scrollTop: $(aid).offset().top-75},'slow');
             });
-
-
 
             $(document).ready(function() {
                 $('html, body').hide();
