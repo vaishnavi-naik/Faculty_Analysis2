@@ -21,16 +21,16 @@
     </ol>
     <div class="carousel-inner" role="listbox" style="height: 600px;">
       <div class="item active">
-        <img class="first-slide" src="img/teachers1.jpg" alt="sjec" style="height: 700px;width:1400px;">
+        <img class="first-slide" src="img/1.jpg" alt="sjec" style="height: 550px;width:1400px;">
         
         <div class="container">
           <div class="carousel-caption" >
-            <h1 style="text-shadow:3px 3px 5px black;margin-top:-75%;color:#c90219;font-size:60px;">WELCOME TO FACULTY ANALYSIS</h1>
+            <h1 style="text-shadow:3px 3px 5px black;color:white;font-size:60px;font-family: 'Raleway', sans-serif;font-weight: 600">WELCOME TO FACULTY ANALYSIS</h1>
             <p></p>
             <?php if(isset($_SESSION['email'])){?>
-              <p><a class="btn btn-lg btn-primary" href="dashboard_new.php" style="width:auto;margin-top: 230px;" role="button">GO TO DASHBOARD</a></p>
+              <p><a class="btn btn-lg btn-primary" href="dashboard_new.php" style="width:auto;margin-top: 50px;margin-bottom: 70px;" role="button">GO TO DASHBOARD</a></p>
             <?php }else{?>
-            <p><a class="btn btn-lg btn-primary" href="login.php" style="width:auto;margin-top: 230px;" role="button">LOGIN</a></p>
+            <p><a class="btn btn-lg btn-primary" href="login.php" style="width:auto;margin-top: 150px;" role="button">LOGIN</a></p>
             <?php }?>
           </div>
         </div>
