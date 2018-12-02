@@ -69,6 +69,65 @@ $connect = mysqli_connect("localhost", "root", "", "faculty");
 $user_id= $_SESSION['id'];
 
 
+function YEARSUM1($YEAR,$USER_ID){
+    $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
+    $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
+    for ($i=0;$i<count($TOTALODD);$i++)
+        $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+
+    return $TOTALYEAR;
+}
+function MYPOINTS2($YEAR,$SEM,$USER_ID){
+    $connect = mysqli_connect("localhost", "root", "", "faculty");
+    $query = "SELECT DISTINCT academic_id, student_id, perf_id FROM performance WHERE user_id = '$USER_ID' and year='$YEAR' and sem='$SEM'" ;
+
+    if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
+    {  
+        $res=mysqli_query($connect, $query); 
+        $row = mysqli_fetch_row($res);
+        
+        $academic_id=$row[0];
+        $stud_id=$row[1];
+        $perf_id=$row[2];
+
+        $query1 = "SELECT * FROM `academic_performance` WHERE academic_id='$academic_id'" ;
+        $academic=mysqli_query($connect, $query1); 
+        $ad = mysqli_fetch_row($academic);
+        $num = mysqli_num_rows($academic);
+
+        $query2 = "SELECT * FROM `student_performance` WHERE student_id='$stud_id'" ;
+        $student=mysqli_query($connect, $query2); 
+        $sd = mysqli_fetch_row($student);
+        $num1 = mysqli_num_rows($student);
+
+        $query3 = "SELECT total_credits FROM `performance` WHERE perf_id ='$perf_id'" ;
+        $student=mysqli_query($connect, $query3); 
+        $pd = mysqli_fetch_row($student);
+        $num2 = mysqli_num_rows($student);
+
+        if($num==0)
+            $ad = array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+
+        if($num1==0)
+            $sd = array(0.0,0.0,0.0,0.0,0.0,0.0);
+        
+        if($num2==0)
+            $pd = array(0.0);
+        
+        $MYPOINTS_SEM[0]=$ad[4];
+        $MYPOINTS_SEM[1]=$ad[2];
+        $MYPOINTS_SEM[2]=$ad[8];
+        $MYPOINTS_SEM[3]=$ad[6];
+        $MYPOINTS_SEM[4]=$ad[10];
+        $MYPOINTS_SEM[5]=$sd[4];
+        $MYPOINTS_SEM[6]=$sd[1];
+        $MYPOINTS_SEM[7]=$ad[11];
+        $MYPOINTS_SEM[8]=$sd[5];
+        $MYPOINTS_SEM[9]=$pd[0];
+
+        return $MYPOINTS_SEM;
+    }
+}
 
 
 function GET_COLLEGE_TOPPER($USER_ID,$SEM)
@@ -787,8 +846,11 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     </div>
                                     <div class="card-body--">
                                         <?php
+                                                $YEAR= GETYEAR($USER_ID);
+                                                $YEAR = max($YEAR[0]);
+                                                $DEPT=$_SESSION['dept'];
                                                 
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC";
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' AND user_id IN (SELECT user_id FROM user WHERE dept = '$DEPT') ORDER BY total_credits DESC";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 
                                                     $user_ids[] = $row['user_id'];
@@ -806,7 +868,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                     $pics[] = $row['profile_pic'];
                                                 }
                                                 for($i = 0 ; $i < $topUserCount ; $i++){
-                                                    $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
+                                                    $userCredits = YEARSUM1($YEAR, $user_ids[$i]);
                                                     $academic_credits[] = $userCredits[7];
                                                     $student_credits[] = $userCredits[8];
                                                     $overall_credits[] = $userCredits[9];
@@ -841,7 +903,7 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                                         <td>$academic_credits[$i]</td>
                                                         <td>$student_credits[$i]</td>
                                                         <td>$overall_credits[$i]</td>
-                                                        <td><span class='badge badge-complete'>$adminDept</span></td>
+                                                        <td><span class='badge badge-complete'>$DEPT</span></td>
                                                         </tr>";
                                                     }
                                                     ?>
