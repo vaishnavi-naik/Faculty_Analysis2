@@ -360,42 +360,50 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
-                <div class="top-right">
-                    <div class="header-menu">
-                        <div style="padding-top: 15px;">
-                            <p><?=$user_name;?></p>
-                        </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div style="padding-top: 15px;">
+                        <p><?=$user_name;?></p>
+                    </div>
 
-                        <div class="user-area dropdown float-right">
-                            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php 
-                                if($_SESSION['profile_pic'] == "null")
-                                    echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                                else{
-                                    $email = $_SESSION['email'];
-                                    $query = "SELECT profile_pic from user where email = '$email'";  
-                                    $result = mysqli_query($connect, $query);  
-                                    if(mysqli_num_rows($result) == 1){
-                                      $row = mysqli_fetch_array($result);                               
-                                      echo '<img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=40 width=40/>'; 
-                                  }else 
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php 
+
+
+                            if($_SESSION['profile_pic'] == "null")
+                                echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
+                            else{
+                                $email = $_SESSION['email'];
+                                $query = "SELECT profile_pic from user where email = '$email'";  
+                                $result = mysqli_query($connect, $query);  
+                                if(mysqli_num_rows($result) == 1){
+                                  $row= mysqli_fetch_array($result);                               
+                                  echo '<tr>
+                                            <td>
+                                                <img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" />
+                                            </td>
+                                        </tr>'; 
+                                }else 
                                   echo '<img class="user-avatar rounded-circle" src="img/dummy.png" alt="User">';
-                              }
-                              ?>
-                          </a>
+                            }
+                            ?>
+                        </a>
 
-                          <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#changePass"><i class="fas fa-user"></i>My Profile</a>
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#personalDetails"><i class="fa fa- user"></i>My Profile</a>
 
                             <!-- <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a> -->
 
-                            <a class="nav-link" href="#changePass" id="changePassTrigger1"><i class="fas fa-cog"></i>Settings</a>
+                            <a class="nav-link" href="#personalDetails" class="sliding-link"><i class="fa fa -cog"></i>Settings</a>
 
-                            <a class="nav-link" href="logout.php"><i class="fas fa-power-off"></i>Logout</a>
+                            <a class="nav-link" href="logout.php" ><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
+
                 </div>
             </div>
+
 
 
 
@@ -459,8 +467,8 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">40</span></div>
-                                            <div class="stat-heading">Publications</div>
+                                            <div class="stat-text"><span class="count">8</span></div>
+                                            <div class="stat-heading">Departments</div>
                                         </div>
                                     </div>
                                 </div>
@@ -477,8 +485,12 @@ if((mysqli_query($connect, $query) ) or die(mysqli_error($connect)))
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">2986</span></div>
-                                            <div class="stat-heading">Clients</div>
+                                            <?php 
+                                                    $res = mysqli_query($connect, "SELECT COUNT(*) FROM user WHERE user_type = 'user'");
+                                                    $count = mysqli_fetch_row($res);
+                                                ?>
+                                            <div class="stat-text"><span class="count"><?=$count[0]?></span></div>
+                                            <div class="stat-heading">Users</div>
                                         </div>
                                     </div>
                                 </div>
