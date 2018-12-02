@@ -357,15 +357,17 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-            <!-- <div id="loading"> -->
+            <div id="loading">
                 <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
-                <!-- <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" /> -->
-            <!-- </div> -->
+                <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
+            </div>
+
             <!-- Content -->
             <div id="content">
             <div class="content">
                 <!-- Animated -->
                 <div class="animated fadeIn" id="contentDivs">
+
                     <!-- Widgets Top Small Cards -->
                     <div class="row" id="widgets">
                         <div class="col-lg-3 col-md-6" >
@@ -535,7 +537,7 @@
                                             </div>
                                         </form>
                                          <?php if(isset($_GET['faculty_name'])){?>
-                                        <div id="facultyDetails" style="height: 400px;margin-top: 50px;">
+                                        <div id="facultyDetails" style="height: 390px;margin-top: 25px;">
                                            
                                             <div class="col-sm-12" style="margin-left: 0px;">
                                                 <?php 
@@ -679,7 +681,7 @@
                     </div>
 
                     <!-- TOP FACULTY - INSTITUTION DETAILS -->
-                    <div class="orders" id="topFaculty">
+                    <div class="orders1" id="topFaculty1">
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
@@ -693,6 +695,7 @@
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 
                                                 $user_ids[] = $row['user_id'];
+                                                // echo $row['user_id']."<br>";
                                             }
                                             $topUserCount = mysqli_num_rows($res);
 
@@ -710,16 +713,20 @@
                                                         $index = $val;
                                                     $val+=1;
                                                 }
+                                                // echo $index." ". $row['name']."<br>";
                                                 $names[$index] = $row['name'];
                                                 $pics[$index] = $row['profile_pic'];
                                                 $depts[$index] = $row['dept'];
                                                 $ids[$index] = $row['user_id'];
                                             }
-                                            foreach($ids as $id){
-                                                $userCredits = YEARSUM1('2018-19', $id);
-                                                $academic_credits[] = $userCredits[7];
-                                                $student_credits[] = $userCredits[8];
-                                                $overall_credits[] = $userCredits[9];
+                                            // echo '$user_ids:<br>';
+                                            for($i = 0 ; $i < $topUserCount ; $i++){
+                                                $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
+                                               
+                                                $academic_credits[$i] = $userCredits[7];
+                                                $student_credits[$i] = $userCredits[8];
+                                                $overall_credits[$i] = $userCredits[9];
+                                                // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i] ." ". $userCredits[7] . "<br>";
                                             }
                                         ?>
                                         <div class="table-stats order-table ov-h">
@@ -743,6 +750,9 @@
                                                         $rank=0;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
                                                         // foreach($ids as $id){
+                                                            // echo "<br>";
+                                                            // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i];
+
                                                             $rank = $i+1;
                                                             echo "<tr><td>$rank.</td>";
                                                             if($pics[$i] == NULL)
