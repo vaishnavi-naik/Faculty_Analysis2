@@ -588,10 +588,10 @@
                                             ['ATTENDANCE','PUBLICATIONS','RESEARCH','EXTRA CURRICULUM','SEM RESULTS','STUDENT RATING'],
                                             [
                                                 ['name' => 'Your Department', 'data' => $tot_result],
-                                                ['name' => 'Dept 2', 'data' => [9,9,6,12,6,3]],
-                                                ['name' => 'Dept 3', 'data' => [8,6,4,3,7,2]],
-                                                ['name' => 'Dept 4', 'data' => [7,4,8,7,6,6]],
-                                                ['name' => 'Dept 5', 'data' => [6,7,6,9,4,7]],
+                                                ['name' => 'ECE', 'data' => [9,9,6,12,6,3]],
+                                                ['name' => 'EEE', 'data' => [8,6,4,3,7,2]],
+                                                ['name' => 'MECH', 'data' => [7,4,8,7,6,6]],
+                                                ['name' => 'CIV', 'data' => [6,7,6,9,4,7]],
                                             ],
                                             'Compare 2018-19'                                                
                                         );
