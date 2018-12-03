@@ -837,9 +837,16 @@
 
                                                             $rank = $i+1;
                                                             echo "<tr><td>$rank.</td>";
-                                                            if($pics[$i] == NULL)
-                                                                echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
-                                                            else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                              if($pics[$i] == NULL)
+                                                            echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                            else{
+                                                                $query = "SELECT profile_pic from user where user_id = '$user_ids[$i]' "; 
+                                                                $result = mysqli_query($connect, $query);  
+                                                                if(mysqli_num_rows($result) == 1){
+                                                                  $row = mysqli_fetch_array($result);                               
+                                                                  echo '<td><img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=24 width=24/></td>'; 
+                                                                }else echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User"></td>';
+                                                            }
                                                             echo "
                                                             <td>$names[$i]</td>
                                                             <td>$academic_credits[$i]</td>
