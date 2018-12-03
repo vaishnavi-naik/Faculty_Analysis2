@@ -21,7 +21,6 @@
             <!--<li><a href="admin_dash.php#manageDept">REGISTER</a></li>-->
             <li><a href="dashboard_new.php">DASHBOARD</a></li>
             <li><a href="logout.php">LOGOUT</a></li>
-            <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>
           </ul>
         </div>
        <?php }else{ ?>
@@ -30,8 +29,6 @@
             <li><a href="login.php">LOGIN</a></li>
             
             <!-- <li><a href="dashboard.php">DASHBOARD</a></li> -->
-            <li><a href="http://sjec.ac.in/" target="_blank">CONTACT US</a></li>
-          </ul>
         </div><!-- /.navbar-collapse -->
         <?php }?>
       </div><!-- /.container-fluid -->
