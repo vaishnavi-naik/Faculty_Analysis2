@@ -487,28 +487,29 @@
                                                 $USER_ID=$_SESSION['id'];
                                                 $YEAR=GETYEAR($USER_ID);
                                                 $YEAR = max($YEAR[0]);
-                                                $sql = "SELECT max(total_credits) FROM performance WHERE year='$YEAR' and sem='even'";
-                                                $res1 = mysqli_query($connect, $sql);
-                                                $row1 = mysqli_fetch_row($res1);
-                                                $num1 = mysqli_num_rows($res1);
-                                                if($num1==0)
-                                                {
-                                                $row1[0]=0;
-                                                }
 
-                                                $sq2 = "SELECT max(total_credits) FROM performance WHERE  year='$YEAR' and sem='odd'";
-                                                $res2 = mysqli_query($connect, $sq2);
-                                                $row2 = mysqli_fetch_row($res2);
-                                                $num2 = mysqli_num_rows($res2);
-                                                if($num2==0)
+                                            $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR'  ORDER BY total_credits DESC";
+                                            $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                            $num1 = mysqli_num_rows($res);
+                                                if($num1!=0)
                                                 {
-                                                $row2[0]=0;
+                                                    $row = mysqli_fetch_row($res);
+
+                                                    $topper=$row[0];
+                                            
+
                                                 }
-                                                //echo $row1[0]."<br>".$row2[0];
-                                                $row=($row1[0]+$row2[0])/2;
+                                                else
+                                                {
+                                                    $topper=$USER_ID;
+                                                }
+                                                $userCredits = YEARSUM1($YEAR, $topper);
+                                                $overall_credits = $userCredits[9];
+
+
 
                                                 ?>                                      
-                                                <div class="stat-text"><?php echo number_format($row, 2, '.', '');?></span></div>
+                                                <div class="stat-text"><?php echo number_format($overall_credits, 2, '.', '');?></span></div>
                                                 <div class="stat-heading">Top Score</div>
                                             </div>
                                         </div>
@@ -765,36 +766,52 @@
                                         <h2 class="card-title">RANK LIST FOR THIS YEAR! </h2>
                                     </div>
                                     <div class="card-body--">
-                                        <?php
+               
+                                        <?php  
                                             $YEAR= GETYEAR($USER_ID);
                                             $YEAR = max($YEAR[0]);
-                                            $DEPT=$_SESSION['dept'];
-                                            
+                                            //echo $YEAR;
+                                            //$DEPT=$_SESSION['dept'];                                          
+                                            $user_ids = array();
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR'  ORDER BY total_credits DESC";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 
                                                 $user_ids[] = $row['user_id'];
+                                                // echo $row['user_id']."<br>";
                                             }
                                             $topUserCount = mysqli_num_rows($res);
 
                                             // construct query to obtain user details
-                                            $sql = "SELECT name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
+                                            $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
                                             for($i = 1 ; $i < $topUserCount ; $i++)
                                                 $sql .= " OR user_id = $user_ids[$i]";                                                   
                                                 
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while($row = mysqli_fetch_array($res)){
-                                                $names[] = $row['name'];
-                                                $pics[] = $row['profile_pic'];
-                                                $dept[]=$row['dept'];
+                                                $id = $row['user_id'];
+                                                $val=0;
+                                                foreach($user_ids as $order){
+                                                    if($order == $id)
+                                                        $index = $val;
+                                                    $val+=1;
+                                                }
+                                                // echo $index." ". $row['name']."<br>";
+                                                $names[$index] = $row['name'];
+                                                $pics[$index] = $row['profile_pic'];
+                                                $depts[$index] = $row['dept'];
+                                                $ids[$index] = $row['user_id'];
                                             }
+                                            // echo '$user_ids:<br>';
+                                            $overall_credits = array();
                                             for($i = 0 ; $i < $topUserCount ; $i++){
                                                 $userCredits = YEARSUM1($YEAR, $user_ids[$i]);
-                                                $academic_credits[] = $userCredits[7];
-                                                $student_credits[] = $userCredits[8];
-                                                $overall_credits[] = $userCredits[9];
+                                               
+                                                $academic_credits[$i] = $userCredits[7];
+                                                $student_credits[$i] = $userCredits[8];
+                                                $overall_credits[$i] = $userCredits[9];
+                                                // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i] ." ". $userCredits[7] . "<br>";
                                             }
-                                        ?>  
+                                        ?>
                                         <div class="table-stats order-table ov-h">
                                             <table class="table ">
                                                 <thead>
@@ -810,8 +827,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>                                
+                                    
                                                     <?php
+                                                        $rank=0;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
+                                                        // foreach($ids as $id){
+                                                            // echo "<br>";
+                                                            // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i];
+
                                                             $rank = $i+1;
                                                             echo "<tr><td>$rank.</td>";
                                                             if($pics[$i] == NULL)
@@ -821,9 +844,10 @@
                                                             <td>$names[$i]</td>
                                                             <td>$academic_credits[$i]</td>
                                                             <td>$student_credits[$i]</td>
-                                                            <td>$overall_credits[$i]</td>
-                                                            <td><span class='badge badge-complete'>$dept[$i]</span></td>
-                                                            </tr>";
+                                                            <td>$overall_credits[$i]</td>";
+                                                            
+                                                            echo "<td><span class='badge badge-complete'>$depts[$i]</span></td>";
+                                                            echo "</tr>";
                                                         }
                                                     ?>
                                                 </tbody>
