@@ -394,7 +394,6 @@
                                 </div>
                             </div>
                         </div>
-                        
 
                         <div class="col-lg-3 col-md-6">
                             <div class="card">
@@ -661,7 +660,14 @@
                                                         echo "<tr><td>$rank.</td>";
                                                         if($pics[$i] == NULL)
                                                             echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
-                                                        else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                        else{
+                                                            $query = "SELECT profile_pic from user where name = '$names[$i]' "; 
+                                                            $result = mysqli_query($connect, $query);  
+                                                            if(mysqli_num_rows($result) == 1){
+                                                              $row = mysqli_fetch_array($result);                               
+                                                              echo '<td><img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=24 width=24/></td>'; 
+                                                            }else echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User"></td>';
+                                                        }
                                                         echo "
                                                         <td>$names[$i]</td>
                                                         <td>$academic_credits[$i]</td>
@@ -755,9 +761,19 @@
 
                                                             $rank = $i+1;
                                                             echo "<tr><td>$rank.</td>";
+                                                            // if($pics[$i] == NULL)
+                                                            //     echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                            // else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
                                                             if($pics[$i] == NULL)
-                                                                echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
-                                                            else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
+                                                            echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
+                                                            else{
+                                                                $query = "SELECT profile_pic from user where user_id = '$user_ids[$i]' "; 
+                                                                $result = mysqli_query($connect, $query);  
+                                                                if(mysqli_num_rows($result) == 1){
+                                                                  $row = mysqli_fetch_array($result);                               
+                                                                  echo '<td><img src="data:image/jpeg;base64,'.base64_encode($row['profile_pic'] ).'" class="user-avatar rounded-circle" height=24 width=24/></td>'; 
+                                                                }else echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User"></td>';
+                                                            }
                                                             echo "
                                                             <td>$names[$i]</td>
                                                             <td>$academic_credits[$i]</td>
@@ -805,14 +821,14 @@
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
                                                 <div class="col-sm-5">
                                                     <select name="dept" id="dept" class="form-control">
-                                                        <option value="cse" selected="true"> Computer Science and Engineering</option>
-                                                        <option value="cve"> Civil Engineering</option>
-                                                        <option value="ce"> Chemical Engineering</option>
-                                                        <option value="eee"> Electronics and Electrical Engineering </option>
-                                                        <option value="ece"> Electronics and Communication </option>
-                                                        <option value="bca">Bachelor of Computer Applications</option>
-                                                        <option value="mba">Master of Business Administration</option>
-                                                        <option value="me"> Mechanical Engineering</option>
+                                                        <option value="CSE" selected="true"> Computer Science and Engineering</option>
+                                                        <option value="CIV"> Civil Engineering</option>
+                                                        <option value="CE"> Chemical Engineering</option>
+                                                        <option value="EEE"> Electronics and Electrical Engineering </option>
+                                                        <option value="ECE"> Electronics and Communication </option>
+                                                        <option value="BCA">Bachelor of Computer Applications</option>
+                                                        <option value="MBA">Master of Business Administration</option>
+                                                        <option value="ME"> Mechanical Engineering</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -840,9 +856,8 @@
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <div class="custom-file " style="margin-left: 15px; width:385px;">
-                                                    <input type="file" class="custom-file-input" id="image">
-                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                <div class="col-sm-7" style="margin-top: 6px;" >
+                                                    <input type="file" id="image" name="image">
                                                 </div>
                                             </div>
 
@@ -919,9 +934,8 @@
 
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-4 control-label" >Upload Image:</label>
-                                                <div class="custom-file " style="margin-left: 15px; width:385px;">
-                                                    <input type="file" class="custom-file-input" id="image">
-                                                    <label class="custom-file-label" for="image">Choose file</label>
+                                                <div class="col-sm-7" style="margin-top: 6px;" >
+                                                    <input type="file" id="image" name="image">
                                                 </div>
                                             </div>
 

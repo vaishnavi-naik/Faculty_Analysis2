@@ -17,7 +17,6 @@ if(isset($_POST["submit"]))
 			header("location:admin_dash.php?userError=Email already registered. Try a Different Email.#addFaculty");
 		else 
 			header("location:admin_dash.php?adminError=Email already registered. Try a Different Email.#addAdmin");
-
 	if(!empty($_FILES["image"]["tmp_name"])){
 		$check = getimagesize($_FILES["image"]["tmp_name"]);
 	  	if($check !== false  && in_array(mime_content_type ($_FILES["image"]["tmp_name"]) , array('image/jpeg','image/png','image/gif'))){
