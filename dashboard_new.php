@@ -226,7 +226,12 @@
 
     function YEARSUM($YEAR,$USER_ID)
     {
+        $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
+        $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+        for ($i=0;$i<count($TOTALODD);$i++)
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
 
+        return $TOTALYEAR;
         
     }
 
@@ -337,9 +342,8 @@
             <nav class="navbar navbar-expand-sm navbar-default navbar-fixed">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <ul class="nav navbar-nav list-group" id="myNav">
-
                         <li class="active">
-                            <a id="menuToggle1" style="cursor:pointer;"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                            <a  href="dashboard_new.php" class="sliding-link"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
                         </li>
 
                         <li class="sidebarHeading"><a href="#viewPerformance" class="sliding-link"><i class="menu-icon fas fa-chart-line iclass" style="color:#03a9f3;"></i><b>MY PERFORMANCE</b></a></li><!-- /.menu-title -->
@@ -456,9 +460,10 @@
                                                     {
                                                     $row2[0]=0;
                                                     }
+                                                    //echo $row1[0]."<br>".$row2[0];
                                                     $row=($row1[0]+$row2[0])/2;
                                                 ?>
-                                                <div class="stat-text"><span class="count"><?php echo number_format($row, 2, '.', '');?></span></div>
+                                                <div class="stat-text"><?php echo number_format($row, 2, '.', '');?></div>
                                                 <div class="stat-heading" >Your Score</div>
                                             </div>
                                         </div>
@@ -499,6 +504,7 @@
                                                 {
                                                 $row2[0]=0;
                                                 }
+                                                //echo $row1[0]."<br>".$row2[0];
                                                 $row=($row1[0]+$row2[0])/2;
 
                                                 ?>                                      
@@ -672,7 +678,7 @@
 
                                         $yrs = array('Y1 No Data','Y2 No Data','Y3 No Data','Y4 No Data','Y5 No Data');
 
-                                        $yr=GETYEAR($USER_ID);
+                                        $yr=GETYEAR_ALL($USER_ID);
                                         $YEAR = max($yr[0]);
                                         $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'even');
                                         $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'even');
