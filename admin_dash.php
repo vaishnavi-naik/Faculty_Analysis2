@@ -613,7 +613,7 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC";
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC LIMIT 5";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 
                                                     $user_ids[] = $row['user_id'];
@@ -621,20 +621,30 @@
                                                 $topUserCount = mysqli_num_rows($res);
 
                                                 // construct query to obtain user details
-                                                $sql = "SELECT name, profile_pic FROM user WHERE user_id = $user_ids[0]";
+                                                $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
                                                 for($i = 1 ; $i < $topUserCount ; $i++)
                                                     $sql .= " OR user_id = $user_ids[$i]";                                                   
                                                     
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while($row = mysqli_fetch_array($res)){
-                                                    $names[] = $row['name'];
-                                                    $pics[] = $row['profile_pic'];
+                                                $id = $row['user_id'];
+                                                $val=0;
+                                                foreach($user_ids as $order){
+                                                    if($order == $id)
+                                                        $index = $val;
+                                                    $val+=1;
                                                 }
+                                                // echo $index." ". $row['name']."<br>";
+                                                $names[$index] = $row['name'];
+                                                $pics[$index] = $row['profile_pic'];
+                                                $depts[$index] = $row['dept'];
+                                                $ids[$index] = $row['user_id'];
+                                            }
                                                 for($i = 0 ; $i < $topUserCount ; $i++){
                                                     $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
-                                                    $academic_credits[] = $userCredits[7];
-                                                    $student_credits[] = $userCredits[8];
-                                                    $overall_credits[] = $userCredits[9];
+                                                    $academic_credits[$i] = $userCredits[7];
+                                                    $student_credits[$i] = $userCredits[8];
+                                                    $overall_credits[$i] = $userCredits[9];
                                                 }
                                             ?>  
                                         <div class="table-stats order-table ov-h">
@@ -655,6 +665,7 @@
                                                 </thead>
                                                 <tbody>                                
                                                     <?php
+                                                    if($topUserCount > 5) $topUserCount = 5;
                                                     for($i = 0 ; $i < $topUserCount ; $i++){
                                                         $rank = $i+1;
                                                         echo "<tr><td>$rank.</td>";
@@ -697,7 +708,7 @@
                                     <div class="card-body--">
                                         <?php                                            
                                             $user_ids = array();
-                                            $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19'  ORDER BY total_credits DESC";
+                                            $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19'  ORDER BY total_credits DESC LIMIT 5";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 
                                                 $user_ids[] = $row['user_id'];
@@ -754,6 +765,7 @@
                                                 <tbody>                                
                                                     <?php
                                                         $rank=0;
+                                                        // if($topUserCount > 5) $topUserCount = 5;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
                                                         // foreach($ids as $id){
                                                             // echo "<br>";
