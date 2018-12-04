@@ -68,10 +68,15 @@
     $user_id= $_SESSION['id'];
 
     function YEARSUM1($YEAR,$USER_ID){
+        $div=2.0;
         $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
         $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
+         if(($TOTALODD[0]==0.0)or($TOTALEVEN[0]==0.0))
+        {
+            $div=1.0;
+        }
         for ($i=0;$i<count($TOTALODD);$i++)
-            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/$div, 2);
 
         return $TOTALYEAR;
     }
@@ -178,7 +183,7 @@
     {
         
 
-        $def = [['Y1 No Data'],['Y2 No Data'],['Y3 No Data'],['Y4 No Data'],['Y5 No Data']];
+        $def = [['2018-19'],['2017-18'],['2016-17'],['2015-16'],['2014-15']];
         $connect = mysqli_connect("localhost", "root", "", "faculty");
         ;
 
@@ -203,7 +208,7 @@
     function GETYEAR_ALL($USER_ID)
     {
 
-        $def = [['Y1 No Data'],['Y2 No Data'],['Y3 No Data'],['Y4 No Data'],['Y5 No Data']];
+        $def = [['2018-19'],['2017-18'],['2016-17'],['2015-16'],['2014-15']];
         $connect = mysqli_connect("localhost", "root", "", "faculty");
         ;
 
@@ -227,10 +232,15 @@
 
     function YEARSUM($YEAR,$USER_ID)
     {
+        $div=2.0;
         $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
         $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+        if(($TOTALODD[0]==0.0)or($TOTALEVEN[0]==0.0))
+        {
+            $div=1.0;
+        }
         for ($i=0;$i<count($TOTALODD);$i++)
-            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/$div, 2);
 
         return $TOTALYEAR;
         
@@ -418,9 +428,9 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-            <div id="loading">
+            <!-- <div id="loading">
             <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
-            </div>
+            </div> -->
 
             <!-- Content -->
             <div class="content">
@@ -461,7 +471,12 @@
                                                     $row2[0]=0;
                                                     }
                                                     //echo $row1[0]."<br>".$row2[0];
-                                                    $row=($row1[0]+$row2[0])/2;
+                                                    $div=2;
+                                                    if(($row1[0]==0)or($row2[0]==0))
+                                                    {
+                                                        $div=1;
+                                                    }
+                                                    $row=($row1[0]+$row2[0])/$div;
                                                 ?>
                                                 <div class="stat-text"><?php echo number_format($row, 2, '.', '');?></div>
                                                 <div class="stat-heading" >Your Score</div>
@@ -487,6 +502,9 @@
                                                 $USER_ID=$_SESSION['id'];
                                                 $YEAR=GETYEAR($USER_ID);
                                                 $YEAR = max($YEAR[0]);
+                                                if($YEAR==''){
+                                                  $YEAR='2018-19'; 
+                                                }
 
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR'  ORDER BY total_credits DESC";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
@@ -711,6 +729,7 @@
                                         $yr=GETYEAR($USER_ID);
                                         $YEAR = max($yr[0]);
                                         $COLL_TOPPER=GET_COLLEGE_TOPPER($USER_ID,'odd');
+                                        $DEPT_TOPPER=GET_DEPT_TOPPER($USER_ID,'odd');
                                         echo chartLine(
                                             ['ATTENDANCE','PUBLICATIONS','RESEARCH','ORGANIZATIONS','ACTIVITIES','SEM RESULTS','STUDENT RATING'],
                                             [
@@ -770,9 +789,18 @@
                                         <?php  
                                             $YEAR= GETYEAR($USER_ID);
                                             $YEAR = max($YEAR[0]);
+                                            //echo "<h1>".$YEAR."</h1>";
+                                            //$DEPT=$_SESSION['dept'];
+                                            
+                                            if($YEAR==''){
+                                            $YEAR='2018-19'; 
+                                            }  
+                                            $names=array('');
+                                            $pics=array('');
+                                            $depts=array('');
                                             //echo $YEAR;
                                             //$DEPT=$_SESSION['dept'];                                          
-                                            $user_ids = array(0,0,0,0,0,0,0);
+                                            $user_ids = array();
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' and sem='even' ORDER BY total_credits DESC LIMIT 5";
 
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
@@ -834,6 +862,8 @@
                                     
                                                     <?php
                                                         $rank=0;
+                                                        
+                                                        $i=0;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
                                                         // foreach($ids as $id){
                                                             // echo "<br>";
@@ -883,9 +913,17 @@
                                         <?php  
                                             $YEAR= GETYEAR($USER_ID);
                                             $YEAR = max($YEAR[0]);
+                                            //echo "<h1>".$YEAR."</h1>";
+                                            //$DEPT=$_SESSION['dept'];
+                                            if($YEAR==''){
+                                            $YEAR='2018-19'; 
+                                            }                                       
+                                           
+                                            $user_ids = array();
+                                            $names=array('');
+                                            $pics=array('');
+                                            $depts=array('');
                                             //echo $YEAR;
-                                            //$DEPT=$_SESSION['dept'];                                          
-                                            $user_ids = array(0,0,0,0,0,0,0);
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' and sem='odd' ORDER BY total_credits DESC LIMIT 5";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 

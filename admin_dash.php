@@ -160,19 +160,30 @@
 
     // return the sum of the credits for the even and odd sem of the given year
     function YEARSUM($YEAR,$USER_ID){
+        $div=2.0;
         $TOTALODD=MYPOINTS2($YEAR,'odd',$USER_ID);
         $TOTALEVEN=MYPOINTS2($YEAR,'even',$USER_ID);
+        if(($TOTALODD[0]==0.0)or($TOTALEVEN[0]==0.0))
+        {
+            $div=1.0;
+        }
         for ($i=0;$i<count($TOTALODD);$i++)
-            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/$div, 2);
 
         return $TOTALYEAR;
     }
 
     function YEARSUM1($YEAR,$USER_ID){
+        $div=2.0;
+
         $TOTALODD=MYPOINTS($YEAR,'odd',$USER_ID);
         $TOTALEVEN=MYPOINTS($YEAR,'even',$USER_ID);
+        if(($TOTALODD[0]==0.0)or($TOTALEVEN[0]==0.0))
+        {
+            $div=1.0;
+        }
         for ($i=0;$i<count($TOTALODD);$i++)
-            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/2.0, 2);
+            $TOTALYEAR[$i]=round(($TOTALODD[$i]+$TOTALEVEN[$i])/$div, 2);
 
         return $TOTALYEAR;
     }
@@ -357,10 +368,10 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-           <div id="loading">
+    <!--        <div id="loading">
                 
                 <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
-            </div> 
+            </div>  -->
 
             <!-- Content -->
             <div id="content">
@@ -613,12 +624,20 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php
-                                                $user_ids = array(0,0,0,0,0,0,0);
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC LIMIT 5";
+                                                $user_ids = array();
+                                                $names=array('');
+                                                $pics=array('');
+
+                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id  IN (SELECT user_id FROM user WHERE dept = '$adminDept' ) ORDER BY total_credits DESC LIMIT 5";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                                $num = mysqli_num_rows($res);
+                                                if($num>0)
+                                                {
+
                                                 while ($row = mysqli_fetch_array($res)){ 
                                                     $user_ids[] = $row['user_id'];
                                                 }
+                                                //echo $user_ids[0];
                                                 $topUserCount = mysqli_num_rows($res);
 
                                                 // construct query to obtain user details
@@ -647,6 +666,13 @@
                                                     $student_credits[$i] = $userCredits[8];
                                                     $overall_credits[$i] = $userCredits[9];
                                                 }
+
+                                            }
+                                            else{
+
+                                                $user_ids = array(0);
+                                                $topUserCount=0;
+                                            }
                                             ?>  
                                         <div class="table-stats order-table ov-h">
                                            
@@ -666,6 +692,7 @@
                                                 </thead>
                                                 <tbody>                                
                                                     <?php
+                                                    $i=0;
                                                     if($topUserCount > 5) $topUserCount = 5;
                                                     for($i = 0 ; $i < $topUserCount ; $i++){
                                                         $rank = $i+1;
@@ -709,6 +736,9 @@
                                     <div class="card-body--">
                                         <?php                                            
                                             $user_ids = array();
+                                            $names=array();
+                                            $pics=array();
+                                            $depts=array();
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19'  ORDER BY total_credits DESC LIMIT 5";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 
@@ -716,6 +746,7 @@
                                                 // echo $row['user_id']."<br>";
                                             }
                                             $topUserCount = mysqli_num_rows($res);
+
 
                                             // construct query to obtain user details
                                             $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
@@ -740,6 +771,8 @@
                                             // echo '$user_ids:<br>';
                                             for($i = 0 ; $i < $topUserCount ; $i++){
                                                 $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
+
+
                                                
                                                 $academic_credits[$i] = $userCredits[7];
                                                 $student_credits[$i] = $userCredits[8];
@@ -765,7 +798,15 @@
                                                 </thead>
                                                 <tbody>                                
                                                     <?php
+                                                   
+                                                        //$user_ids = array(0,0,0,0,0,0,0);
+                                                        //$names=array(0,0,0,0,0,0,0);
+                                                       // $pics=array(0,0,0,0,0,0,0);
+                                                       // $depts=array(0,0,0,0,0,0,0);
+
                                                         $rank=0;
+
+                                                        $i=0;
                                                         // if($topUserCount > 5) $topUserCount = 5;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
                                                         // foreach($ids as $id){
