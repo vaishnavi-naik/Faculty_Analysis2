@@ -180,7 +180,7 @@
     function GETYEAR($USER_ID)
     {
 
-        $def = ['2014-19','2017-18'];
+        $def = [['Y1 No Data'],['Y2 No Data'],['Y3 No Data'],['Y4 No Data'],['Y5 No Data']];
         $connect = mysqli_connect("localhost", "root", "", "faculty");
 
         $query="SELECT DISTINCT year FROM performance where user_id = '$USER_ID' order by year desc ";
@@ -357,10 +357,10 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-            <div id="loading">
-                <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
+           <div id="loading">
+                
                 <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
-            </div>
+            </div> 
 
             <!-- Content -->
             <div id="content">
@@ -613,6 +613,7 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php
+                                                $user_ids = array(0,0,0,0,0,0,0);
                                                 $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id IN (SELECT user_id FROM user WHERE dept = '$adminDept') ORDER BY total_credits DESC LIMIT 5";
                                                 $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                                 while ($row = mysqli_fetch_array($res)){ 

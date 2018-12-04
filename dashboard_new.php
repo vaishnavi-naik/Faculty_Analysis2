@@ -176,8 +176,9 @@
 
     function GETYEAR($USER_ID)
     {
+        
 
-        $def = [['2018-19'],['2017-18']];
+        $def = [['Y1 No Data'],['Y2 No Data'],['Y3 No Data'],['Y4 No Data'],['Y5 No Data']];
         $connect = mysqli_connect("localhost", "root", "", "faculty");
         ;
 
@@ -202,7 +203,7 @@
     function GETYEAR_ALL($USER_ID)
     {
 
-        $def = [['2018-19'],['2017-18']];
+        $def = [['Y1 No Data'],['Y2 No Data'],['Y3 No Data'],['Y4 No Data'],['Y5 No Data']];
         $connect = mysqli_connect("localhost", "root", "", "faculty");
         ;
 
@@ -210,7 +211,7 @@
 
         $year=mysqli_query($connect, $query);  
         $num = mysqli_num_rows($year);
-        if ($num >= 0)
+        if ($num > 0)
         {
         while($row = $year->fetch_row())
         {
@@ -418,8 +419,7 @@
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
             <div id="loading">
-                <!-- <img src="img/loading1.gif" style="margin-left: 120px;" /> -->
-                <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
+            <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
             </div>
 
             <!-- Content -->
@@ -772,14 +772,17 @@
                                             $YEAR = max($YEAR[0]);
                                             //echo $YEAR;
                                             //$DEPT=$_SESSION['dept'];                                          
-                                            $user_ids = array();
+                                            $user_ids = array(0,0,0,0,0,0,0);
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' and sem='even' ORDER BY total_credits DESC LIMIT 5";
+
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+
                                             while ($row = mysqli_fetch_array($res)){ 
                                                 $user_ids[] = $row['user_id'];
                                                 // echo $row['user_id']."<br>";
                                             }
                                             $topUserCount = mysqli_num_rows($res);
+
 
                                             // construct query to obtain user details
                                             $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
@@ -882,7 +885,7 @@
                                             $YEAR = max($YEAR[0]);
                                             //echo $YEAR;
                                             //$DEPT=$_SESSION['dept'];                                          
-                                            $user_ids = array();
+                                            $user_ids = array(0,0,0,0,0,0,0);
                                             $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='$YEAR' and sem='odd' ORDER BY total_credits DESC LIMIT 5";
                                             $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
                                             while ($row = mysqli_fetch_array($res)){ 
