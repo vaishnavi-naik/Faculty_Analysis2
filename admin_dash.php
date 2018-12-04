@@ -368,10 +368,10 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-    <!--        <div id="loading">
+           <div id="loading">
                 
                 <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
-            </div>  -->
+            </div> 
 
             <!-- Content -->
             <div id="content">
