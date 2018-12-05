@@ -878,14 +878,14 @@
                                                 <label for="dept" class="col-sm-4 control-label">Department</label>
                                                 <div class="col-sm-5">
                                                     <select name="dept" id="dept" class="form-control">
-                                                        <option value="cse" selected="true"> Computer Science and Engineering</option>
-                                                        <option value="cve"> Civil Engineering</option>
-                                                        <option value="ce"> Chemical Engineering</option>
-                                                        <option value="eee"> Electronics and Electrical Engineering </option>
-                                                        <option value="ece"> Electronics and Communication </option>
-                                                        <option value="bca">Bachelor of Computer Applications</option>
-                                                        <option value="mba">Master of Business Administration</option>
-                                                        <option value="me"> Mechanical Engineering</option>
+                                                        <option value="CSE" selected="true"> Computer Science and Engineering</option>
+                                                        <option value="CIV"> Civil Engineering</option>
+                                                        <option value="CE"> Chemical Engineering</option>
+                                                        <option value="EEE"> Electronics and Electrical Engineering </option>
+                                                        <option value="ECE"> Electronics and Communication </option>
+                                                        <option value="BCA">Bachelor of Computer Applications</option>
+                                                        <option value="MBA">Master of Business Administration</option>
+                                                        <option value="ME"> Mechanical Engineering</option>
                                                      
                                                     </select>
                                                 </div>
