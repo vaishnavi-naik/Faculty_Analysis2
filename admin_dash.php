@@ -500,7 +500,7 @@
                                         $res_academic = mysqli_query($connect, $sql_academic);
                                         $row_academic = mysqli_fetch_row($res_academic);
 
-                                        $sql_student = "SELECT AVG(pass_credits), AVG(stud_credits) FROM student_performance WHERE student_id IN(SELECT academic_id FROM performance WHERE user_id IN (SELECT user_id from user WHERE dept = '$adminDept') AND year = '2018-19')";
+                                        $sql_student = "SELECT AVG(pass_credits), AVG(stud_credits) FROM student_performance WHERE student_id IN(SELECT student_id FROM performance WHERE user_id IN (SELECT user_id from user WHERE dept = '$adminDept') AND year = '2018-19')";
                                         $res_student = mysqli_query($connect, $sql_student);
                                         $row_student = mysqli_fetch_row($res_student);
 
