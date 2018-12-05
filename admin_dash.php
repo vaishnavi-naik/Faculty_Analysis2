@@ -368,7 +368,7 @@
             <!-- /#header -->
 
             <!-- LOADING GIF APPEARS AS THE PAGE LOADS -->
-           <div id="loading">
+            <div id="loading">
                 
                 <img src="img/loading2.gif" style="margin-left: 350px;margin-top: 140px;" />
             </div> 
@@ -624,54 +624,23 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php
-                                                $user_ids = array();
-                                                $names=array('');
-                                                $pics=array('');
-
-                                                $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19' AND user_id  IN (SELECT user_id FROM user WHERE dept = '$adminDept' ) ORDER BY total_credits DESC LIMIT 5";
-                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
-                                                $num = mysqli_num_rows($res);
-                                                if($num>0)
-                                                {
-
-                                                while ($row = mysqli_fetch_array($res)){ 
-                                                    $user_ids[] = $row['user_id'];
-                                                }
-                                                //echo $user_ids[0];
-                                                $topUserCount = mysqli_num_rows($res);
-
-                                                // construct query to obtain user details
-                                                $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
-                                                for($i = 1 ; $i < $topUserCount ; $i++)
-                                                    $sql .= " OR user_id = $user_ids[$i]";                                                   
-                                                    
-                                                $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
-                                                while($row = mysqli_fetch_array($res)){
-                                                $id = $row['user_id'];
-                                                $val=0;
-                                                foreach($user_ids as $order){
-                                                    if($order == $id)
-                                                        $index = $val;
-                                                    $val+=1;
-                                                }
-                                                // echo $index." ". $row['name']."<br>";
-                                                $names[$index] = $row['name'];
-                                                $pics[$index] = $row['profile_pic'];
-                                                $depts[$index] = $row['dept'];
-                                                $ids[$index] = $row['user_id'];
+                                                $adminDept = $_SESSION['dept'];
+                                            $sql = "SELECT P.user_id ,U.name,U.profile_pic,AVG(total_credits) AS avgg, U.dept FROM performance P, user U WHERE U.user_id = P.user_id AND year='2018-19' AND dept='$adminDept' group by P.user_id ORDER BY AVG(total_credits) DESC LIMIT 5";
+                                            $res = mysqli_query($connect, $sql);
+                                            $i=0;
+                                            while($row = mysqli_fetch_array($res)){
+                                                $user_ids[$i] = $row['user_id'];
+                                                $names[$i] = $row['name'];
+                                                $pics[$i] = $row['profile_pic'];
+                                                $depts[$i] = $row['dept'];
+                                                $i+=1;
                                             }
-                                                for($i = 0 ; $i < $topUserCount ; $i++){
-                                                    $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
-                                                    $academic_credits[$i] = $userCredits[7];
-                                                    $student_credits[$i] = $userCredits[8];
-                                                    $overall_credits[$i] = $userCredits[9];
-                                                }
-
-                                            }
-                                            else{
-
-                                                $user_ids = array(0);
-                                                $topUserCount=0;
+                                            $topUserCount = $i;
+                                            for($i = 0 ; $i < $topUserCount ; $i++){
+                                                $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
+                                                $academic_credits[$i] = $userCredits[7];
+                                                $student_credits[$i] = $userCredits[8];
+                                                $overall_credits[$i] = $userCredits[9];
                                             }
                                             ?>  
                                         <div class="table-stats order-table ov-h">
@@ -682,7 +651,6 @@
                                                     <tr>
                                                         <th class="serial">#</th>
                                                         <th class="avatar">Image</th>
-                                                        <!-- <th>something</th> -->
                                                         <th>Name</th>
                                                         <th>Academic Credits</th>
                                                         <th>Student Credits</th>
@@ -718,10 +686,10 @@
                                                     ?>
                                                 </tbody>
                                             </table>
-                                        </div> <!-- /.table-stats -->
+                                        </div> 
                                     </div>
-                                </div> <!-- /.card -->
-                            </div>  <!-- /.col-lg-8 -->
+                                </div> 
+                            </div> 
                         </div>
                     </div>
 
@@ -735,49 +703,23 @@
                                     </div>
                                     <div class="card-body--">
                                         <?php                                            
-                                            $user_ids = array();
-                                            $names=array();
-                                            $pics=array();
-                                            $depts=array();
-                                            $sql = "SELECT DISTINCT user_id FROM performance WHERE year ='2018-19'  ORDER BY total_credits DESC LIMIT 5";
-                                            $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
-                                            while ($row = mysqli_fetch_array($res)){ 
-                                                $user_ids[] = $row['user_id'];
-                                                // echo $row['user_id']."<br>";
-                                            }
-                                            $topUserCount = mysqli_num_rows($res);
-
-
-                                            // construct query to obtain user details
-                                            $sql = "SELECT user_id, name, profile_pic,dept FROM user WHERE user_id = $user_ids[0]";
-                                            for($i = 1 ; $i < $topUserCount ; $i++)
-                                                $sql .= " OR user_id = $user_ids[$i]";                                                   
-                                                
-                                            $res = mysqli_query($connect, $sql)  or die(mysqli_error($connect));
+                                            $adminDept = $_SESSION['dept'];
+                                            $sql = "SELECT P.user_id ,U.name,U.profile_pic,AVG(total_credits) as avgg, U.dept FROM performance P, user U where U.user_id = P.user_id AND year='2018-19' group by P.user_id ORDER BY AVG(total_credits) DESC LIMIT 5";
+                                            $res = mysqli_query($connect, $sql);
+                                            $i=0;
                                             while($row = mysqli_fetch_array($res)){
-                                                $id = $row['user_id'];
-                                                $val=0;
-                                                foreach($user_ids as $order){
-                                                    if($order == $id)
-                                                        $index = $val;
-                                                    $val+=1;
-                                                }
-                                                // echo $index." ". $row['name']."<br>";
-                                                $names[$index] = $row['name'];
-                                                $pics[$index] = $row['profile_pic'];
-                                                $depts[$index] = $row['dept'];
-                                                $ids[$index] = $row['user_id'];
+                                                $user_ids[$i] = $row['user_id'];
+                                                $names[$i] = $row['name'];
+                                                $pics[$i] = $row['profile_pic'];
+                                                $depts[$i] = $row['dept'];
+                                                $i+=1;
                                             }
-                                            // echo '$user_ids:<br>';
+                                            $topUserCount = $i;
                                             for($i = 0 ; $i < $topUserCount ; $i++){
                                                 $userCredits = YEARSUM1('2018-19', $user_ids[$i]);
-
-
-                                               
                                                 $academic_credits[$i] = $userCredits[7];
                                                 $student_credits[$i] = $userCredits[8];
                                                 $overall_credits[$i] = $userCredits[9];
-                                                // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i] ." ". $userCredits[7] . "<br>";
                                             }
                                         ?>
                                         <div class="table-stats order-table ov-h">
@@ -788,7 +730,6 @@
                                                     <tr>
                                                         <th class="serial">#</th>
                                                         <th class="avatar">Image</th>
-                                                        <!-- <th>something</th> -->
                                                         <th>Name</th>
                                                         <th>Academic Credits</th>
                                                         <th>Student Credits</th>
@@ -798,26 +739,11 @@
                                                 </thead>
                                                 <tbody>                                
                                                     <?php
-                                                   
-                                                        //$user_ids = array(0,0,0,0,0,0,0);
-                                                        //$names=array(0,0,0,0,0,0,0);
-                                                       // $pics=array(0,0,0,0,0,0,0);
-                                                       // $depts=array(0,0,0,0,0,0,0);
-
                                                         $rank=0;
-
                                                         $i=0;
-                                                        // if($topUserCount > 5) $topUserCount = 5;
                                                         for($i = 0 ; $i < $topUserCount ; $i++){
-                                                        // foreach($ids as $id){
-                                                            // echo "<br>";
-                                                            // echo "ID: " . $user_ids[$i] . " Academic C:" . $academic_credits[$i];
-
                                                             $rank = $i+1;
                                                             echo "<tr><td>$rank.</td>";
-                                                            // if($pics[$i] == NULL)
-                                                            //     echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
-                                                            // else echo "<td><img class='user-avatar rounded-circle' src='data:image/jpeg;base64,".base64_encode($pics[$i])." height='24' width='24' class='img-thumnail'/></td>";
                                                             if($pics[$i] == NULL)
                                                             echo '<td><img class="user-avatar rounded-circle" src="img/dummy.png" alt="User" height="24" width="24"></td>';
                                                             else{
@@ -841,10 +767,10 @@
                                                     ?>
                                                 </tbody>
                                             </table>
-                                        </div> <!-- /.table-stats -->
+                                        </div> 
                                     </div>
-                                </div> <!-- /.card -->
-                            </div>  <!-- /.col-lg-8 -->
+                                </div> 
+                            </div> 
                         </div>
                     </div>
 
