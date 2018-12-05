@@ -112,7 +112,7 @@
             
         }
     }
-    
+
     // returns an array of the different credit values for the given sem and year of the given user
     function MYPOINTS2($YEAR,$SEM,$USER_ID){
         $connect = mysqli_connect("localhost", "root", "", "faculty");
@@ -461,6 +461,7 @@
                                         ?>
 
                                         <?php
+                                            $adminDept = $_SESSION['dept'];
                                             $sql = "SELECT P.user_id ,U.name,U.profile_pic,AVG(total_credits) as avgg, U.dept FROM performance P, user U where U.user_id = P.user_id AND year='2018-19' group by P.user_id ORDER BY AVG(total_credits) DESC";
                                             $res = mysqli_query($connect, $sql);
                                             $i=0;
